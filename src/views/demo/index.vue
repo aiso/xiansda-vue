@@ -3,12 +3,13 @@
     <c-pane v-if="$route.path === '/demo'">
       <c-group v-for="demo in demos" :title="__(demo.title)" :cells="demo.cells" :items="demo.items"></c-group>
     </c-pane>
+    <c-toolbar title="测试模块"></c-toolbar>
     <router-view class="router-view" transition="slide-up" keep-alive></router-view>
   </div>
 </template>
 
 <script>
-  import { CPane, CGroup, CTitle } from 'components'
+  import { CPane, CGroup, CTitle, CToolbar } from 'components'
 
   export default {
     computed: {
@@ -50,7 +51,8 @@
     components: {
       CPane,
       CGroup,
-      CTitle
+      CTitle,
+      CToolbar
     }
 }
 </script>

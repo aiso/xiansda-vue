@@ -10,20 +10,18 @@
       {{ __('view.message', [hello]) }}
     </c-pane>
     <c-pane>
-      <c-title>{{ __('view.home.latest_commits') }}</c-title>
-      <c-loading v-show="!commits"></c-loading>
-      <c-cell v-for="record in commits" transition="fade">
-        <a :href="record.html_url" target="_blank" class="commit">{{record.commit.message}}</a><br>
-        <small class="date">@ {{record.commit.author.date | datetime 'yyyy-MM-dd hh:mm'}}</small>
+      <c-cell transition="fade">
+        <c-button class="primary fit small" v-link="'/demo'">demo</c-button>
+        <c-button class="primary fit small" v-link="'login'">login</c-button>
       </c-cell>
     </c-pane>
-    <c-image src="images/logo.png" width="200" height="200"></c-image>
+
   </div>
 </template>
 
 <script>
 import datetime from 'nd-datetime'
-import { CForm, CPane, CGroup, CTitle, CLoading, CImage, CCell } from 'components'
+import { CForm, CPane, CGroup, CTitle, CLoading, CImage, CCell, CButton } from 'components'
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
@@ -35,7 +33,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['lang', 'commits']),
+    ...mapGetters(['lang']),
     cells () {
       return {
         lang: {
@@ -58,10 +56,10 @@ export default {
     }
   },
 
-  methods: mapActions(['setEnv', 'getCommits']),
+  methods: mapActions(['setEnv']),
 
   ready () {
-    this.getCommits()
+    //this.getCommits()
   },
 
   filters: {
@@ -75,7 +73,8 @@ export default {
     CTitle,
     CLoading,
     CCell,
-    CImage
+    CImage,
+    CButton
   }
 }
 </script>

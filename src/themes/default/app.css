@@ -1,8 +1,8 @@
 @import "reset";
-@import "fonts/iconfont";
 
 .container {
-  padding: 4rem 0 0;
+  //padding: 4rem 0 0;
+  padding: 0;
   width: 100%;
   height: 100%;
   display: -webkit-box;
@@ -18,6 +18,12 @@
 
 [v-cloak] {
   display: none;
+}
+
+.btn{
+  &:active{
+    opacity: .6
+  }
 }
 
 .link-active {

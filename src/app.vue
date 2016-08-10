@@ -6,8 +6,8 @@
     <div class="content">
       <router-view class="router-view" transition="slide-up" transition-mode="out-in" keep-alive></router-view>
     </div>
-    <c-qrcode v-if='flag'></c-qrcode>
-    <!--<v-footer v-if="$route.path === '/'"></v-footer>-->
+    <!--c-qrcode v-if='flag'></c-qrcode-->
+    <v-footer v-if="$route.path === '/'"></v-footer>
   </div>
 </template>
 
