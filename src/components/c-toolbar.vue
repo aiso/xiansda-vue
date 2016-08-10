@@ -1,8 +1,8 @@
 <template>
   <div :class="['c-toolbar', class]">
-    <button class="btn"
+    <button class="btn icon" @click="historyBack"
       type="button">
-        <icon name="fa-thumbs-up"></icon>
+        <icon name="material-arrow_back"></icon>
     </button>
   	<h1 class="title">{{title}}</h1>
   	<slot></slot>
@@ -21,6 +21,11 @@ export default {
     title:{
     	type:String,
     	default: ''
+    }
+  },
+  methods: {
+    historyBack () {
+      history.back()
     }
   },
   components: {

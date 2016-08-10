@@ -192,7 +192,10 @@ webpackConfig.eslint = {
 webpackConfig.module.postLoaders = [
   { test: /vue-icons/, loader: "callback-loader"}
 ]
-webpackConfig.callbackLoader = require("vue-icons/icon-loader")(["fa-thumbs-up"])
+webpackConfig.callbackLoader = require("vue-icons/icon-loader")([
+  "fa-thumbs-up",
+  'material-arrow_back'
+  ])
 
 
 // ------------------------------------
