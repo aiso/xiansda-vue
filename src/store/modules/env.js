@@ -5,7 +5,7 @@ import { SET_ENV, SET_ENV_I18N, ENV_KEY, PROMISE_SUCCESS } from '../constants'
 const localEnv = createPersist(ENV_KEY, {
   lang: navigator.language.split('-')[0],
   i18n: null,
-  authorized: false
+  //authorized: false
 })
 
 const state = localEnv.get()
@@ -13,7 +13,7 @@ const state = localEnv.get()
 const getters = {
   lang: state => state.lang,
   i18n: state => state.i18n,
-  authorized: state => state.authorized
+  //authorized: state => state.authorized
 }
 
 const mutations = {

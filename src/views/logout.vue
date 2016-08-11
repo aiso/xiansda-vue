@@ -14,9 +14,7 @@ export default {
     return {
       callback (key) {
         if (key === 'submit') {
-          this.$parent.setEnv({
-            authorized: false
-          })
+          this.$parent.setAuth(null)
         } else {
           history.back()
         }
@@ -25,22 +23,24 @@ export default {
       }
     }
   },
-
   route: {
     activate () {
-      if (!this.authorized) {
+      console.log(this.auth);
+
+      /*
+      if (!this.auth) {
         history.back()
         return
-      }
+      }*/
     }
   },
 
-  computed: mapGetters(['authorized']),
+  computed: mapGetters(['auth']),
 
-  methods: mapActions(['setEnv']),
+  methods: mapActions(['setAuth']),
 
   watch: {
-    'authorized' (val) {
+    'auth' (val) {
       if (!val) {
         this.$nextTick(() => {
           this.$route.router.go('/')

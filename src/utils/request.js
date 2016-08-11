@@ -4,7 +4,8 @@ import Promise from 'nd-promise'
 import qs from 'querystring'
 import isPlainObj from 'is-plain-obj'
 
-const proxyUrl = __DEV__ ? '/api/' : ''
+//const proxyUrl = __DEV__ ? '/api/' : ''
+const proxyUrl = '/api/'
 
 const defaultOptions = {
   headers: {

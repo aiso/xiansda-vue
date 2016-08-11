@@ -1,6 +1,7 @@
 .c-toolbar {
 	position: fixed;
 	bottom: 0;
+	left:0;
 	border-top:1px solid #e7e7e9;
 	background: white;
 	line-height: 48px;

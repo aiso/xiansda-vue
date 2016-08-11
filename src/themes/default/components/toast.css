@@ -8,20 +8,21 @@
 
   & .toast {
     margin: 0 0 0.25rem;
-    padding: 0.5rem;
+    padding: 1rem;
     min-width: 12rem;
-    background-color: var(--error);
+    color:white;
 
-    & .name {
-      &:before {
-        content: "name: ";
-      }
+    &.info{
+      background-color: var(--primary);
+    }
+    &.error{
+      background-color: var(--error);
+    }
+
+    & .title {
+
     }
     & .message {
-      &:before {
-        content: "message: ";
-      }
-      margin-top: 0.5rem;
       max-height: 16rem;
       overflow: auto;
     }

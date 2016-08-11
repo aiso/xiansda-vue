@@ -33,7 +33,7 @@ export default {
     ...mapGetters(['lang', 'i18n', 'progress', 'toasts']),
     routes () {
       return navRoutes.call(this, routes, (key, route) => {
-        return key !== '/' && route.auth !== !this.authorized
+        return key !== '/' && route.auth !== !this.auth
       })
     }
   },

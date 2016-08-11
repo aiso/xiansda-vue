@@ -35,7 +35,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['authorized', 'auth']),
+    ...mapGetters(['auth']),
     cells () {
       return {
         username: {
@@ -55,11 +55,11 @@ export default {
               message: '账号不能少于 4 个字符'
             },
             maxlength: {
-              rule: 20,
-              message: '账号不能多于 20 个字符'
+              rule: 32,
+              message: '账号不能多于 32 个字符'
             },
             pattern: {
-              rule: '/^[a-z]{4,20}$/',
+              rule: '/^[a-zA-Z0-9]{4,32}$/',
               message: '账号不符合规则'
             }
           }
@@ -77,15 +77,15 @@ export default {
               message: '请输入密码'
             },
             minlength: {
-              rule: 8,
-              message: '密码不能少于 8 个字符'
+              rule: 6,
+              message: '密码不能少于 6 个字符'
             },
             maxlength: {
               rule: 20,
               message: '密码不能多于 20 个字符'
             },
             pattern: {
-              rule: '/^[`~!@#$%^&*_+=,.;\'?:"()<>{}\\-\\/\\[\\]\\\\ 0-9a-zA-Z]{8,20}$/',
+              rule: '/^[`~!@#$%^&*_+=,.;\'?:"()<>{}\\-\\/\\[\\]\\\\ 0-9a-zA-Z]{6,20}$/',
               message: '密码不符合规则'
             }
           }
@@ -104,7 +104,7 @@ export default {
 
   // methods
   methods: {
-    ...mapActions(['setEnv', 'setAuth']),
+    ...mapActions(['setAuth', 'addToast']),
     mutate ($payload) {
       this.payload = $payload
     },
@@ -114,16 +114,24 @@ export default {
       }
       // validate then submit
       this.$validate().then(() => {
+        this.xapi.post('user/login', { uid:this.payload.username, pwd:this.payload.password }).then( data => {
+          this.setAuth(data.user);
+        }).catch( data => {
+          this.addToast({ class:'error', title:'错误：' + data.error.code, message:data.error.message });
+        })
+        
+        /*
         this.setEnv({
           authorized: true
-        })
+        })*/
       }).catch($validation => {
         // this.$emit('error', $validation)
       })
     },
     test () {
       //this.setAuth({ a:'1', b:'2' })
-      this.xapi.get('test').then(data=>{console.log(data)})
+      //this.xapi.get('test').then(data=>{console.log(data)})
+      this.addToast({ class:'error', message:'test message' ,title:'错误' });
     }
   },
 
@@ -134,12 +142,12 @@ export default {
   route: {
     activate (transition) {
       transition.next()
-      this.authorized && this.$route.router.go('/')
+      this.auth && this.$route.router.go('/')
     }
   },
 
   watch: {
-    authorized (val) {
+    auth (val) {
       if (val) {
         this.$nextTick(() => {
           this.$route.router.go('/logout')

@@ -1,11 +1,24 @@
+import Promise from 'nd-promise'
 import request from 'utils/request'
+import base64 from 'utils/base64'
 import store from 'store'
 
+function chkAuth(){
+	const user = store.getters.auth
+	if(!!user){
+		return  { mutate: options => {
+			options['headers']['Authorization'] = base64.encode(user.id + ":" + user.token);
+			return Promise.resolve(options)
+		} }
+	}
+
+	return null
+}
+
 export function get(url){
-	console.log(store.getters.auth)
-	return request(url)
+	return request(Object.assign({ url }, chkAuth()))
 }
 
 export function post(url, data){
-	return request(url, { params:data })
+	return request(Object.assign({ url, method:'POST', params:data }, chkAuth()))
 }

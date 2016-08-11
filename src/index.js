@@ -46,7 +46,7 @@ router.alias(alias)
 //  auth check
 router.beforeEach(transition => {
   store.dispatch('setProgress', 80)
-  if (transition.to.auth && !store.getters.authorized) {
+  if (transition.to.auth && !store.getters.auth) {
     transition.abort()
     router.go('/login')
   } else {

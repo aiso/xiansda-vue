@@ -2,12 +2,12 @@
   <div :class="['c-toast', class]"
     :transition="transition"
     v-show="toasts.length">
-    <div class="toast"
+    <div :class="['toast', toast.class]"
       :transition="transition"
       v-for="toast in toasts"
       track-by="_id">
-      <pre class="name"><code> {{toast.name}} </code></pre>
-      <pre class="message"><code> {{toast.message}} </code></pre>
+      <h4 v-if="toast.title" class="title">{{toast.title}}</h4>
+      <p class="message">{{toast.message}}</p>
     </div>
   </div>
 </template>

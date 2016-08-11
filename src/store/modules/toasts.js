@@ -16,9 +16,11 @@ const actions = {
   addToast ({ commit }, toast) {
     if (typeof toast === 'string') {
       toast = {
-        name: 'Error',
+        class: 'info',
         message: toast
       }
+    }else{
+      toast = Object.assign({ class:'info' }, toast)
     }
     toast._id = Date.now()
     commit(ADD_TOAST, toast)

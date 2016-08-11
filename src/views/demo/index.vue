@@ -2,6 +2,7 @@
   <div>
     <c-pane v-if="$route.path === '/demo'">
       <c-group v-for="demo in demos" :title="__(demo.title)" :cells="demo.cells" :items="demo.items"></c-group>
+      <c-button @click='test'>test</c-button>
     </c-pane>
     <c-toolbar title="测试模块"></c-toolbar>
     <router-view class="router-view" transition="slide-up" keep-alive></router-view>
@@ -9,7 +10,8 @@
 </template>
 
 <script>
-  import { CPane, CGroup, CTitle, CToolbar } from 'components'
+  import { CPane, CGroup, CTitle, CButton, CToolbar } from 'components'
+  import { mapActions } from 'vuex'
 
   export default {
     computed: {
@@ -48,11 +50,18 @@
         }]
       }
     },
+    methods: {
+      ...mapActions(['addToast']),
+      test () {
+        this.xapi.get('test').then(data=>{console.log(data)})
+      }
+    },
     components: {
       CPane,
       CGroup,
       CTitle,
-      CToolbar
+      CToolbar,
+      CButton
     }
 }
 </script>

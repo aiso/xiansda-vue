@@ -100,6 +100,6 @@ function encode(s) {
 }
 
 export default {
-    encode: encode,
-    decode: decode
+  encode,
+  decode
 }
