@@ -15,6 +15,8 @@
         </c-pane>
       </c-form>
     </c-pane>
+
+    <h3>{{auth||'no user'}}</h3><a @click="test">test auth</a>
   </div>
 </template>
 
@@ -33,7 +35,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['authorized']),
+    ...mapGetters(['authorized', 'auth']),
     cells () {
       return {
         username: {
@@ -102,7 +104,7 @@ export default {
 
   // methods
   methods: {
-    ...mapActions(['setEnv']),
+    ...mapActions(['setEnv', 'setAuth']),
     mutate ($payload) {
       this.payload = $payload
     },
@@ -118,6 +120,10 @@ export default {
       }).catch($validation => {
         // this.$emit('error', $validation)
       })
+    },
+    test () {
+      //this.setAuth({ a:'1', b:'2' })
+      this.xapi.get('test').then(data=>{console.log(data)})
     }
   },
 

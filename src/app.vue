@@ -2,7 +2,7 @@
   <div class="container">
     <c-progress class="progress" :progress="progress"></c-progress>
     <c-toast class="toast" :toasts="toasts"></c-toast>
-    <v-header :routes="routes"></v-header>
+    <!--v-header :routes="routes"></v-header-->
     <div class="content">
       <router-view class="router-view" transition="slide-up" transition-mode="out-in" keep-alive></router-view>
     </div>

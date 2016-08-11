@@ -7,6 +7,9 @@ import App from 'app'
 import { routes, alias } from 'routes'
 import store from 'store'
 
+import xsd from 'plugins/xsd'
+Vue.use(xsd)
+
 if (module.hot) {
   module.hot.accept()
 }
@@ -45,6 +48,7 @@ router.beforeEach(transition => {
   store.dispatch('setProgress', 80)
   if (transition.to.auth && !store.getters.authorized) {
     transition.abort()
+    router.go('/login')
   } else {
     transition.next()
   }

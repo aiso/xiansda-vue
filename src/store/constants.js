@@ -12,6 +12,9 @@ const ENV_KEY = 'ENV_KEY'
 
 const SET_ENV_I18N = 'SET_ENV_I18N'
 
+const SET_AUTH = 'SET_AUTH'
+const AUTH_KEY = 'XSD_AUTH_KEY'
+
 export default { 
     PROMISE_PENDING, 
     PROMISE_SUCCESS, 
@@ -21,6 +24,8 @@ export default {
     DELETE_TOAST,
     SET_ENV,
     ENV_KEY,
-    SET_ENV_I18N
+    SET_ENV_I18N,
+    SET_AUTH,
+    AUTH_KEY
 }
 

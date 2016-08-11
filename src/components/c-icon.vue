@@ -1,6 +1,7 @@
 <template>
-  <i :class="['c-icon', class, value? `icon-${value}` :'']"></i>
+    <icon v-if="name" :class="['c-icon', class]" :name="name"></icon>
 </template>
+
 
 <script>
 export default {
@@ -9,10 +10,13 @@ export default {
       type: String,
       default: ''
     },
-    value: {
+    name: {
       type: String,
       default: ''
     }
+  },
+  components: {
+    "icon": require("vue-icons")
   }
 }
 </script>
