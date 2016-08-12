@@ -53,7 +53,6 @@
 }
 .slide-up-enter,
 .slide-up-leave {
-  opacity: 0;
   transform: translate3d(0, 1rem, 0);
 }
 
@@ -63,4 +62,14 @@
 .fade-enter,
 .fade-leave {
   opacity: 0;
+}
+
+
+.right-in-enter, .right-in-leave{
+  -webkit-transform: translateX(100%);
+  -moz-transform: translateX(100%);
+  transform: translateX(100%);
+}
+.right-in-transition{
+  transition: all .5s ease;
 }

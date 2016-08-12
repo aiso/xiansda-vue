@@ -1,4 +1,6 @@
 .c-modal {
+  position: fixed;
+  z-index: 1001;
 }
 
 .c-modal-content {

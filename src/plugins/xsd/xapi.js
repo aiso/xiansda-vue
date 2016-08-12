@@ -7,6 +7,7 @@ function chkAuth(){
 	const user = store.getters.auth
 	if(!!user){
 		return  { mutate: options => {
+			console.log(user);
 			options['headers']['Authorization'] = base64.encode(user.id + ":" + user.token);
 			return Promise.resolve(options)
 		} }

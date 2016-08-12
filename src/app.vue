@@ -6,13 +6,15 @@
     <div class="content">
       <router-view class="router-view" transition="slide-up" transition-mode="out-in" keep-alive></router-view>
     </div>
+    <c-alert v-ref:modal-alert></c-alert>
+    <c-confirm v-ref:modal-confirm></c-confirm>
     <!--c-qrcode v-if='flag'></c-qrcode-->
     <v-footer v-if="$route.path === '/'"></v-footer>
   </div>
 </template>
 
 <script>
-import { CProgress, CToast, CQrcode } from 'components'
+import { CProgress, CToast, CQrcode, CAlert, CConfirm } from 'components'
 import VHeader from 'views/common/v-header'
 import VFooter from 'views/common/v-footer'
 import store from 'store'
@@ -56,7 +58,9 @@ export default {
     CToast,
     VHeader,
     VFooter,
-    CQrcode
+    CQrcode,
+    CAlert,
+    CConfirm
   }
 }
 /**

@@ -2,18 +2,30 @@
   <div>
     <c-pane v-if="$route.path === '/demo'">
       <c-group v-for="demo in demos" :title="__(demo.title)" :cells="demo.cells" :items="demo.items"></c-group>
-      <c-button @click='test'>test</c-button>
+      <c-cell>
+        <c-button class='primary fit small' @click='test'>test</c-button>
+        <c-button class='primary fit small' @click='alertTest' >alert</c-button>
+        <c-button class='primary fit small' @click='confirmTest' >confirm</c-button>
+        <c-button class='primary fit small' @click='frameTest' >frame</c-button>
+      </c-cell>
     </c-pane>
+    <c-frame :show.sync='frame' title="test frame">
+      <frame-test></frame-test>
+    </c-frame>
     <c-toolbar title="测试模块"></c-toolbar>
     <router-view class="router-view" transition="slide-up" keep-alive></router-view>
   </div>
 </template>
 
 <script>
-  import { CPane, CGroup, CTitle, CButton, CToolbar } from 'components'
+  import { CPane, CGroup, CTitle, CCell, CButton, CToolbar, CFrame } from 'components'
+  import FrameTest from './frame'
   import { mapActions } from 'vuex'
 
   export default {
+    data () {
+      return { frame:false }
+    },
     computed: {
       demos () {
         const { router } = this.$route
@@ -54,14 +66,26 @@
       ...mapActions(['addToast']),
       test () {
         this.xapi.get('test').then(data=>{console.log(data)})
-      }
+      },
+      alertTest () {
+        this.$modal.alert.open('aa');
+      },
+      confirmTest () {
+        this.$modal.confirm.open('确认测试？');
+      },
+      frameTest () {
+        this.frame = true;
+      }  
     },
     components: {
       CPane,
       CGroup,
       CTitle,
+      CCell,
       CToolbar,
-      CButton
+      CButton,
+      CFrame,
+      FrameTest
     }
 }
 </script>

@@ -194,7 +194,8 @@ webpackConfig.module.postLoaders = [
 ]
 webpackConfig.callbackLoader = require("vue-icons/icon-loader")([
   "fa-thumbs-up",
-  'material-arrow_back'
+  'material-arrow_back',
+  'material-clear'
   ])
 
 

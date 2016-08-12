@@ -11,7 +11,15 @@ xsd.install = function (Vue) {
 	      get() {
 	        return xapi;
 	      }
-	  }
+	  },
+      $modal:{
+          get() {
+            return {
+              alert:this.$root.$refs.modalAlert,
+              confirm:this.$root.$refs.modalConfirm,
+            }
+          }
+      }
 	})
 
 	this.installed = true;

@@ -5,5 +5,7 @@
   "error": "#BA3A3A",
   "warning": "#BA783A",
   "background": "#FBF9FE",
-  "footer": "#f0f2f7"
+  "footer": "#f0f2f7",
+  "text": "#666",
+  "footerHeight": "48px"
 }
