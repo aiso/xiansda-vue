@@ -8,8 +8,6 @@
     </div>
     <c-alert v-ref:modal-alert></c-alert>
     <c-confirm v-ref:modal-confirm></c-confirm>
-    <!--c-qrcode v-if='flag'></c-qrcode-->
-    <v-footer v-if="$route.path === '/'"></v-footer>
   </div>
 </template>
 

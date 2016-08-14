@@ -28,5 +28,20 @@
       "about": "关于",
       "latest_commits": "最新提交"
     }
-  }
+  },
+  "client": {
+    "footer" : {
+      "home" : "首页",
+      "cart" : "购物车",
+      "business" : "服务单",
+      "user" : "用户"
+    }
+  },
+  "supplier": {
+    "footer" : {
+      "business" : "服务单",
+      "prods" : "产品",
+      "user" : "用户"
+    }
+  }  
 }

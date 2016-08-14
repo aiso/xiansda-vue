@@ -3,9 +3,9 @@ import createPersist from 'utils/store'
 
 import { SET_AUTH, AUTH_KEY } from '../constants'
 
-const localStore = createPersist(AUTH_KEY, { auth:null }, { expire:30*60*1000 })
+const localStore = createPersist(AUTH_KEY, { auth:null }, { expires:30*60*1000 })
 const state = localStore.get();
-console.log(state);
+
 const getters = {
   auth: state => state.auth
 }

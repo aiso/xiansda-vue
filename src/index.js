@@ -7,9 +7,6 @@ import App from 'app'
 import { routes, alias } from 'routes'
 import store from 'store'
 
-import xsd from 'plugins/xsd'
-Vue.use(xsd)
-
 if (module.hot) {
   module.hot.accept()
 }
@@ -58,6 +55,9 @@ router.afterEach(transition => {
   window.scrollTo(0, 0)
   store.dispatch('setProgress', 100)
 })
+
+import xsd from 'plugins/xsd'
+Vue.use(xsd)
 
 router.start(App, 'app')
 

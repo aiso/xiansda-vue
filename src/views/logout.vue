@@ -25,8 +25,6 @@ export default {
   },
   route: {
     activate () {
-      console.log(this.auth);
-
       /*
       if (!this.auth) {
         history.back()

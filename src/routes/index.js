@@ -5,7 +5,10 @@ export default {
     '/login': require('./login'),
     '/logout': require('./logout'),
     '/demo': require('./demo'),
-    '/docs': require('./docs')
+    '/docs': require('./docs'),
+
+    '/client': require('./client'),
+    '/supplier': require('./supplier')
   },
 
   alias: {

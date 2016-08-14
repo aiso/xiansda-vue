@@ -26,6 +26,8 @@ export default {
   methods: {
     historyBack () {
       history.back()
+      //console.log(window)
+      //$route.router.go(window.history.back())
     }
   },
   components: {

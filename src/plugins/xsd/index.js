@@ -1,15 +1,20 @@
 /* global Vue */
-import * as xapi from './xapi';
+import * as api from './api';
+import * as nav from './nav';
 
 const xsd = {}
+const xsdModules = {
+  api,
+  nav
+}
 
 xsd.install = function (Vue) {
 	if(this.installed) return;
 
 	Object.defineProperties(Vue.prototype, {
-	  xapi:{
+	  xsd:{
 	      get() {
-	        return xapi;
+	        return xsdModules
 	      }
 	  },
       $modal:{
@@ -27,7 +32,7 @@ xsd.install = function (Vue) {
 
 
 if (window.Vue) {
-  window.xapi = xapi
+  //window.xsd = xsdModules
   Vue.use(xsd)
 }
 

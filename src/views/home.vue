@@ -15,6 +15,9 @@
         <c-button class="primary fit small" v-link="'/login'">login</c-button>
         <c-button class="primary fit small" v-link="'/logout'">logout</c-button>
       </c-cell>
+      <c-cell transition="fade">
+        <c-button class="primary fit small" v-link="'/client'">client</c-button>
+      </c-cell>
     </c-pane>
 
   </div>

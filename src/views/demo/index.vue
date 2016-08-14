@@ -9,9 +9,12 @@
         <c-button class='primary fit small' @click='frameTest' >frame</c-button>
       </c-cell>
     </c-pane>
-    <c-frame :show.sync='frame' title="test frame">
+
+    <!--c-frame :show.sync='frame' title="test frame">
       <frame-test></frame-test>
-    </c-frame>
+    </c-frame-->
+    <frame-test class='frame' v-if='frame' :callback="frameCallback" transition="right-in"></frame-test>
+
     <c-toolbar title="测试模块"></c-toolbar>
     <router-view class="router-view" transition="slide-up" keep-alive></router-view>
   </div>
@@ -65,7 +68,8 @@
     methods: {
       ...mapActions(['addToast']),
       test () {
-        this.xapi.get('test').then(data=>{console.log(data)})
+        //this.xsd.api.get('test').then(data=>{this.$modal.alert.open(data)}).catch( data => { this.$modal.alert.open(data)} )
+        this.xsd.nav.home();
       },
       alertTest () {
         this.$modal.alert.open('aa');
@@ -75,7 +79,16 @@
       },
       frameTest () {
         this.frame = true;
-      }  
+      },
+      frameCallback (event, data) {
+        if(event === 'close')
+          this.frame = false;
+        else{
+          this.frame = false;
+          console.log(event);
+          console.log(data);
+        }
+      }
     },
     components: {
       CPane,
