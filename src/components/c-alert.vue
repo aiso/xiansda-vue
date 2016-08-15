@@ -25,6 +25,9 @@ export default {
     open (title) {
       this.title = title;
       this.show = true;
+    },
+    error (data){
+      this.open(data.error.message)
     }
   },
   components: {

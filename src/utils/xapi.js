@@ -1,13 +1,13 @@
 import Promise from 'nd-promise'
-import request from 'utils/request'
-import base64 from 'utils/base64'
+import request from './request'
+import base64 from './base64'
 import store from 'store'
 
 function chkAuth(){
 	const user = store.getters.auth
 	if(!!user){
 		return  { mutate: options => {
-			console.log(user);
+			//console.log(user);
 			options['headers']['Authorization'] = base64.encode(user.id + ":" + user.token);
 			return Promise.resolve(options)
 		} }

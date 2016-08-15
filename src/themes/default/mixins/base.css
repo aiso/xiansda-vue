@@ -1,0 +1,23 @@
+@define-mixin table-row {
+  width: 100%;
+  box-sizing: border-box;
+  display: table;
+
+  & >*{
+    display: table-cell;
+    width: 1%;
+    float: none!important;
+    vertical-align: middle;
+  }
+
+  & .extend{
+    width:100%;
+  }
+}
+
+@define-mixin table-cell {
+  display: table-cell;
+  width: 1%;
+  float: none!important;
+  vertical-align: middle;
+}

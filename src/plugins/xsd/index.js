@@ -1,5 +1,5 @@
 /* global Vue */
-import * as api from './api';
+import * as api from 'utils/xapi';
 import * as nav from './nav';
 
 const xsd = {}
@@ -17,14 +17,16 @@ xsd.install = function (Vue) {
 	        return xsdModules
 	      }
 	  },
-      $modal:{
-          get() {
-            return {
-              alert:this.$root.$refs.modalAlert,
-              confirm:this.$root.$refs.modalConfirm,
-            }
-          }
+    $alert: {
+      get () {
+        return this.$root.$refs.modalAlert
       }
+    },
+    $confirm: {
+      get () {
+        return this.$root.$refs.modalConfirm
+      }
+    }
 	})
 
 	this.installed = true;

@@ -2,6 +2,7 @@ export default {
   name: 'client',
   title: 'routes.client',
   hidden: __DEV__ ? 0 : 1,
+  auth: 10,
   component: resolve => require(['views/client/index'], resolve),
   subRoutes: {
     '/home': {

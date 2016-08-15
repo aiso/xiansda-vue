@@ -43,12 +43,22 @@ router.alias(alias)
 //  auth check
 router.beforeEach(transition => {
   store.dispatch('setProgress', 80)
-  if (transition.to.auth && !store.getters.auth) {
-    transition.abort()
-    router.go('/login')
-  } else {
+//console.log('auth='+transition.to.auth);
+  if(transition.to.auth){
+    const user = store.getters.auth
+    if(!user){
+      transition.abort()
+      router.go('/login')
+    }else if(typeof(transition.to.auth) == 'number' && transition.to.auth != user.role){
+      transition.abort()
+      alert('角色错误！')
+    }
+    else
+      transition.next()
+  }else{
     transition.next()
   }
+
 })
 
 router.afterEach(transition => {

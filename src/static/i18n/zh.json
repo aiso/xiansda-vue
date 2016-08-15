@@ -40,7 +40,7 @@
   "supplier": {
     "footer" : {
       "business" : "服务单",
-      "prods" : "产品",
+      "item" : "产品",
       "user" : "用户"
     }
   }  

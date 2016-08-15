@@ -2,15 +2,16 @@ export default {
   name: 'supplier',
   title: 'routes.supplier',
   hidden: __DEV__ ? 0 : 1,
+  auth: 20,
   component: resolve => require(['views/supplier/index'], resolve),
   subRoutes: {
-    '/home': {
-      name: 'supplier/home',
-      component: resolve => require(['views/supplier/home'], resolve)
+    '/items': {
+      name: 'supplier/items',
+      component: resolve => require(['views/supplier/items'], resolve)
     },
-    '/business': {
-      name: 'supplier/business',
-      component: resolve => require(['views/supplier/business'], resolve)
+    '/businesses': {
+      name: 'supplier/businesses',
+      component: resolve => require(['views/supplier/businesses'], resolve)
     },
     '/user': {
       name: 'supplier/user',

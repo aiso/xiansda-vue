@@ -38,12 +38,12 @@
       return [{
         // icon: 'login',
         title: 'supplier.footer.business',
-        name: 'supplier/business'
+        name: 'supplier/businesses'
       }, 
       {
         // icon: 'login',
-        title: 'supplier.footer.prods',
-        name: 'supplier/prods'
+        title: 'supplier.footer.item',
+        name: 'supplier/items'
       },      
       {
         // icon: 'login',

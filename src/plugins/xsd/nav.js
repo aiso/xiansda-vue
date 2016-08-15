@@ -8,7 +8,7 @@ export function home(){
 		if(user.role == 10)
 			return 'client/home';	
 		else if(user.role == 20)
-			return 'supplier/business';	
+			return 'supplier/businesses';	
 	}
 	return '/';
 }

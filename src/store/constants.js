@@ -15,6 +15,8 @@ const SET_ENV_I18N = 'SET_ENV_I18N'
 const SET_AUTH = 'SET_AUTH'
 const AUTH_KEY = 'XSD_AUTH_KEY'
 
+const SUPPLIER_SET_ITEMS = 'SUPPLIER_SET_ITEMS'
+
 export default { 
     PROMISE_PENDING, 
     PROMISE_SUCCESS, 
@@ -26,6 +28,7 @@ export default {
     ENV_KEY,
     SET_ENV_I18N,
     SET_AUTH,
-    AUTH_KEY
+    AUTH_KEY,
+    SUPPLIER_SET_ITEMS
 }
 

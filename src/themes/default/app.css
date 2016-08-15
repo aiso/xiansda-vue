@@ -122,3 +122,20 @@
 .right-in-transition{
   transition: all .5s ease;
 }
+
+
+.table-row{
+  width: 100%;
+  box-sizing: border-box;
+  display: table;
+  >*{
+    display: table-cell;
+    width: 1%;
+    float: none!important;
+    vertical-align: middle;
+  }
+
+  .extend{
+    width:100%;
+  }
+}

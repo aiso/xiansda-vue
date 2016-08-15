@@ -68,8 +68,8 @@
     methods: {
       ...mapActions(['addToast']),
       test () {
-        //this.xsd.api.get('test').then(data=>{this.$modal.alert.open(data)}).catch( data => { this.$modal.alert.open(data)} )
-        this.xsd.nav.home();
+        this.xsd.api.get('test').then(data=>{this.$modal.alert.open(data)}).catch( data => { this.$modal.alert.open(data)} )
+        //this.xsd.nav.home();
       },
       alertTest () {
         this.$modal.alert.open('aa');
