@@ -1,8 +1,8 @@
 <template>
   <div :class="['c-xsd-item', class]">
-	  <c-image :src="item.img" class="thumbnail"></c-image>
+	  <c-xsd-image :src="item.img" class="thumbnail"></c-xsd-image>
 	  <div class="xsd-content">
-	  	<h5>{{item.title}}</h5>
+	  	<h5 class="title">{{item.title}}</h5>
 	  	<slot></slot>	
 	  </div>
 	  
@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import CXsdImage from './c-xsd-image'
 import CImage from './c-image'
 
 export default {
@@ -23,6 +24,7 @@ export default {
     }
   },
   components: {
+    CXsdImage,
     CImage
   }
 }

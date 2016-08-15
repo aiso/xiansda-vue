@@ -5,13 +5,27 @@
 		@mixin table-cell;
 	}
 
-	& .c-image-img{
+	& .thumbnail{
+		display: inline-block;
 		width:50px;
 		height:50px;
+		position: relative;
+		overflow: hidden;
+
+		& img{
+			margin: 0;
+			padding: 0;
+			max-width: none;
+		}
 	}
 
 	& .xsd-content{
 		width:100%;
 		padding-left: 10px;
+
+		& .title{
+			font-weight: normal;
+			letter-spacing: .1em;
+		}
 	}
 }
