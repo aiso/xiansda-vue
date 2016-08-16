@@ -1,14 +1,31 @@
 <template>
 	<div>
+		<c-xsd-header title="我的产品">
+			<a slot="leftButton">
+				<c-icon name="material-arrow_back"></c-icon>
+			</a>
+			<a slot="rightButton" @click="test">
+				<c-icon name="fa-user"></c-icon>
+			</a>
+		</c-xsd-header>
 	  <c-pane>
-	  	<c-xsd-item v-for='item in supplierItems' :item='item'>
-	  	</c-xsd-item>
+		  <c-cell  v-for='item in supplierItems'>
+		  	<c-xsd-item :item='item'></c-xsd-item>
+		  </c-cell>
+	  </c-pane>
+	  <c-pane v-if='!supplierItems || supplierItems.length==0' class="text-center">
+	  		<c-icon name='fa-dropbox' class="icon-background"></c-icon>
+	  		<h5 class="text-background">还没有产品？</h5>
+	  		<div class="p20">
+	  			<c-button class="primary">添加产品</c-button>	
+	  		</div>
 	  </c-pane>
 	</div>
 </template>
 
+
 <script>
-import { CPane, CXsdItem } from 'components'
+import { CPane, CCell, CIcon, CButton, CXsdHeader, CXsdItem } from 'components'
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
@@ -30,10 +47,17 @@ export default {
       reload () {
       	//this.getSupplierItems()
       	//console.log(this.supplierItems);
+      },
+      test () {
+      	console.log('tttttt');
       }
     },
 	components: {
 		CPane,
+		CCell,
+		CIcon,
+		CButton,
+		CXsdHeader,
 		CXsdItem
 	}
 }

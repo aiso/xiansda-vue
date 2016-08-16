@@ -7,5 +7,7 @@
   "background": "#FBF9FE",
   "footer": "#f0f2f7",
   "text": "#666",
-  "footerHeight": "48px"
+  "footerHeight": "48px",
+  "grayLight": "#dbdbdb",
+  "border": "#e7e7e9"
 }

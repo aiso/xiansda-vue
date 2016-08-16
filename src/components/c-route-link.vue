@@ -1,8 +1,8 @@
 <template>
   <a class="c-route-link" v-link="route.link">
-    <c-icon v-if="route.icon"
-      :value="route.icon"></c-icon>
-    {{route.title}}</a>
+    <c-icon v-if="route.icon" :name="route.icon"></c-icon>
+    <h6 class="title">{{route.title}}</h6>
+  </a>
 </template>
 
 <script>
@@ -22,3 +22,5 @@ export default {
   }
 }
 </script>
+
+<style src='styles/components/route-link'></style>

@@ -1,0 +1,21 @@
+.c-route-link{
+	color:#aaa;
+	display: inline-block;
+
+	& .c-icon{
+		margin-top: 10px;
+		display: block;
+		font-size:1.8rem;
+		line-height: 1.8rem;
+	}
+
+	& .title{
+		font-size: 10px;
+		line-height: 12px;
+	}
+
+	&.link-active{
+		color:var(--primary);
+		text-shadow: 0 -1px white;
+	}
+}
