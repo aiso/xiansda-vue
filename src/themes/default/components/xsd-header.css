@@ -22,15 +22,6 @@
     	right:0;
     }
 
-    & .c-icon{
-        display: inline-block;
-        width: 45px;
-        height: 45px;
-        padding: 0;
-        line-height: 49px;
-    	font-size:24px;
-    }
-
     & .c-button{
         padding:0 10px;
 

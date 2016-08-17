@@ -2,7 +2,7 @@
   <div>
     <c-xsd-header :title="title">
       <div slot="leftButton">
-        <a @click="close"><c-icon name="material-clear"></c-icon></a>
+        <a @click="close"><c-icon name="material-clear" class="block"></c-icon></a>
       </div>
       <div slot="rightButton" class='pr10'>
         <c-button class="text-button" :class="action.class"

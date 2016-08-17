@@ -1,11 +1,11 @@
 <template>
 	<div>
 		<c-xsd-header title="我的产品">
-			<a slot="leftButton">
-				<c-icon name="material-keyboard_backspace"></c-icon>
-			</a>
+			<div slot="leftButton">
+				<a @click="reload"><c-icon name="material-keyboard_backspace" class="block"></c-icon></a>
+			</div>
 			<div slot="rightButton">
-				<a @click="newItem"><c-icon name="material-add"></c-icon></a>
+				<a @click="newItem"><c-icon name="material-add" class="block"></c-icon></a>
 			</div>
 		</c-xsd-header>
 	  <c-pane>
@@ -46,10 +46,14 @@ export default {
 	},
     computed: {
     	...mapGetters(['auth', 'supplierItems']),
+    	itemExt () {
+    		return this.supplierItems.find( item => item.id==100009 )
+    	}
     },
     methods: {
       ...mapActions(['setSupplierItems']),
       reload () {
+      	console.log(this.itemExt.title)
       	//this.getSupplierItems()
       	//console.log(this.supplierItems);
       },
@@ -75,6 +79,5 @@ export default {
 		CXsdItem,
 		ItemEdit
 	}
-
 }
 </script>

@@ -8,6 +8,7 @@
   "footer": "#f0f2f7",
   "text": "#666",
   "footerHeight": "48px",
+  "blockSize": "45px",
   "grayLight": "#dbdbdb",
   "border": "#e7e7e9"
 }

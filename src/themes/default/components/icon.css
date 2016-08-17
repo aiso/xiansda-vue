@@ -1,5 +1,13 @@
 .c-icon {
   display: inline-block;
   font-size :20px;
+
+  &.block{
+    width: var(--blockSize);
+    height: var(--blockSize);
+    padding: 0;
+    line-height: 49px;
+	font-size:24px;
+  }
 }
 

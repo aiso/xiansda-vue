@@ -5,14 +5,14 @@ import { SUPPLIER_SET_ITEMS, PROMISE_SUCCESS } from '../constants'
  * vuex的state
  */
 const state = {
-  items: null
+  supplierItems: null
 }
 
 /**
  * vuex的getters
  */
 const getters = {
-  supplierItems: state => state.items
+  supplierItems: state => state.supplierItems
 }
 
 /**
@@ -30,7 +30,7 @@ const actions = {
  */
 const mutations = {
   [SUPPLIER_SET_ITEMS] (state, payload) {
-    state.items = payload
+    state.supplierItems = payload
   }
 }
 
