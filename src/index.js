@@ -66,6 +66,10 @@ router.afterEach(transition => {
   store.dispatch('setProgress', 100)
 })
 
+
+import VueAutosize from 'vue-autosize'
+Vue.use(VueAutosize)
+
 import xsd from 'plugins/xsd'
 Vue.use(xsd)
 

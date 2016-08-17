@@ -2,6 +2,11 @@
 
 ::-webkit-scrollbar{width:0px}
 
+h1,h2,h3,h4,h5,h6,p{
+  margin: 0;
+  font-weight: normal;
+  line-height: 1.4em;
+}
 
 .container {
   //padding: 4rem 0 0;
@@ -21,11 +26,13 @@
 
 
 .router-view{
-  position: fixed;
+  //position: fixed;
   width: 100%;
   height: 100%;
   overflow: auto;
 }
+
+
 
 .frame{
   top:0;
@@ -103,6 +110,7 @@
 .slide-up-enter,
 .slide-up-leave {
   opacity: 0;
+  position: fixed;
   transform: translate3d(0, 1rem, 0);
 }
 

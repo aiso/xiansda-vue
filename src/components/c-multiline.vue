@@ -1,8 +1,9 @@
 <template>
   <div :class="['c-multiline', class]">
     <textarea class="c-multiline-textarea"
+    	v-autosize="value||''"
       :field="field"
-      :validate="validate"
+      @change="_validate"
       v-model="value"
       v-bind="attrs"
       debounce="500"></textarea>

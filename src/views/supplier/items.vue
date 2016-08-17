@@ -2,11 +2,11 @@
 	<div>
 		<c-xsd-header title="我的产品">
 			<a slot="leftButton">
-				<c-icon name="material-arrow_back"></c-icon>
+				<c-icon name="material-keyboard_backspace"></c-icon>
 			</a>
-			<a slot="rightButton" @click="test">
-				<c-icon name="fa-user"></c-icon>
-			</a>
+			<div slot="rightButton">
+				<a @click="newItem"><c-icon name="material-add"></c-icon></a>
+			</div>
 		</c-xsd-header>
 	  <c-pane>
 		  <c-cell  v-for='item in supplierItems'>
@@ -20,6 +20,7 @@
 	  			<c-button class="primary">添加产品</c-button>	
 	  		</div>
 	  </c-pane>
+	   <item-edit class='frame' v-if='editItem>=0' :callback="editCallback" transition="right-in"></item-edit>
 	</div>
 </template>
 
@@ -27,6 +28,7 @@
 <script>
 import { CPane, CCell, CIcon, CButton, CXsdHeader, CXsdItem } from 'components'
 import { mapGetters, mapActions } from 'vuex'
+import ItemEdit from './item-edit'
 
 export default {
 	route: {
@@ -39,6 +41,9 @@ export default {
 			transition.next()
 		}
 	},
+	data () {
+		return { editItem:-1 }
+	},
     computed: {
     	...mapGetters(['auth', 'supplierItems']),
     },
@@ -48,8 +53,17 @@ export default {
       	//this.getSupplierItems()
       	//console.log(this.supplierItems);
       },
-      test () {
-      	console.log('tttttt');
+      newItem () {
+      	this.editItem = 0;
+      },
+      editCallback (event, data) {
+        if(event === 'close')
+          this.editItem = -1;
+        else{
+          this.editItem = -1;
+          console.log(event);
+          console.log(data);
+        }
       }
     },
 	components: {
@@ -58,7 +72,9 @@ export default {
 		CIcon,
 		CButton,
 		CXsdHeader,
-		CXsdItem
+		CXsdItem,
+		ItemEdit
 	}
+
 }
 </script>

@@ -36,17 +36,17 @@
 
     const getFooter = () => {
       return [{
-        icon: 'fa-folder-open',
+        icon: 'material-work',
         title: 'supplier.footer.business',
         name: 'supplier/businesses'
       }, 
       {
-        icon: 'fa-leaf',
+        icon: 'material-spa',
         title: 'supplier.footer.item',
         name: 'supplier/items'
       },      
       {
-        icon: 'fa-user',
+        icon: 'material-person',
         title: 'supplier.footer.user',
         name: 'supplier/user'
       }]

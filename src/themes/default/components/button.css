@@ -4,7 +4,7 @@
   line-height: 3;
   color: white;
   background-color: color(white lightness(70%));
-  border-radius: 0.25rem;
+  border-radius: 0.15rem;
 
   &.fit{
     padding-right: 1.5em;

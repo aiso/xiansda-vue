@@ -1,0 +1,42 @@
+.c-xsd-footer{
+    position: fixed;
+    bottom:0;
+    height: 60px;
+    background-color: #fff;
+    width:100%;
+    border-top: 1px solid var(--border);
+}
+
+.c-xsd-footer-title{
+	line-height: 60px;
+	margin: 0 60px;
+	text-align: center;
+	text-overflow:ellipsis;white-space:nowrap;overflow:hidden
+}
+
+
+.c-xsd-footer-button{
+	float: left;
+
+    color: #ccc;
+    text-align: center;
+
+    &.right{
+    	float:right;
+    }
+
+    & .c-icon{
+        display: inline-block;
+        line-height: 60px;
+        width: 60px;
+        height: 60px;
+        padding: 0;
+    	font-size:24px;
+    }
+
+    & .c-button{
+        padding:0 1rem;
+        line-height: 40px;
+        font-size:14px;
+    }
+}

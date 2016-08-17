@@ -196,12 +196,16 @@ webpackConfig.callbackLoader = require("vue-icons/icon-loader")([
   "fa-thumbs-up",
   "fa-file-o",
   'fa-dropbox',
-  'fa-folder-open',
-  'fa-leaf',
-  'fa-user',
   'material-arrow_back',
   'material-clear',
-  'material-person'
+  'material-person',
+  'material-add',
+  'material-clear',
+  'material-keyboard_backspace',
+  'material-work',
+  'material-person',
+  'material-spa',
+  'material-notifications',
   ])
 
 
