@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class='page-wrapper with-header'>
     <c-xsd-header :title="title">
       <div slot="leftButton">
-        <a @click="close"><c-icon name="material-clear" class="block"></c-icon></a>
+        <a @click="callback('close')"><c-icon name="material-clear" class="block"></c-icon></a>
       </div>
       <div slot="rightButton" class='pr10'>
         <c-button class="text-button" :class="action.class"
@@ -102,19 +102,14 @@ export default {
     mutate ($payload) {
       this.payload = $payload
     },
-    close () {
-      this.callback('close');
-    },
     save () {
-      console.log(this.payload);
       if (!this.payload) {
         return
       }
       // validate then submit
       this.$validate().then(() => {
         this.xsd.api.post('item/'+this.itemid, { title:this.payload.title, content:this.payload.content }).then( data => {
-          console.log(data);
-          
+          this.callback('add', data.item);
         }).catch(this.$modal.error)
 
       }).catch($validation => {

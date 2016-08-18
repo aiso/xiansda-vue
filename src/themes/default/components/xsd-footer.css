@@ -1,7 +1,7 @@
 .c-xsd-footer{
     position: fixed;
     bottom:0;
-    height: 60px;
+    height: var(--footerHeight);
     background-color: #fff;
     width:100%;
     border-top: 1px solid var(--border);
@@ -23,20 +23,5 @@
 
     &.right{
     	float:right;
-    }
-
-    & .c-icon{
-        display: inline-block;
-        line-height: 60px;
-        width: 60px;
-        height: 60px;
-        padding: 0;
-    	font-size:24px;
-    }
-
-    & .c-button{
-        padding:0 1rem;
-        line-height: 40px;
-        font-size:14px;
     }
 }

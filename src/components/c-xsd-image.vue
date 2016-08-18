@@ -45,6 +45,7 @@ export default {
 
   methods: {
     _load ($event) {
+      //console.log('width='+this.width+',height='+this.height);
       const img = $event.path[0]
       const w = this.width||img.parentNode.style.width||img.parentNode.clientWidth
       const h = (!!this.ratio)?(w*this.ratio):(this.height||img.parentNode.style.height||img.parentNode.clientHeight)

@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class='page-wrapper with-footer'>
     <c-pane v-if="$route.path === '/supplier'">
       welcome supplier
     </c-pane>
-    <router-view class="router-view" transition="slide-up" keep-alive></router-view>
+    <router-view class="router-view" transition="slide-up" ></router-view>
     <v-footer></v-footer>
   </div>
 </template>

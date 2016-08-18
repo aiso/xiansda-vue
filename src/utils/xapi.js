@@ -23,3 +23,7 @@ export function get(url){
 export function post(url, data){
 	return request(Object.assign({ url, method:'POST', params:data }, chkAuth()))
 }
+
+export function remove(url){
+	return request(Object.assign({ url, method:'DELETE' }, chkAuth()))
+}
