@@ -5,7 +5,7 @@
         <a @click="callback('close')"><c-icon name="material-keyboard_backspace" class="block"></c-icon></a>
       </div>
       <div slot="rightButton">
-        <a @click="removeItem" class="warning"><c-icon name="material-delete_forever" class="block"></c-icon></a>
+        <a @click="removeItemL" class="warning"><c-icon name="material-delete_forever" class="block"></c-icon></a>
       </div>
     </c-xsd-header>
     <div class="table-row">
@@ -51,7 +51,7 @@ export default {
 	},
     methods: {
     	...mapActions(['updateItem', 'removeItem']),
-      removeItem () {
+      removeItemL () {
         this.$confirm.open('你确定要删除此产品？').then( () => {
           this.xsd.api.remove('item/'+this.sitem.id).then( () => {
             this.removeItem(this.sitem)

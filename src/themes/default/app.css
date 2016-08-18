@@ -146,18 +146,24 @@ h1,h2,h3,h4,h5,h6,p{
   width: 100%;
   box-sizing: border-box;
   display: table;
-  >*{
+  & >*{
     display: table-cell;
     width: 1%;
     float: none!important;
     vertical-align: middle;
   }
 
-  .extend{
+  & .extend{
     width:100%;
   }
 }
 
+.border-bottom{
+  border-bottom: 1px solid var(--border);
+}
+.border-top{
+  border-top: 1px solid var(--border);
+}
 
 .text-center{
   text-align: center;
@@ -179,6 +185,13 @@ h1,h2,h3,h4,h5,h6,p{
   margin-bottom: 30px;
 }
 
+.reserval{
+  color:white;
+
+  &.primary{
+    background: var(--primary)
+  }
+}
 
 .p15{padding:15px}
 .p20{padding:20px}

@@ -21,18 +21,34 @@
         class="c-form-expand"
         @mutate="mutate">
       </c-form>
+
+      <div class="table-row border-top">
+        <div class="extend p20"> 
+            <c-label>添加图片</c-label>
+        </div>
+        <div>
+          <a><c-icon name="material-add" class='block'></c-icon></a>  
+        </div>
+      </div>
+
     </c-pane>
   </div>
 </template>
 
 
 <script>
-import { CPane, CValidation, CForm, CButton, CIcon, CXsdHeader } from 'components'
+import { CPane, CCell, CLabel, CValidation, CForm, CButton, CIcon, CXsdHeader } from 'components'
 
 export default {
   activate(done) {
     console.log('itemid =' + this.itemid);
     done()
+  },
+  data () {
+    return {
+      images: []
+    }
+
   },
   props : {
     itemid : {
@@ -122,6 +138,8 @@ export default {
   },
   components: {
     CPane,
+    CCell,
+    CLabel,
     CValidation,
     CForm,
     CButton,

@@ -72,10 +72,10 @@
         //this.xsd.nav.home();
       },
       alertTest () {
-        this.$modal.alert.open('aa');
+        this.$alert.open('aa');
       },
       confirmTest () {
-        this.$modal.confirm.open('确认测试？');
+        this.$confirm.open('确认测试？').then( ()=>{console.log('confirm')} ).catch( ()=>{console.log('cancel')} );
       },
       frameTest () {
         this.frame = true;

@@ -5,22 +5,27 @@
 </template>
 
 <script>
+import Promise from 'nd-promise'
 import CModal from './c-modal'
 
 export default {
   data(){
       return {
         title:'',
-        show: false
+        show: false,
+        deferred:null
       }
   },
   methods: {
     open (title) {
       this.title = title;
       this.show = true;
+      return new Promise((resolve, reject) => {
+        this.deferred = {resolve, reject}
+      })
     },
     modalAction (key) {
-      console.log(key);
+      (key == 'submit')?this.deferred.resolve():this.deferred.reject()
     }
   },
   components: {
