@@ -17,7 +17,7 @@
       <c-form
         :submit="save"
         :cells="cells"
-        :items="items"
+        :items="fields"
         class="c-form-expand"
         @mutate="mutate">
       </c-form>
@@ -27,7 +27,21 @@
             <c-label>添加图片</c-label>
         </div>
         <div>
-          <a><c-icon name="material-add" class='block'></c-icon></a>  
+          <a @click="addImage"><c-icon name="material-add" class='block'></c-icon></a>  
+        </div>
+      </div>
+      <div>
+        <div class="table-row" v-for="img in images">
+          <div class="plr20">
+            <c-xsd-image :src="img.url" class="image-square"></c-xsd-image>  
+          </div>
+          <div class="extend pr10">
+            <h4>{{img.name}}</h4>
+            <p>{{img.size}}</p>
+          </div>
+          <div>
+            <a class="warning"><c-icon name="material-clear" class="block"></c-icon></a>
+          </div>
         </div>
       </div>
 
@@ -37,13 +51,12 @@
 
 
 <script>
-import { CPane, CCell, CLabel, CValidation, CForm, CButton, CIcon, CXsdHeader } from 'components'
+import { CPane, CCell, CLabel, CValidation, CForm, CButton, CIcon, CXsdHeader, CXsdImage } from 'components'
+import ImageUtil from 'utils/image'
+import ItemSupplierMixin from 'mixins/item-supplier'
 
 export default {
-  activate(done) {
-    console.log('itemid =' + this.itemid);
-    done()
-  },
+  mixins: [ItemSupplierMixin],
   data () {
     return {
       images: []
@@ -51,10 +64,6 @@ export default {
 
   },
   props : {
-    itemid : {
-      type : Number,
-      default : 0
-    },
     callback : {
       type : Function,
       default : () => true
@@ -64,6 +73,9 @@ export default {
   computed: {
     title () {
       return this.itemid == 0?'新建产品':'编辑产品'
+    },
+    fields () {
+
     },
     cells () {
       return {
@@ -118,6 +130,12 @@ export default {
     mutate ($payload) {
       this.payload = $payload
     },
+    addImage () {
+        ImageUtil.select().then( img => {
+            this.images.push({ id:0, url:img.dataUrl, name:img.file.name, size:img.file.size })
+        }).catch(this.$alert.error)
+
+    },
     save () {
       if (!this.payload) {
         return
@@ -144,7 +162,8 @@ export default {
     CForm,
     CButton,
     CIcon,
-    CXsdHeader
+    CXsdHeader,
+    CXsdImage
   }
 }
 </script>

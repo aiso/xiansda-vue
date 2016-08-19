@@ -21,7 +21,7 @@ export default {
       this.title = title;
       this.show = true;
       return new Promise((resolve, reject) => {
-        this.deferred = {resolve, reject}
+        this.deferred = { resolve, reject }
       })
     },
     modalAction (key) {

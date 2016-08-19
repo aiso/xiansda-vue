@@ -1,6 +1,7 @@
+import Promise from 'nd-promise'
 
 function resizeDataUrl(dataUrl, callback, opts){
-    opts = angular.extend({
+    opts = Object.assign({
         size:500
     }, opts);
     var img = new Image();
@@ -24,7 +25,7 @@ function resizeDataUrl(dataUrl, callback, opts){
 }
 
 function scaleImage(srcwidth, srcheight, targetwidth, targetheight, fLetterBox){
-    var result = {width: 0, height: 0, fScaleToTargetWidth: true};
+    var result = { width: 0, height: 0, fScaleToTargetWidth: true };
     if ((srcwidth <= 0) || (srcheight <= 0) || (targetwidth <= 0) || (targetheight <= 0)) {
         return result;
     }
@@ -81,31 +82,31 @@ function cropImage(img, width, height, letterBox){
     //console.log('left='+result.targetleft+",top="+result.targettop);
 }
 
-
 function select(){
-    var deferred = $q.defer();
+    let deferred = null;
 
-    var fileInput = document.createElement('input');
+    const fileInput = document.createElement('input');
     fileInput.setAttribute('type', 'file');
     fileInput.onchange = function() {
-        var file = fileInput.files[0];
-        var reader = new FileReader();
+        const file = fileInput.files[0];
+        const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onloadend = function () {
-            $rootScope.$apply(function() {
-                // strip beginning from string
-                var encodedData = reader.result.replace(/data:image\/jpeg;base64,/, '');
-                fileInput.remove();
-                deferred.resolve(encodedData);
-            });
+            //const encodedData = reader.result.replace(/data:image\/jpeg;base64,/, '');
+            fileInput.remove();
+            deferred.resolve({ file, dataUrl:reader.result });
         };
     };
     fileInput.click();
-    return deferred.promise;
+
+    return new Promise((resolve, reject) => {
+        deferred = { resolve, reject }
+    })
 }
 
 export default {
   resizeDataUrl,
   scaleImage,
-  cropImage
+  cropImage,
+  select
 }

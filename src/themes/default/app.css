@@ -43,51 +43,12 @@ h1,h2,h3,h4,h5,h6,p{
   }
 }
 
-.frame{
-  top:0;
-  position: fixed;
-  z-index: 100;
-  width:100%;
-  height: 100%;
-  background: white;
-  border-left: 1px solid #ccc;
-  margin:0 0 0 -1px;
-
-  & .frame-footer{
-  position: absolute;
-  bottom: 0;
-  left:0;
-  border-top:1px solid #e7e7e9;
-  background: white;
-  line-height: var(--footerHeight);
-  z-index: 101;
-  width: 100%;
-
-  & .btn{
-    position: absolute;
-    left:0;top:0;
-    display: inline-block;
-    width: var(--footerHeight);
-    height: var(--footerHeight);
-    color:#ccc;
-
-    &:active{
-      color:#222;
-    }
-
-    & .c-icon{
-      font-size:24px;
-      margin-top:3px;
-    }
-  }
-
-  & .title{
-    text-align: center;
-    width:100%;
-    font-size:14px;
-  }
-  }
-
+.image-square{
+  position: relative;
+  overflow: hidden;
+  display: block;
+  width: 60px;
+  height: 60px;
 }
 
 [v-cloak] {
@@ -141,6 +102,14 @@ h1,h2,h3,h4,h5,h6,p{
   transition: all .5s ease;
 }
 
+.top-in-enter, .top-in-leave{
+  -webkit-transform: translateY(-100%);
+  -moz-transform: translateY(-100%);
+  transform: translateY(-100%);
+}
+.top-in-transition{
+  transition: all .5s ease;
+}
 
 .table-row{
   width: 100%;
@@ -163,6 +132,12 @@ h1,h2,h3,h4,h5,h6,p{
 }
 .border-top{
   border-top: 1px solid var(--border);
+}
+.border-right{
+  border-right: 1px solid var(--border); 
+}
+.border-left{
+  border-left: 1px solid var(--border); 
 }
 
 .text-center{
@@ -245,3 +220,8 @@ h1,h2,h3,h4,h5,h6,p{
 .mr5{margin-right: 5px}
 .mr10{margin-right: 10px}
 .mr20{margin-right: 20px}
+
+.bg-gray-light{
+  background-color: #f1f1f1;
+}
+

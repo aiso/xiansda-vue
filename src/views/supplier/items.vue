@@ -20,17 +20,22 @@
 	  			<c-button class="primary">添加产品</c-button>	
 	  		</div>
 	  </c-pane>
-	   <item-edit class='frame' v-if='editItem>=0' :callback="editCallback" transition="right-in"></item-edit>
-	   <item-view class='frame' v-if='!!viewItem' :item='viewItem' :callback="viewCallback" transition="right-in"></item-view>
+	  <c-frame :toggle='!!editItem'>
+	  	<v-item-edit :callback="editCallback" :item='editItem'></v-item-edit>	
+	  </c-frame>
+	  <c-frame :toggle='!!viewItem'>
+	  	<v-item-view :item='viewItem' :callback="viewCallback"></v-item-view>
+	  </c-frame>
+	   
 	</div>
 </template>
 
 
 <script>
-import { CPane, CCell, CIcon, CButton, CXsdHeader, CXsdItem } from 'components'
+import { CPane, CFrame, CCell, CIcon, CButton, CXsdHeader, CXsdItem } from 'components'
 import { mapGetters, mapActions } from 'vuex'
-import ItemEdit from './item-edit'
-import ItemView from './item'
+import VItemEdit from './v-item-edit'
+import VItemView from './v-item'
 
 export default {
 	route: {
@@ -45,7 +50,7 @@ export default {
 	},
 	data () {
 		return { 
-			editItem:-1,
+			editItem:null,
 			viewItem:null
 		}
 	},
@@ -61,10 +66,10 @@ export default {
       	console.log(this.itemExt.title)
       },
       newItem () {
-      	this.editItem = 0;
+      	this.editItem = { id:0 };
       },
       editCallback (event, data) {
-      	this.editItem = -1;
+      	this.editItem = null;
 
       	if(event == 'add'){
       		this.addItem(data);
@@ -76,13 +81,14 @@ export default {
     },
 	components: {
 		CPane,
+		CFrame,
 		CCell,
 		CIcon,
 		CButton,
 		CXsdHeader,
 		CXsdItem,
-		ItemEdit,
-		ItemView
+		VItemEdit,
+		VItemView
 	}
 }
 </script>

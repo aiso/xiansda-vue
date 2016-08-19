@@ -1,0 +1,27 @@
+.c-xsd-itext-h{
+	@mixin table-row;
+
+	& >*{
+		@mixin table-cell;
+	}
+
+	& .title{
+		margin-left: 3px;
+		font-size: 14px;
+		line-height: 24px;
+	}
+
+	& .icon{
+		width: 24px;
+		text-align: center;
+		font-size:24px;
+		line-height: 24px;
+	}
+
+	& .text-right{
+		text-align: right;
+	}
+	& .text-left{
+		text-align: left;
+	}
+}

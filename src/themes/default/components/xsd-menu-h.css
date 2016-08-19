@@ -1,0 +1,21 @@
+.c-xsd-menu-h{
+	position: absolute;
+	top:var(--headerHeight);
+	z-index: 10;
+
+	@mixin table-row;
+	text-align: center;
+	background: #f1f1f1;
+	border-bottom: 1px solid var(--border);
+
+	& >*{
+		@mixin table-cell;
+		border-right: 1px solid var(--border);
+		padding:15px;
+
+		&:last-child{
+			border-right: 0
+		}
+	}
+
+}
