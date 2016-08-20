@@ -1,0 +1,19 @@
+.c-xsd-navbar{
+    position: fixed;
+    bottom:0;
+	@mixin table-row;
+	background: white;
+	z-index: 11;
+	line-height: var(--navbar);
+	border-bottom: 1px solid var(--border);
+
+	& >*{
+		@mixin table-cell;
+	}
+
+	& .extend{
+		width: 100%;
+	}
+
+
+}

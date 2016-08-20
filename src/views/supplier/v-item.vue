@@ -10,12 +10,15 @@
     </c-xsd-header>
     <c-xsd-menu-h :menu="menu"></c-xsd-menu-h>
     <v-item v-if="item" :item='item'></v-item>
-    <v-item-edit class='frame' v-if='edit' :callback="editCallback" transition="right-in"></v-item-edit>
+
+    <c-frame :toggle='edit'>
+      <v-item-edit :callback="editCallback" :item='item'></v-item-edit> 
+    </c-frame>
   </div>
 </template>
 
 <script>
-import { CPane, CButton, CIcon, CXsdHeader, CXsdMenuH } from 'components'
+import { CPane, CButton, CIcon, CXsdHeader, CXsdMenuH, CFrame } from 'components'
 import { mapActions } from 'vuex'
 import VItem from '../common/v-item'
 import VItemEdit from './v-item-edit'
@@ -30,7 +33,7 @@ export default {
         show:false,
         items:[
           { title:'删除', icon:'material-delete_forever', click:this.removeItemL },
-          { title:'编辑', icon:'material-edit', click:()=>{this.edit=true} }
+          { title:'编辑', icon:'material-edit', click:()=>{ this.edit=true;this.menu.show=false } }
         ]
       },
 
@@ -53,8 +56,11 @@ export default {
         } )
       },
       editCallback () {
-
-
+        this.edit = false;
+        /*
+        if(event == 'add'){
+          this.addItem(data);
+        }*/
       }
     },
   components: {
@@ -64,7 +70,8 @@ export default {
     CXsdHeader,
     VItem,
     VItemEdit,
-    CXsdMenuH
+    CXsdMenuH,
+    CFrame
   }
 }
 </script>

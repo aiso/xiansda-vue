@@ -1,16 +1,16 @@
 .c-route-link{
-	color:#aaa;
+	color:#666;
 	display: inline-block;
 
 	& .c-icon{
-		margin-top: 10px;
+		margin-top: 2px;
 		display: block;
 		font-size:1.8rem;
-		line-height: 1.8rem;
+		line-height: 1.5rem;
 	}
 
 	& .title{
-		font-size: 10px;
+		font-size: 12px;
 		line-height: 12px;
 	}
 
