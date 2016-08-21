@@ -196,6 +196,7 @@ webpackConfig.callbackLoader = require("vue-icons/icon-loader")([
   "fa-thumbs-up",
   "fa-file-o",
   'fa-dropbox',
+  'material-home',
   'material-menu',
   'material-more_horiz',
   'material-more_vert',

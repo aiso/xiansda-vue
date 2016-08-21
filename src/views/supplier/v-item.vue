@@ -1,13 +1,14 @@
 <template>
-  <div class='page-wrapper with-header'>
-    <c-xsd-header :title="__('supplier.footer.item')">
-      <div slot="leftButton">
+  <div class='page-wrapper'>
+    <c-xsd-navbar :title="__('supplier.footer.item')" type="frame">
+      <div slot="left">
         <a @click="callback('close')"><c-icon name="material-keyboard_backspace" class="block"></c-icon></a>
       </div>
-      <div slot="rightButton">
+      <div slot="right">
         <a @click="menu.show=!menu.show" :class="{ 'active':menu.show }"><c-icon name="material-menu" class="block"></c-icon></a>
       </div>
-    </c-xsd-header>
+    </c-xsd-navbar>
+
     <c-xsd-menu-h :menu="menu"></c-xsd-menu-h>
     <v-item v-if="item" :item='item'></v-item>
 
@@ -18,7 +19,7 @@
 </template>
 
 <script>
-import { CPane, CButton, CIcon, CXsdHeader, CXsdMenuH, CFrame } from 'components'
+import { CPane, CButton, CIcon, CXsdMenuH, CFrame, CXsdNavbar } from 'components'
 import { mapActions } from 'vuex'
 import VItem from '../common/v-item'
 import VItemEdit from './v-item-edit'
@@ -67,11 +68,11 @@ export default {
     CPane,
     CButton,
     CIcon,
-    CXsdHeader,
     VItem,
     VItemEdit,
     CXsdMenuH,
-    CFrame
+    CFrame,
+    CXsdNavbar
   }
 }
 </script>

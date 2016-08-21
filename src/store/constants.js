@@ -15,6 +15,9 @@ const SET_ENV_I18N = 'SET_ENV_I18N'
 const SET_AUTH = 'SET_AUTH'
 const AUTH_KEY = 'XSD_AUTH_KEY'
 
+const NAVIGATOR_KEY = 'NAVIGATOR_KEY'
+const SET_NAVIGATOR = 'SET_NAVIGATOR'
+
 const SET_ITEMS = 'SET_ITEMS'
 const ADD_ITEM = 'ADD_ITEM'
 const UPDATE_ITEM = 'UPDATE_ITEM'
@@ -32,6 +35,9 @@ export default {
     SET_ENV_I18N,
     SET_AUTH,
     AUTH_KEY,
+
+    SET_NAVIGATOR,
+    
     SET_ITEMS,
     ADD_ITEM,
     UPDATE_ITEM,

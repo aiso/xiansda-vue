@@ -111,6 +111,15 @@ h1,h2,h3,h4,h5,h6,p{
   transition: all .5s ease;
 }
 
+.bottom-in-enter, .bottom-in-leave{
+  -webkit-transform: translateY(100%);
+  -moz-transform: translateY(100%);
+  transform: translateY(100%);
+}
+.bottom-in-transition{
+  transition: all .5s ease;
+}
+
 .table-row{
   width: 100%;
   box-sizing: border-box;

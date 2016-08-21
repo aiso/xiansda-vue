@@ -1,5 +1,5 @@
 <template>
-  <div :class="['c-xsd-menu-h', class]"  v-if="menu.show" transition="top-in">
+  <div :class="['c-xsd-menu-h', class]"  v-if="menu.show" transition="bottom-in">
     <a class="light" @click="item.click" v-for="item in menu.items">
       <c-xsd-itext-h :title="item.title" :icon="item.icon" class="horizon"></c-xsd-itext-h>
     </a>

@@ -23,6 +23,8 @@
 <script>
 import { CValidation, CPane, CForm, CButton } from 'components'
 import { mapGetters, mapActions } from 'vuex'
+import navSupplier from 'routes/supplier/navigator'
+
 
 export default {
   data () {
@@ -35,7 +37,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['auth']),
+    ...mapGetters(['auth', 'navigator']),
     cells () {
       return {
         username: {
@@ -104,7 +106,7 @@ export default {
 
   // methods
   methods: {
-    ...mapActions(['setAuth', 'addToast']),
+    ...mapActions(['setAuth', 'addToast', 'setNavigator']),
     mutate ($payload) {
       this.payload = $payload
     },
@@ -115,6 +117,12 @@ export default {
       // validate then submit
       this.$validate().then(() => {
         this.xsd.api.post('user/login', { uid:this.payload.username, pwd:this.payload.password }).then( data => {
+
+          if(data.user.role == 10)
+            this.setNavigator(navSupplier)
+          else if(data.user.role == 20)
+            this.setNavigator(navSupplier)
+
           this.setAuth(data.user);
         }).catch( data => {
           this.addToast({ class:'error', title:'错误：' + data.error.code, message:data.error.message });
@@ -142,7 +150,7 @@ export default {
   route: {
     activate (transition) {
       transition.next()
-      this.auth && this.$route.router.go(this.xsd.nav.home())
+      this.auth && this.$route.router.go(this.navigator.home)
     }
   },
 
@@ -150,7 +158,8 @@ export default {
     auth (val) {
       if (val) {
         this.$nextTick(() => {
-          this.$route.router.go(this.xsd.nav.home())
+   
+          this.$route.router.go(this.navigator.home)
           //this.$route.router.go('/logout')
         })
       }

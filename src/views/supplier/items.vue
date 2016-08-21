@@ -1,13 +1,5 @@
 <template>
-	<div class='page-wrapper with-header'>
-		<c-xsd-header title="我的产品">
-			<div slot="leftButton">
-				<a @click="test"><c-icon name="material-keyboard_backspace" class="block"></c-icon></a>
-			</div>
-			<div slot="rightButton">
-				<a @click="newItem"><c-icon name="material-add" class="block"></c-icon></a>
-			</div>
-		</c-xsd-header>
+	<div class='page-wrapper'>
 	  <c-pane>
 		  <c-cell  v-for='item in items'>
 		  	<a @click="viewItem=item"><c-xsd-item :item='item'></c-xsd-item></a>
@@ -20,6 +12,13 @@
 	  			<c-button class="primary">添加产品</c-button>	
 	  		</div>
 	  </c-pane>
+	  <c-xsd-navbar title="我的产品">
+	  	<div slot="right">
+	  		<a @click="newItem"><c-icon name="material-add" class="block"></c-icon></a>
+	  	</div>
+	  </c-xsd-navbar>
+
+
 	  <c-frame :toggle='!!editItem'>
 	  	<v-item-edit :callback="editCallback" :item='editItem'></v-item-edit>	
 	  </c-frame>
@@ -32,7 +31,7 @@
 
 
 <script>
-import { CPane, CFrame, CCell, CIcon, CButton, CXsdHeader, CXsdItem } from 'components'
+import { CPane, CFrame, CCell, CIcon, CButton, CXsdItem, CXsdNavbar } from 'components'
 import { mapGetters, mapActions } from 'vuex'
 import VItemEdit from './v-item-edit'
 import VItemView from './v-item'
@@ -85,10 +84,10 @@ export default {
 		CCell,
 		CIcon,
 		CButton,
-		CXsdHeader,
 		CXsdItem,
 		VItemEdit,
-		VItemView
+		VItemView,
+		CXsdNavbar
 	}
 }
 </script>

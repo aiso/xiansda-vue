@@ -1,0 +1,26 @@
+.c-xsd-nav-button{
+
+}
+
+.c-xsd-nav-routes{
+	background: #f1f1f1;
+	border-top:1px solid var(--border);
+	width: 100%;
+	position: absolute;
+	z-index: 11;
+	bottom: var(--navbar);
+
+	& .link{
+		@mixin table-row;
+
+		& >*{
+			@mixin table-cell;
+		}
+
+		& .title{
+			padding:0 10px;
+			width: 100%;
+		}
+
+	}
+}

@@ -3,6 +3,7 @@
   font-size :20px;
 
   &.block{
+    display: block;
     width: var(--blockSize);
     height: var(--blockSize);
     padding: 0;

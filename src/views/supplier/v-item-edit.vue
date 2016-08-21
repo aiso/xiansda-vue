@@ -1,16 +1,17 @@
 <template>
-  <div class='page-wrapper with-header'>
-    <c-xsd-header :title="title">
-      <div slot="leftButton">
+  <div class='page-wrapper'>
+    <c-xsd-navbar :title="title" type="frame">
+      <div slot="left">
         <a @click="callback('close')"><c-icon name="material-clear" class="block"></c-icon></a>
       </div>
-      <div slot="rightButton" class='pr10'>
+      <div slot="right">
         <c-button class="text-button" :class="action.class"
           :type="action.type"
           @click="save"
           :disabled="action.disabled">{{action.label}}</c-button>
       </div>
-    </c-xsd-header>
+    </c-xsd-navbar>
+
     <c-pane>
       <c-validation
         :validation="$validation"></c-validation>
@@ -51,7 +52,7 @@
 
 
 <script>
-import { CPane, CCell, CLabel, CValidation, CForm, CButton, CIcon, CXsdHeader, CXsdImage } from 'components'
+import { CPane, CCell, CLabel, CValidation, CForm, CButton, CIcon, CXsdNavbar, CXsdImage } from 'components'
 import ImageUtil from 'utils/image'
 import ItemSupplierMixin from 'mixins/item-supplier'
 
@@ -162,7 +163,7 @@ export default {
     CForm,
     CButton,
     CIcon,
-    CXsdHeader,
+    CXsdNavbar,
     CXsdImage
   }
 }

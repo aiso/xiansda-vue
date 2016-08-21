@@ -5,7 +5,7 @@
 	background: white;
 	z-index: 11;
 	line-height: var(--navbar);
-	border-bottom: 1px solid var(--border);
+	border-top: 1px solid var(--border);
 
 	& >*{
 		@mixin table-cell;
@@ -15,5 +15,10 @@
 		width: 100%;
 	}
 
-
+	& .title{
+		font-size: 1rem;
+		border-left:1px dashed #aaa;
+		padding:0 10px;
+		text-overflow:ellipsis;white-space:nowrap;overflow:hidden
+	}
 }
