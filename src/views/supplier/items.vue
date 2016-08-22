@@ -42,7 +42,7 @@ export default {
 			if(this.items == null){
 				this.xsd.api.get('items?supplier='+this.auth.id).then( data => {
 					this.setItems(data.items)
-				} ).catch(this.$alert.error)				
+				} )			
 			}
 			transition.next()
 		}

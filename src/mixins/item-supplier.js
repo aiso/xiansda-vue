@@ -17,10 +17,10 @@ export default {
 			if(!!item && !!item.supplierView)
 				return item
 			else{
-				this.xsd.api.get('item/'+item.id).then( data => {
+				this.xsd.api.get('item/'+this.itemId).then( data => {
 					data.item.supplierView = true;
 					this.updateItem(data.item);
-				} ).catch(this.$alert.error)
+				} )
 			}
 		}
 	},

@@ -1,4 +1,3 @@
-import * as xapi from 'utils/xapi'
 import { SET_ITEMS, ADD_ITEM, UPDATE_ITEM, REMOVE_ITEM, PROMISE_SUCCESS } from '../constants'
 
 /**

@@ -149,7 +149,7 @@ export default {
     addImage () {
         ImageUtil.select().then( img => {
             this.images.push({ id:0, url:img.dataUrl, name:img.file.name, size:img.file.size,delete:false })
-        }).catch(this.$alert.error)
+        })
 
     },
     removeImage(idx){
@@ -168,7 +168,7 @@ export default {
             this.callback('add', data.item);
           else
             this.callback('update', data.item);
-        }).catch(this.$alert.error)
+        })
 
       }).catch($validation => {
         // this.$emit('error', $validation)

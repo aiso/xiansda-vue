@@ -7,6 +7,7 @@
         <c-button class='primary fit small' @click='alertTest' >alert</c-button>
         <c-button class='primary fit small' @click='confirmTest' >confirm</c-button>
         <c-button class='primary fit small' @click='frameTest' >frame</c-button>
+        <c-button class='primary fit small' @click='promiseTest' >promise</c-button>
       </c-cell>
     </c-pane>
 
@@ -21,6 +22,7 @@
 </template>
 
 <script>
+  import Promise from 'nd-promise'
   import { CPane, CGroup, CTitle, CCell, CButton, CToolbar, CFrame } from 'components'
   import FrameTest from './frame'
   import { mapActions } from 'vuex'
@@ -88,6 +90,19 @@
           console.log(event);
           console.log(data);
         }
+      },
+      promiseTest() {
+        var a = 1;
+        /*
+        var promise = new Promise((resolve, reject) => {
+          resolve(++a);
+        })
+        */
+        var promise = Promise.resolve(a)
+
+        promise.then( v=>v+1 ).then( v=>{
+          return Promise.reject(6)
+        } ).catch( v=>{ console.log('catch '+v);return Promise.reject(0) } ).then( v=>{ console.log(v) } );
       }
     },
     components: {

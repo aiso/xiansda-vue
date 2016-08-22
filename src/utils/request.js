@@ -13,7 +13,8 @@ const defaultOptions = {
     'Content-Type': 'application/json'
   },
   method: 'GET',
-  proxyFlag : true
+  proxyFlag : true,
+  //resFilter : res => Promise.resolve(res)
 }
 
 /**
