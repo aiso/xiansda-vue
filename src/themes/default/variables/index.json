@@ -9,8 +9,8 @@
   "text": "#666",
   "headerHeight": "48px",
   "footerHeight": "48px",
-  "navbar": "45px",
-  "blockSize": "45px",
+  "navbar": "50px",
+  "blockSize": "50px",
   "grayLight": "#dbdbdb",
   "border": "#e7e7e9",
   "red": "#ee5f5b"

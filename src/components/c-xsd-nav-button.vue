@@ -1,6 +1,7 @@
 <template>
   <div :class="['c-xsd-nav-button', class]">
     <a @click="show=!show"><c-icon :name="btnName" class="block"></c-icon></a>
+    <c-mask @touchend.prevent="show = false" transition="fade" v-show="show"></c-mask>
     <ul class="c-xsd-nav-routes" v-show="show">
       <li v-for="route in navRoutes" >
         <a class="link" @click="path(route.name)">
@@ -19,6 +20,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import CIcon from './c-icon'
+import CMask from './c-mask'
 
 export default {
   props: {
@@ -52,7 +54,8 @@ export default {
 
   },
   components: {
-    CIcon
+    CIcon,
+    CMask
   }
 }
 </script>

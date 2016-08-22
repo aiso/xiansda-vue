@@ -10,8 +10,8 @@ html {
 }
 
 body {
-  font-size: 1rem;
-  color: color(black lightness(20%));
+  font-size: 14px;
+  color:#333;
 }
 
 body, h1, h2, h3, h4, h5, h6, p, dl, dd, form, ul, ol, pre, blockquote, textarea, input, figure, button {

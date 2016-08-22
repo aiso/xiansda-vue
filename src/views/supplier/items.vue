@@ -2,7 +2,7 @@
 	<div class='page-wrapper'>
 	  <c-pane>
 		  <c-cell  v-for='item in items'>
-		  	<a @click="viewItem=item"><c-xsd-item :item='item'></c-xsd-item></a>
+		  	<a @click="viewItem=item.id"><c-xsd-item :item='item'></c-xsd-item></a>
 		  </c-cell>
 	  </c-pane>
 	  <c-pane v-if='!items || items.length==0' class="text-center">
@@ -14,16 +14,16 @@
 	  </c-pane>
 	  <c-xsd-navbar title="我的产品">
 	  	<div slot="right">
-	  		<a @click="newItem"><c-icon name="material-add" class="block"></c-icon></a>
+	  		<a @click="newItem=true"><c-icon name="material-add" class="block"></c-icon></a>
 	  	</div>
 	  </c-xsd-navbar>
 
 
-	  <c-frame :toggle='!!editItem'>
-	  	<v-item-edit :callback="editCallback" :item='editItem'></v-item-edit>	
+	  <c-frame :toggle='newItem'>
+	  	<v-item-edit :callback="editCallback" ></v-item-edit>	
 	  </c-frame>
 	  <c-frame :toggle='!!viewItem'>
-	  	<v-item-view :item='viewItem' :callback="viewCallback"></v-item-view>
+	  	<v-item-view :item-id='viewItem' :callback="viewCallback"></v-item-view>
 	  </c-frame>
 	   
 	</div>
@@ -49,8 +49,8 @@ export default {
 	},
 	data () {
 		return { 
-			editItem:null,
-			viewItem:null
+			newItem:false,
+			viewItem:0
 		}
 	},
     computed: {
@@ -64,18 +64,15 @@ export default {
       test () {
       	console.log(this.itemExt.title)
       },
-      newItem () {
-      	this.editItem = { id:0 };
-      },
       editCallback (event, data) {
-      	this.editItem = null;
+      	this.newItem = false;
 
       	if(event == 'add'){
       		this.addItem(data);
       	}
       },
       viewCallback (event, data) {
-      	this.viewItem = null;
+      	this.viewItem = 0;
       }
     },
 	components: {

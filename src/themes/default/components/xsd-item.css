@@ -26,7 +26,6 @@
 		& .title{
 			color:var(--text);
 			font-weight: normal;
-			letter-spacing: .1em;
 		}
 	}
 }

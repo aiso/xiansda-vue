@@ -1,5 +1,5 @@
 <template>
-  <div :class="['c-mask', class]"
+  <div :class="['c-mask', class]" :style="{ z-index:zIndex }"
     tabindex="-1"
     transition="fade"><slot></slot></div>
 </template>
@@ -10,6 +10,10 @@ export default {
     class: {
       type: String,
       default: ''
+    },
+    zIndex: {
+    	type:Number,
+    	default: 101
     }
   }
 }

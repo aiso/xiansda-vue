@@ -13,7 +13,7 @@
     <v-item v-if="item" :item='item'></v-item>
 
     <c-frame :toggle='edit'>
-      <v-item-edit :callback="editCallback" :item='item'></v-item-edit> 
+      <v-item-edit v-if="item" :callback="editCallback" :item-id='item.id'></v-item-edit> 
     </c-frame>
   </div>
 </template>
@@ -47,7 +47,7 @@ export default {
     }
   },
     methods: {
-    	...mapActions(['removeItem']),
+    	...mapActions(['removeItem', 'addItem', 'updateItem']),
       removeItemL () {
         this.$confirm.open('你确定要删除此产品？').then( () => {
           this.xsd.api.remove('item/'+this.item.id).then( () => {
@@ -56,12 +56,13 @@ export default {
           } ).catch(this.$alert.error)
         } )
       },
-      editCallback () {
+      editCallback (event, data) {
         this.edit = false;
-        /*
-        if(event == 'add'){
+        if(event == 'add')
           this.addItem(data);
-        }*/
+        else if(event == 'update'){
+          this.updateItem(data);
+        }
       }
     },
   components: {

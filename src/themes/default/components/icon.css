@@ -7,7 +7,7 @@
     width: var(--blockSize);
     height: var(--blockSize);
     padding: 0;
-    line-height: 49px;
+    line-height: 54px;
 	font-size:24px;
 	text-align: center;
   }

@@ -1,23 +1,27 @@
-import { mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
 	props : {
-		item : {
-			type : Object,
-			default : null
+		itemId : {
+			type : [Number],
+			default : 0
 		}
 	},
-	activate (done) {
-		if(this.item == null || this.item.id == 0 || !!this.item.supplierView){
-			//this.sitem = this.item;
-			done();
-		}else{
-			this.xsd.api.get('item/'+this.item.id).then( data => {
-				data.item.supplierView = true;
-				this.updateItem(data.item);
-				this.item = data.item;
-				done();
-			} ).catch(this.$alert.error)
+	computed: {
+		...mapGetters(['items']),
+		item() {
+			if(this.itemId == 0)
+				return { id:0 }
+
+			var item = this.items.find( i => i.id == this.itemId)
+			if(!!item && !!item.supplierView)
+				return item
+			else{
+				this.xsd.api.get('item/'+item.id).then( data => {
+					data.item.supplierView = true;
+					this.updateItem(data.item);
+				} ).catch(this.$alert.error)
+			}
 		}
 	},
     methods: {
