@@ -6,11 +6,11 @@
 		  </c-cell>
 	  </c-pane>
 	  <c-pane v-if='!items || items.length==0' class="text-center">
-	  		<c-icon name='fa-dropbox' class="icon-background"></c-icon>
-	  		<h5 class="text-background">还没有产品？</h5>
-	  		<div class="p20">
-	  			<c-button class="primary">添加产品</c-button>	
-	  		</div>
+  		<c-icon name='fa-dropbox' class="icon-background"></c-icon>
+  		<h5 class="text-background">还没有产品？</h5>
+  		<div class="p20">
+  			<c-button class="primary">添加产品</c-button>	
+  		</div>
 	  </c-pane>
 	  <c-xsd-navbar title="我的产品">
 	  	<div slot="right">
@@ -22,8 +22,9 @@
 	  <c-frame :toggle='newItem'>
 	  	<v-item-edit :callback="editCallback" ></v-item-edit>	
 	  </c-frame>
+
 	  <c-frame :toggle='!!viewItem'>
-	  	<v-item-view :item-id='viewItem' :callback="viewCallback"></v-item-view>
+	  	<v-item-view :itemid='viewItem' :callback="viewCallback"></v-item-view>
 	  </c-frame>
 	   
 	</div>

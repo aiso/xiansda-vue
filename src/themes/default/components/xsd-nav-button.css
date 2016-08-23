@@ -1,17 +1,16 @@
-.c-xsd-nav-button{
+.c-xsd-nav-button {
 
 }
 
 .c-xsd-nav-routes{
-	background: #f1f1f1;
-	width: 100%;
+	background: var(--primary);
 	position: absolute;
 	z-index: 102;
 	bottom: var(--navbar);
 
 	& .link{
 		@mixin table-row;
-		border-top:1px solid var(--border);
+		//border-top:1px solid var(--border);
 
 		& >*{
 			@mixin table-cell;

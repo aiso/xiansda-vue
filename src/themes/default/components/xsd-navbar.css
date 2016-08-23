@@ -2,10 +2,11 @@
     position: fixed;
     bottom:0;
 	@mixin table-row;
-	background: white;
+	background: var(--primary);
+	color:white;
 	z-index: 11;
 	line-height: var(--navbar);
-	border-top: 1px solid var(--border);
+	//border-top: 1px solid var(--border);
 
 	& >*{
 		@mixin table-cell;
@@ -16,9 +17,20 @@
 	}
 
 	& .title{
-		font-size: 1rem;
-		border-left:1px dashed #aaa;
-		padding:0 10px;
+		letter-spacing: 1.5px;
+		font-size:15px;
+		//border-left:1px dashed white;
+		padding:0 5px;
 		text-overflow:ellipsis;white-space:nowrap;overflow:hidden
+	}
+
+	& a{
+		display: block;
+		color:white;
+
+		&.active{
+			background: white;
+			color:var(--primary);
+		}
 	}
 }

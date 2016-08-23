@@ -9,17 +9,17 @@
       </div>
     </c-xsd-navbar>
 
-    <c-xsd-menu-h :menu="menu"></c-xsd-menu-h>
+    <c-xsd-menu :toggle="menu.show" :items="menu.items"></c-xsd-menu>
     <v-item v-if="item" :item='item'></v-item>
 
     <c-frame :toggle='edit'>
-      <v-item-edit v-if="item" :callback="editCallback" :item-id='item.id'></v-item-edit> 
+      <v-item-edit v-if="item" :callback="editCallback" :itemid='item.id'></v-item-edit> 
     </c-frame>
   </div>
 </template>
 
 <script>
-import { CPane, CButton, CIcon, CXsdMenuH, CFrame, CXsdNavbar } from 'components'
+import { CPane, CButton, CIcon, CXsdMenu, CFrame, CXsdNavbar } from 'components'
 import { mapActions } from 'vuex'
 import VItem from '../common/v-item'
 import VItemEdit from './v-item-edit'
@@ -72,7 +72,7 @@ export default {
     CIcon,
     VItem,
     VItemEdit,
-    CXsdMenuH,
+    CXsdMenu,
     CFrame,
     CXsdNavbar
   }

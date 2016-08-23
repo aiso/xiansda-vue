@@ -1,19 +1,9 @@
 <template>
-  <div :class="['c-xsd-nav-button', class]">
-    <a @click="show=!show"><c-icon :name="btnName" class="block"></c-icon></a>
-    <c-mask @touchend.prevent="show = false" transition="fade" v-show="show"></c-mask>
-    <ul class="c-xsd-nav-routes" v-show="show">
-      <li v-for="route in navRoutes" >
-        <a class="link" @click="path(route.name)">
-          <div>
-            <c-icon :name="route.icon" class="block"></c-icon>
-          </div>
-          <div class="extend">
-            <h4 class="title">{{route.title}}</h4>
-          </div>
-        </a>
-      </li>
-    </ul>
+  <div>
+    <div :class="['c-xsd-nav-button', class]">
+      <a @click="menu.show=!menu.show" :class="{ 'active':menu.show }"><c-icon :name="btnName" class="block"></c-icon></a>
+    </div>
+    <c-xsd-menu :menu="menu"></c-xsd-menu>
   </div>
 </template>
 
@@ -21,6 +11,7 @@
 import { mapGetters } from 'vuex'
 import CIcon from './c-icon'
 import CMask from './c-mask'
+import CXsdMenu from './c-xsd-menu'
 
 export default {
   props: {
@@ -31,7 +22,10 @@ export default {
   },
   data() {
     return {
-      show: false
+      menu: {
+        show:false,
+        items:[]
+      },      
     }
 
   },
@@ -43,7 +37,7 @@ export default {
     },
     navRoutes () {
       return this.navigator.routes.filter( route => route.name!=this.$route.router._currentRoute.name )
-    }
+    },
   },
   methods: {
     path(name) {
@@ -55,7 +49,8 @@ export default {
   },
   components: {
     CIcon,
-    CMask
+    CMask,
+    CXsdMenu
   }
 }
 </script>

@@ -1,0 +1,48 @@
+.c-xsd-menu{
+	position: absolute;
+	
+	bottom:var(--navbar);
+	z-index: 10;
+
+	&.right{
+		right:0;
+	}
+
+	&.left{
+		left:0;
+	}
+}
+
+.c-xsd-menu-item{
+	clear: both;
+
+	& .title{
+		color:#444;
+		width: 100%;
+		line-height: var(--blockSize);
+	}
+}
+
+.c-xsd-menu-item.right{
+
+	& .icon{
+		float:right;
+	}
+
+	& .title{
+		text-align: right;
+		margin-right: var(--blockSize);
+	}
+}
+
+.c-xsd-menu-item.left{
+
+	& .icon{
+		float:left;
+	}
+
+	& .title{
+		text-align: left;
+		margin-left: var(--blockSize);
+	}
+}
