@@ -48,7 +48,7 @@ const mutations = {
     state.items.splice(idx, 1, payload)
   },
   [REMOVE_ITEM] (state, payload) {
-    const idx = state.items.findIndex( item => item.id == payload.id )
+    const idx = state.items.findIndex( item => item.id == payload )
     state.items.splice(idx, 1)
   }  
 }

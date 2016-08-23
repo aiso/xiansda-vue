@@ -9,7 +9,7 @@
       </div>
     </c-xsd-navbar>
 
-    <c-xsd-menu :toggle="menu.show" :items="menu.items"></c-xsd-menu>
+    <c-xsd-menu :toggle.sync="menu.show" :items="menu.items"></c-xsd-menu>
     <v-item v-if="item" :item='item'></v-item>
 
     <c-frame :toggle='edit'>
@@ -51,8 +51,7 @@ export default {
       removeItemL () {
         this.$confirm.open('你确定要删除此产品？').then( () => {
           this.xsd.api.delete('item/'+this.item.id).then( () => {
-            this.itemId = 0;
-            this.removeItem(this.item)
+            this.removeItem(this.stopGetItem())
             this.callback('close')
           } )
         } )

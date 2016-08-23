@@ -3,15 +3,13 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
 	props : {
 		itemid : {
-			type : Number,
+			type : [Number, String],
 			default : 0
 		}
 	},
 	computed: {
 		...mapGetters(['items']),
 		item() {
-			console.log('itemid='+this.itemid);
-
 			if(this.itemid == 0)
 				return { id:0 }
 
@@ -26,8 +24,12 @@ export default {
 			}
 		}
 	},
-
     methods: {
-    	...mapActions(['updateItem'])
+    	...mapActions(['updateItem']),
+    	stopGetItem(){
+    		const item = this.itemid
+    		this.itemid = 0
+    		return item
+    	}
     },	
 }
