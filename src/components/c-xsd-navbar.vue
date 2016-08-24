@@ -6,7 +6,7 @@
           <a v-if="type=='main'" @click="navToggle=!navToggle" :class="{ 'active':navToggle }"><c-icon :name="btnName" class="block"></c-icon></a>
         </div>
         <div class="extend">
-          <h3 class="title">{{title}}</h3>
+          <h3 class="title">{{navTitle}}</h3>
         </div>
         <div>
           <slot name="right"></slot>
@@ -48,16 +48,22 @@ export default {
       const r = this.navigator.routes.find( route=>route.name==this.$route.router._currentRoute.name )
       return (!!r)?r.icon:'material-home'
     },
+    navTitle () {
+      if(!!this.title) return this.title
+
+      const r = this.navigator.routes.find( route=>route.name==this.$route.router._currentRoute.name )
+      return (!!r)?this.__(r.title):''
+    },
     navItems () {
       var routes = this.navigator.routes.filter( route => route.name!=this.$route.router._currentRoute.name );
 
       return routes.map( route=>{
-        return { title:route.title, icon:route.icon, click: ()=>{ 
+        return { title:this.__(route.title), icon:route.icon, click: ()=>{ 
           this.navToggle=false;
           this.$route.router.go({ name:route.name }) 
         } }
       })
-    }
+    },
   },
   components: {
     CXsdMenu,

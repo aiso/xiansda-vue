@@ -3,7 +3,7 @@
 	  <c-xsd-image :src="item.img" class="thumbnail" width=50 height=50></c-xsd-image>
 	  <div class="xsd-content">
 	  	<h4 class="title">{{item.title}}</h4>
-	  	<slot>aa</slot>	
+	  	<slot></slot>	
 	  </div>
 	  
   </div>

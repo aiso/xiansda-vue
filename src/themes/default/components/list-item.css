@@ -1,0 +1,46 @@
+.c-list-item {
+	@mixin table-row;
+
+	& >* {
+		@mixin table-cell;
+	}
+
+	& .icon{
+		color:var(--primary);
+	}
+	& .thumbnail{
+		display: inline-block;
+		width:50px;
+		height:50px;
+		position: relative;
+		overflow: hidden;
+
+		& img{
+			margin: 0;
+			padding: 0;
+			max-width: none;
+		}
+
+	}
+
+	& .item-content{
+		width:100%;
+
+		& .title{
+			font-weight: normal;
+			letter-spacing: 1px;
+		}
+
+		& .sub-title{
+			color:var(--textLight)
+		}
+	}
+
+	& .addition{
+		white-space:nowrap;
+	}
+
+	& .arrow-right{
+		color:var(--grayLight)
+	}
+}

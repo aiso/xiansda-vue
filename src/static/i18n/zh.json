@@ -38,10 +38,15 @@
     }
   },
   "supplier": {
-    "footer" : {
+    "navigator" : {
       "business" : "服务单",
+      "items" : "我的产品",
       "item" : "产品",
       "user" : "用户"
+    },
+    "item" : {
+      "new": "新建产品",
+      "edit": "编辑产品"
     }
   }  
 }

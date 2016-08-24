@@ -155,6 +155,7 @@
     "string-template": "^1.0.0",
     "vue": "^1.0.26",
     "vue-autosize": "^0.1.2",
+    "vue-lazyload": "^0.7.0",
     "vue-router": "^0.7.13",
     "vuex": "^2.0.0-rc.3",
     "whatwg-fetch": "^1.0.0",

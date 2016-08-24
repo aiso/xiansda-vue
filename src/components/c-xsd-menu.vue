@@ -1,6 +1,6 @@
 <template>
   <div>
-    <c-mask @touchend.prevent="toggle = false" transition="fade" v-if="toggle" style="z-index:9;background: rgba(255, 255, 255, 0.8);"></c-mask>
+    <c-mask @touchend.prevent="toggle = false" transition="fade" v-if="toggle" style="z-index:9;background: rgba(255, 255, 255, 0.85);"></c-mask>
     <div :class="['c-xsd-menu', side]"  v-if="toggle" transition="bottom-in">
       <a @click="item.click" :class="['c-xsd-menu-item', side]" v-for="item in items">
         <div class="icon"><c-icon :name="item.icon" class="block"></c-icon></div>

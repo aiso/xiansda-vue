@@ -70,6 +70,16 @@ router.afterEach(transition => {
 import VueAutosize from 'vue-autosize'
 Vue.use(VueAutosize)
 
+/*
+import VueLazyload from 'vue-lazyload'
+Vue.use(VueLazyload, {
+  preLoad: 1.3,
+  error: 'images/noimg.jpg',
+  loading: 'images/loading.gif',
+  try: 1 // default 1
+})
+*/
+
 import xsd from 'plugins/xsd'
 Vue.use(xsd)
 

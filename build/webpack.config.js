@@ -202,6 +202,7 @@ webpackConfig.callbackLoader = require("vue-icons/icon-loader")([
   'material-more_vert',
   'material-edit',
   'material-arrow_back',
+  'material-chevron_right',
   'material-clear',
   'material-person',
   'material-add',
@@ -209,7 +210,8 @@ webpackConfig.callbackLoader = require("vue-icons/icon-loader")([
   'material-keyboard_backspace',
   'material-work',
   'material-person',
-  'material-spa',
+  'material-local_offer',
+  'material-store_mall_directory',
   'material-notifications',
   'material-delete_forever',
   ])

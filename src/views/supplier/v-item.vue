@@ -1,6 +1,6 @@
 <template>
   <div class='page-wrapper'>
-    <c-xsd-navbar :title="__('supplier.footer.item')" type="frame">
+    <c-xsd-navbar :title="__('supplier.navigator.item')" type="frame">
       <div slot="left">
         <a @click="callback('close')"><c-icon name="material-keyboard_backspace" class="block"></c-icon></a>
       </div>
@@ -8,8 +8,12 @@
         <a @click="menu.show=!menu.show" :class="{ 'active':menu.show }"><c-icon name="material-menu" class="block"></c-icon></a>
       </div>
     </c-xsd-navbar>
-
     <c-xsd-menu :toggle.sync="menu.show" :items="menu.items"></c-xsd-menu>
+
+    <c-list-item title="产品发布" icon="material-local_offer" class="border-bottom">
+      <h4 v-if="!!item.posts" slot="addition" class="plr20">( {{item.posts.length}} )</h4>
+      <h5 v-if="!item.posts" slot="addition" class="plr20 c-text-light">点击发布</h5>
+    </c-list-item>
     <v-item v-if="item" :item='item'></v-item>
 
     <c-frame :toggle='edit'>
@@ -19,7 +23,7 @@
 </template>
 
 <script>
-import { CPane, CButton, CIcon, CXsdMenu, CFrame, CXsdNavbar } from 'components'
+import { CPane, CButton, CIcon,CListItem, CXsdMenu, CFrame, CXsdNavbar } from 'components'
 import { mapActions } from 'vuex'
 import VItem from '../common/v-item'
 import VItemEdit from './v-item-edit'
@@ -69,6 +73,7 @@ export default {
     CPane,
     CButton,
     CIcon,
+    CListItem,
     VItem,
     VItemEdit,
     CXsdMenu,

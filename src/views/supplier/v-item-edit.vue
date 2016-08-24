@@ -77,7 +77,7 @@ export default {
   },
   computed: {
     title () {
-      return this.item.id == 0?'新建产品':'编辑产品'
+      return this.item.id == 0?this.__('supplier.item.new'):this.__('supplier.item.edit')
     },
     fields () {
       return {
@@ -166,8 +166,10 @@ export default {
         this.xsd.api.post('item/'+this.item.id, modify).then( data => {
           if(this.item.id == 0)
             this.callback('add', data.item);
-          else
+          else{
+            this.stopGetItem()
             this.callback('update', data.item);
+          }
         })
 
       }).catch($validation => {

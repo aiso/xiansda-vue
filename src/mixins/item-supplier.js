@@ -17,7 +17,7 @@ export default {
 			if(!!item && !!item.supplierView)
 				return item
 			else{
-				this.xsd.api.get('item/'+this.itemid).then( data => {
+				this.xsd.api.get('item/'+this.itemid+'?with=posts').then( data => {
 					data.item.supplierView = true;
 					this.updateItem(data.item);
 				} )

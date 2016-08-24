@@ -8,7 +8,6 @@
 
 <script>
   import { CPane, CGroup, CTitle, CCell, CButton, CToolbar, CFrame } from 'components'
-  import VFooter from './v-footer'
   import { mapActions } from 'vuex'
 
   export default {
@@ -20,7 +19,6 @@
     },
     components: {
       CPane,
-      VFooter
     }
 }
 </script>

@@ -5,7 +5,7 @@
 	  		<c-button class="primary fit small" v-link="'/logout'">logout</c-button>
 		</c-cell>
 	  </c-pane>
-	  <c-xsd-navbar title="user"></c-xsd-navbar>
+	  <c-xsd-navbar></c-xsd-navbar>
 	</div>
 </template>
 
