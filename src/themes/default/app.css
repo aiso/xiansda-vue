@@ -32,6 +32,7 @@ h1,h2,h3,h4,h5,h6,p{
 }
 
 .page-wrapper{
+  box-sizing: border-box;
   width: 100%;
   height: 100%;
   padding-bottom: var(--navbar);
@@ -52,6 +53,15 @@ h1,h2,h3,h4,h5,h6,p{
 .btn{
   &:active{
     opacity: .6
+  }
+}
+
+a.list-item{
+  display: inline-block;
+  color:inherit;
+
+  &:active{
+    background: var(--grayLight);
   }
 }
 
@@ -224,6 +234,9 @@ h1,h2,h3,h4,h5,h6,p{
 .mr10{margin-right: 10px}
 .mr20{margin-right: 20px}
 
+.bg-white{
+  background: white;
+}
 .bg-gray-light{
   background-color: #f1f1f1;
 }
@@ -231,3 +244,4 @@ h1,h2,h3,h4,h5,h6,p{
 .c-text-light{
   color:var(--textLight)
 }
+

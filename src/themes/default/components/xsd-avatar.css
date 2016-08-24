@@ -1,0 +1,12 @@
+.c-xsd-avatar {
+
+	& .c-xsd-image{
+		width: 80px;
+		height: 80px;
+	}
+
+	& img{
+		@mixin circle;
+	}
+
+}

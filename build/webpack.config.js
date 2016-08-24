@@ -207,6 +207,7 @@ webpackConfig.callbackLoader = require("vue-icons/icon-loader")([
   'material-person',
   'material-add',
   'material-clear',
+  'material-exit_to_app',
   'material-keyboard_backspace',
   'material-work',
   'material-person',

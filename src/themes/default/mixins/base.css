@@ -10,3 +10,12 @@
   float: none!important;
   vertical-align: middle;
 }
+
+
+@define-mixin circle{
+  -webkit-border-radius: 10rem;
+  -moz-border-radius: 10rem;
+  -ms-border-radius: 10rem;
+  -o-border-radius: 10rem;
+  border-radius: 10rem;
+}

@@ -3,6 +3,7 @@
   align-items: center;
   text-align: center;
   justify-content: center;
+  position: relative;
 }
 
 .c-image-img {
