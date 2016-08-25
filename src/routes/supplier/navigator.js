@@ -1,8 +1,8 @@
 export default {
   routes: [
-    { name:'supplier/businesses', icon:'material-work', title:'supplier.navigator.business' },
-    { name:'supplier/items', icon:'material-local_offer', title:'supplier.navigator.items' },
-    { name:'supplier/user', icon:'material-person', title:'supplier.navigator.user' }
+    { name:'supplier/businesses', icon:'material-work' },
+    { name:'supplier/items', icon:'material-local_offer' },
+    { name:'supplier/user', icon:'material-person' }
   ],
   home : 'supplier/businesses'
 }

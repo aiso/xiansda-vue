@@ -10,10 +10,6 @@
     </c-xsd-navbar>
     <c-xsd-menu :toggle.sync="menu.show" :items="menu.items"></c-xsd-menu>
 
-    <c-list-item title="产品发布" icon="material-local_offer" class="border-bottom">
-      <h4 v-if="!!item.posts" slot="addition" class="plr20">( {{item.posts.length}} )</h4>
-      <h5 v-if="!item.posts" slot="addition" class="plr20 c-text-light">点击发布</h5>
-    </c-list-item>
     <v-item v-if="item" :item='item'></v-item>
 
     <c-frame :toggle='edit'>

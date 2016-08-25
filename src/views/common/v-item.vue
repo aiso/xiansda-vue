@@ -2,7 +2,7 @@
   <div>
     <c-swipe v-if="!!item.images && item.images.length" class='swipe' :auto="4000">
       <c-swipe-item v-for="image in item.images">
-        <c-xsd-image :src='image.url' :width='slideWidth' height=200></c-xsd-image>
+        <c-xsd-image :src='image.url' :width='slideWidth' height=200 style="overflow: visible"></c-xsd-image>
       </c-swipe-item>
     </c-swipe>
     <c-pane>

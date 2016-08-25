@@ -13,6 +13,7 @@ export default {
     '/supplier/businesses': require('./supplier/businesses'),
     '/supplier/items': require('./supplier/items'),
     '/supplier/user': require('./supplier/user'),
+    '/supplier/stations': require('./supplier/stations'),
   },
 
   alias: {

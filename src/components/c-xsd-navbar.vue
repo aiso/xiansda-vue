@@ -34,7 +34,7 @@ export default {
     },
     title: {
       type: String,
-      default: ''
+      default: null
     }
   },
   data() {
@@ -49,10 +49,8 @@ export default {
       return (!!r)?r.icon:'material-home'
     },
     navTitle () {
-      if(!!this.title) return this.title
-
-      const r = this.navigator.routes.find( route=>route.name==this.$route.router._currentRoute.name )
-      return (!!r)?this.__(r.title):''
+      console.log(this.$route.router._currentRoute.title);
+      return this.title||this.__(this.$route.router._currentRoute.title)
     },
     navItems () {
       var routes = this.navigator.routes.filter( route => route.name!=this.$route.router._currentRoute.name );

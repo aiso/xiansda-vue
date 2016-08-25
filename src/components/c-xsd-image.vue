@@ -1,6 +1,6 @@
 <template>
   <div :class="['c-xsd-image', class]" :width="width" :height="height" :title="title" :alt="alt">
-    <img class="c-image-img"
+    <img class="c-xsd-image-img"
       :src="src"
       @load="_load">
   </div>
@@ -46,6 +46,9 @@ export default {
   methods: {
     _load ($event) {
       //console.log('width='+this.width+',height='+this.height);
+      if(this.width) this.$el.style.width = this.width+'px'
+      if(this.height) this.$el.style.height = this.height+'px'
+
       const img = $event.path[0]
       const w = this.width||img.parentNode.style.width||img.parentNode.clientWidth
       const h = (!!this.ratio)?(w*this.ratio):(this.height||img.parentNode.style.height||img.parentNode.clientHeight)

@@ -38,11 +38,12 @@
     }
   },
   "supplier": {
-    "navigator" : {
+    "routes" : {
       "business" : "服务单",
       "items" : "我的产品",
       "item" : "产品",
-      "user" : "用户"
+      "user" : "用户",
+      "stations" : "供应站点"
     },
     "item" : {
       "new": "新建产品",
