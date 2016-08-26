@@ -6,13 +6,14 @@
     <div class="content">
       <router-view class="router-view" transition="slide-up" transition-mode="out-in" keep-alive></router-view>
     </div>
+    <c-xsd-navbar v-ref:xsd-navbar></c-xsd-navbar>
     <c-alert v-ref:modal-alert></c-alert>
     <c-confirm v-ref:modal-confirm></c-confirm>
   </div>
 </template>
 
 <script>
-import { CProgress, CToast, CQrcode, CAlert, CConfirm } from 'components'
+import { CProgress, CToast, CQrcode, CAlert, CConfirm, CXsdNavbar } from 'components'
 import VHeader from 'views/common/v-header'
 import VFooter from 'views/common/v-footer'
 import store from 'store'
@@ -28,7 +29,6 @@ export default {
       flag : __DEV__
     }
   },
-
   computed: {
     ...mapGetters(['lang', 'i18n', 'progress', 'toasts']),
     routes () {
@@ -58,7 +58,8 @@ export default {
     VFooter,
     CQrcode,
     CAlert,
-    CConfirm
+    CConfirm,
+    CXsdNavbar
   }
 }
 /**

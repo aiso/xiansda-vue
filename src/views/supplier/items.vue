@@ -3,7 +3,7 @@
 
 	  <c-pane>
 		  <c-cell  v-for='item in items'>
-		  	<a @click="viewItem=item.id"><c-xsd-item :item='item'></c-xsd-item></a>
+		  	<a @click="showItem(item.id)"><c-xsd-item :item='item'></c-xsd-item></a>
 		  </c-cell>
 	  </c-pane>
 
@@ -14,19 +14,13 @@
   			<c-button class="primary">添加产品</c-button>	
   		</div>
 	  </c-pane>
-	  <c-xsd-navbar>
-	  	<div slot="right">
-	  		<a @click="newItem=true"><c-icon name="material-add" class="block"></c-icon></a>
-	  	</div>
-	  </c-xsd-navbar>
 
-
-	  <c-frame :toggle='newItem'>
+	  <c-frame :toggle.sync='newItem'>
 	  	<v-item-edit :callback="editCallback" ></v-item-edit>	
 	  </c-frame>
 
-	  <c-frame :toggle='!!viewItem'>
-	  	<v-item-view :itemid='viewItem' :callback="viewCallback"></v-item-view>
+	  <c-frame :toggle.sync='viewItem' :title="__('supplier.routes.items')">
+	  	<v-item-view :itemid='viewItemId' :callback="viewCallback"></v-item-view>
 	  </c-frame>
   </div>
 </template>
@@ -34,7 +28,7 @@
 
 
 <script>
-import { CPane, CFrame, CCell, CIcon, CButton, CXsdItem, CXsdNavbar, CLoading } from 'components'
+import { CPane, CFrame, CCell, CIcon, CButton, CXsdItem, CLoading } from 'components'
 import { mapGetters, mapActions } from 'vuex'
 import VItemEdit from './v-item-edit'
 import VItemView from './v-item'
@@ -53,7 +47,8 @@ export default {
 	data () {
 		return { 
 			newItem:false,
-			viewItem:0,
+			viewItem:false,
+			viewItemId:0
 		}
 	},
     computed: {
@@ -61,6 +56,10 @@ export default {
     },
     methods: {
       ...mapActions(['setItems', 'addItem']),
+      showItem(id){
+      	this.viewItemId=id
+      	this.viewItem = true
+      },
       editCallback (event, data) {
       	this.newItem = false;
 
@@ -81,7 +80,6 @@ export default {
 		CXsdItem,
 		VItemEdit,
 		VItemView,
-		CXsdNavbar,
 		CLoading
 	}
 }

@@ -1,13 +1,5 @@
 <template>
   <div class='page-wrapper'>
-    <c-xsd-navbar :title="__('supplier.navigator.item')" type="frame">
-      <div slot="left">
-        <a @click="callback('close')"><c-icon name="material-keyboard_backspace" class="block"></c-icon></a>
-      </div>
-      <div slot="right">
-        <a @click="menu.show=!menu.show" :class="{ 'active':menu.show }"><c-icon name="material-menu" class="block"></c-icon></a>
-      </div>
-    </c-xsd-navbar>
     <c-xsd-menu :toggle.sync="menu.show" :items="menu.items"></c-xsd-menu>
 
     <v-item v-if="item" :item='item'></v-item>

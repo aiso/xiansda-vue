@@ -1,18 +1,17 @@
 <template>
-  <div>
+  <div v-if="!!navigator">
     <div :class="['c-xsd-navbar', class]">
         <div class="c-xsd-navbar-button">
-          <slot name="left"></slot>
-          <a v-if="type=='main'" @click="navToggle=!navToggle" :class="{ 'active':navToggle }"><c-icon :name="btnName" class="block"></c-icon></a>
+          <a @click="navigator.navButton.click" :class="{ 'active':navToggle }"><c-icon :name="navigator.navButton.icon" class="block"></c-icon></a>
         </div>
         <div class="extend">
-          <h3 class="title">{{navTitle}}</h3>
+          <h3 class="title">{{navigator.title}}</h3>
         </div>
         <div>
-          <slot name="right"></slot>
+          <a v-for="option in navigator.navOptions" @click="option.click"><c-icon :name="option.icon" class="block"></c-icon></a>
         </div>
     </div>
-    <c-xsd-menu :toggle.sync="navToggle" side="left" :items="navItems"></c-xsd-menu>
+    <c-xsd-menu :toggle.sync="navToggle" side="left" :items="navigator.mainItems"></c-xsd-menu>
   </div>
 </template>
 
@@ -28,10 +27,6 @@ export default {
       type: String,
       default: ''
     },
-    type: {
-      type: String,
-      default: 'main'
-    },
     title: {
       type: String,
       default: null
@@ -39,29 +34,50 @@ export default {
   },
   data() {
     return {
-      navToggle:false
+      navToggle:false,
+      navStack:[],
+      navigator:null
     }
   },
   computed: {
-    ...mapGetters(['navigator']),
-    btnName () {
-      const r = this.navigator.routes.find( route=>route.name==this.$route.router._currentRoute.name )
-      return (!!r)?r.icon:'material-home'
+    ...mapGetters(['navMainRoutes', 'navCurrRoute']),
+    lastNav(){
+      return (this.navStack.length == 0)?null:this.navStack[this.navStack.length-1]
     },
-    navTitle () {
-      console.log(this.$route.router._currentRoute.title);
-      return this.title||this.__(this.$route.router._currentRoute.title)
+  },
+  methods: {
+    pushNav(nav){
+      this.navStack.push(this.navigator)
+      this.navigator = Object.assign({ mainItems:[] } ,nav)
     },
-    navItems () {
-      var routes = this.navigator.routes.filter( route => route.name!=this.$route.router._currentRoute.name );
+    popNav(){
+      this.navigator = this.navStack.pop()
+    }
+  },
+  watch: {
+    navCurrRoute(currentRoute){
+      if(!currentRoute) {
+        this.navigator = null
+        return
+      }
 
-      return routes.map( route=>{
+      const r = this.navMainRoutes.routes.find( route=>route.name==currentRoute.name )
+      const navButton = { icon:(!!r)?r.icon:'material-home', click:()=>{ this.navToggle=!this.navToggle } }
+
+      var routes = this.navMainRoutes.routes.filter( route => route.name!=this.$route.router._currentRoute.name );
+      const mainItems = routes.map( route=>{
         return { title:this.__(route.title), icon:route.icon, click: ()=>{ 
           this.navToggle=false;
           this.$route.router.go({ name:route.name }) 
         } }
       })
-    },
+
+      this.navigator = {
+        title:this.title || this.__(currentRoute.title),
+        navButton,
+        mainItems
+      }
+    }
   },
   components: {
     CXsdMenu,

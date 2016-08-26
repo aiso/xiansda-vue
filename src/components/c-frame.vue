@@ -9,8 +9,34 @@ export default {
   props:{
     toggle:{
       type:Boolean,
-      default:false
+      twoWay:true
+    },
+    title: {
+      type: String
     }
+  },
+  computed: {
+  	navigation (){
+  		return Object.assign({
+        title:this.title,
+        navButton:{
+  				icon:'material-arrow_back',
+  				click: () => {
+  					this.toggle = false;
+  				}
+		   },
+  			navOptions:[]
+  		}, this.$children.navigation)
+  	}
+  },
+  watch:{
+  	toggle(val){
+  		if(val === true){
+  			this.$navbar.pushNav(this.navigation)
+  		}else{
+  			this.$navbar.popNav()
+  		}
+  	}
   }
 }
 </script>

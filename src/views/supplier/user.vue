@@ -17,18 +17,11 @@
 	</a>
 
 
-
-
-	  <c-xsd-navbar>
-	  	<div slot="right">
-	  		<a @click="logout"><c-icon name="material-exit_to_app" class="block"></c-icon></a>
-	  	</div>
-	  </c-xsd-navbar>
 	</div>
 </template>
 
 <script>
-  import { CPane, CCell, CIcon, CListItem, CXsdAvatar, CButton, CXsdNavbar } from 'components'
+  import { CPane, CCell, CIcon, CListItem, CXsdAvatar, CButton } from 'components'
   import { mapGetters, mapActions } from 'vuex'
 
   export default {
@@ -50,8 +43,7 @@
 		CIcon,
 		CListItem,
 		CXsdAvatar,
-		CButton,
-		CXsdNavbar
+		CButton
 	}    
 }
 </script>

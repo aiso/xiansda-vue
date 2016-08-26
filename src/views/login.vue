@@ -37,7 +37,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['auth', 'navigator']),
+    ...mapGetters(['auth', 'navMainRoutes']),
     cells () {
       return {
         username: {
@@ -106,7 +106,7 @@ export default {
 
   // methods
   methods: {
-    ...mapActions(['setAuth', 'addToast', 'setNavigator']),
+    ...mapActions(['setAuth', 'addToast', 'setMainRoutes']),
     mutate ($payload) {
       this.payload = $payload
     },
@@ -119,9 +119,9 @@ export default {
         this.xsd.api.post('user/login', { uid:this.payload.username, pwd:this.payload.password }).then( data => {
 
           if(data.user.role == 10)
-            this.setNavigator(navSupplier)
+            this.setMainRoutes(navSupplier)
           else if(data.user.role == 20)
-            this.setNavigator(navSupplier)
+            this.setMainRoutes(navSupplier)
 
           this.setAuth(data.user);
         }).catch( data => {
@@ -150,7 +150,7 @@ export default {
   route: {
     activate (transition) {
       transition.next()
-      this.auth && this.$route.router.go(this.navigator.home)
+      this.auth && this.$route.router.go(this.navMainRoutes.home)
     }
   },
 
@@ -159,7 +159,7 @@ export default {
       if (val) {
         this.$nextTick(() => {
    
-          this.$route.router.go(this.navigator.home)
+          this.$route.router.go(this.navMainRoutes.home)
           //this.$route.router.go('/logout')
         })
       }

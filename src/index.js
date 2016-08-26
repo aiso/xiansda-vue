@@ -64,6 +64,15 @@ router.beforeEach(transition => {
 router.afterEach(transition => {
   window.scrollTo(0, 0)
   store.dispatch('setProgress', 100)
+
+  if(transition.to.navigator === true){
+    store.dispatch('setCurrRoute', {
+      title:transition.to.title,
+      name:transition.to.name
+    })
+  }else{
+    store.dispatch('setCurrRoute', null)
+  }
 })
 
 

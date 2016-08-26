@@ -63,6 +63,11 @@ xsd.install = function (Vue) {
       get () {
         return this.$root.$refs.modalConfirm
       }
+    },
+    $navbar: {
+      get () {
+        return this.$root.$refs.xsdNavbar
+      }
     }
 	})
 
