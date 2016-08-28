@@ -12,7 +12,8 @@
 
 	<a class="list-item bg-white" v-link="'/supplier/stations'">
 		<c-list-item title="供应站点" icon="material-store_mall_directory">
-			<h3 slot="addition" class="plr20">3</h3>
+			<h3 slot="addition" class="plr20" v-if="stations>0">{{stations}}</h3>
+			<h4 slot="addition" class="plr20 c-text-light" v-if="stations==0">点击设置</h4>
 		</c-list-item>
 	</a>
 
@@ -26,8 +27,19 @@
 
   export default {
     computed: {
-    	...mapGetters(['auth'])
+    	...mapGetters(['auth']),
+    	stations(){
+    		return (!!this.auth.supplier.stations)?this.auth.supplier.stations.length:0
+    	}
     },
+	route: {
+		activate (transition) {
+		    this.$navbar.setNavOptions([
+		      { icon:'material-exit_to_app', click:this.logout },
+		    ])
+			transition.next()
+		}
+	},
     methods: {
       ...mapActions(['setAuth']),
       logout() {

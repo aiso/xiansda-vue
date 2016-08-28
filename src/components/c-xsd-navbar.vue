@@ -7,8 +7,8 @@
         <div class="extend">
           <h3 class="title">{{navigator.title}}</h3>
         </div>
-        <div>
-          <a v-for="option in navigator.navOptions" @click="option.click"><c-icon :name="option.icon" class="block"></c-icon></a>
+        <div v-for="option in navigator.navOptions">
+          <a @click="option.click"><c-icon :name="option.icon" class="block"></c-icon></a>  
         </div>
     </div>
     <c-xsd-menu :toggle.sync="navToggle" side="left" :items="navigator.mainItems"></c-xsd-menu>
@@ -48,10 +48,15 @@ export default {
   methods: {
     pushNav(nav){
       this.navStack.push(this.navigator)
-      this.navigator = Object.assign({ mainItems:[] } ,nav)
+      this.navigator = Object.assign({ mainItems:[], navOptions:[] } ,nav)
     },
     popNav(){
       this.navigator = this.navStack.pop()
+    },
+    setNavOptions(options){
+      setTimeout(()=>{
+          this.navigator.navOptions = options
+      }, 100);
     }
   },
   watch: {
@@ -62,20 +67,26 @@ export default {
       }
 
       const r = this.navMainRoutes.routes.find( route=>route.name==currentRoute.name )
-      const navButton = { icon:(!!r)?r.icon:'material-home', click:()=>{ this.navToggle=!this.navToggle } }
-
-      var routes = this.navMainRoutes.routes.filter( route => route.name!=this.$route.router._currentRoute.name );
-      const mainItems = routes.map( route=>{
-        return { title:this.__(route.title), icon:route.icon, click: ()=>{ 
-          this.navToggle=false;
-          this.$route.router.go({ name:route.name }) 
-        } }
-      })
+      let navButton, mainItems
+      if(!!r){
+        navButton = { icon:r.icon, click:()=>{ this.navToggle=!this.navToggle } }
+        var routes = this.navMainRoutes.routes.filter( route => route.name!=this.$route.router._currentRoute.name );
+        mainItems = routes.map( route=>{
+          return { title:this.__(route.title), icon:route.icon, click: ()=>{ 
+            this.navToggle=false;
+            this.$route.router.go({ name:route.name }) 
+          } }
+        })
+      }else{
+        navButton = { icon:'material-arrow_back', click:()=>{ history.back() } }
+        mainItems = []
+      }
 
       this.navigator = {
         title:this.title || this.__(currentRoute.title),
         navButton,
-        mainItems
+        mainItems,
+        navOptions:[]
       }
     }
   },

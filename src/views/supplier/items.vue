@@ -41,6 +41,12 @@ export default {
 					this.setItems(data.items)
 				} )			
 			}
+
+	    	this.$navbar.setNavOptions([{
+	    		icon:'material-add',
+	    		click: ()=>{this.newItem=true}
+	    	}])
+	    	
 			transition.next()
 		}
 	},

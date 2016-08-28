@@ -1,17 +1,15 @@
 <template>
   <div class='page-wrapper'>
-    <c-xsd-menu :toggle.sync="menu.show" :items="menu.items"></c-xsd-menu>
 
     <v-item v-if="item" :item='item'></v-item>
-
-    <c-frame :toggle='edit'>
+    <c-frame :toggle.sync='edit'>
       <v-item-edit v-if="item" :callback="editCallback" :itemid='item.id'></v-item-edit> 
     </c-frame>
   </div>
 </template>
 
 <script>
-import { CPane, CButton, CIcon,CListItem, CXsdMenu, CFrame, CXsdNavbar } from 'components'
+import { CPane, CButton, CIcon,CListItem, CFrame, CXsdNavbar } from 'components'
 import { mapActions } from 'vuex'
 import VItem from '../common/v-item'
 import VItemEdit from './v-item-edit'
@@ -22,14 +20,6 @@ export default {
   data () {
     return { 
       edit:false,
-      menu: {
-        show:false,
-        items:[
-          { title:'删除', icon:'material-delete_forever', click:this.removeItemL },
-          { title:'编辑', icon:'material-edit', click:()=>{ this.edit=true;this.menu.show=false } }
-        ]
-      },
-
     }
   },
   props : {
@@ -37,6 +27,12 @@ export default {
       type : Function,
       default : () => true
     }
+  },
+  ready(){
+    this.$navbar.setNavOptions([
+      { icon:'material-delete_forever', click:this.removeItemL },
+      { icon:'material-edit', click:()=>{ this.edit=true;this.menu.show=false } }
+    ])
   },
     methods: {
     	...mapActions(['removeItem', 'addItem', 'updateItem']),
@@ -64,7 +60,6 @@ export default {
     CListItem,
     VItem,
     VItemEdit,
-    CXsdMenu,
     CFrame,
     CXsdNavbar
   }
