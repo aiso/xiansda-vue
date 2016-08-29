@@ -22,14 +22,16 @@
 </template>
 
 <script>
-  import { CPane, CCell, CIcon, CListItem, CXsdAvatar, CButton } from 'components'
-  import { mapGetters, mapActions } from 'vuex'
+import { CPane, CCell, CIcon, CListItem, CXsdAvatar, CButton } from 'components'
+import { mapGetters, mapActions } from 'vuex'
+import { StringArray } from 'utils/string'
 
   export default {
     computed: {
     	...mapGetters(['auth']),
     	stations(){
-    		return (!!this.auth.supplier.stations)?this.auth.supplier.stations.length:0
+    		const stations = new StringArray(this.auth.supplier.stations)
+    		return stations.count()
     	}
     },
 	route: {

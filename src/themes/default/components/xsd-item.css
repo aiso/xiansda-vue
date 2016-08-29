@@ -26,6 +26,11 @@
 		& .title{
 			color:var(--text);
 			font-weight: normal;
+			line-height: 1.6em
+		}
+
+		& .subTitle{
+			color:var(--textLight)
 		}
 	}
 }
