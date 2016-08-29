@@ -1,6 +1,6 @@
 <template>
   <div :class="['c-xsd-avatar', class]">
-    <c-xsd-image :src="img" :width="width" :height="height"></c-xsd-image>
+    <c-xsd-image :src="img" :width="size" :height="size"></c-xsd-image>
   </div>
 </template>
 
@@ -13,11 +13,7 @@
         type: String,
         default: null
       },
-      width: {
-        type: [Number, String],
-        default: 80
-      },
-      height: {
+      size: {
         type: [Number, String],
         default: 80
       },

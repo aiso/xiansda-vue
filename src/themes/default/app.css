@@ -38,6 +38,12 @@ h1,h2,h3,h4,h5,h6,p{
   padding-bottom: var(--navbar);
 }
 
+.map-wrapper{
+  width: 100%;
+  top:0;
+  bottom: var(--navbar);
+}
+
 .image-square{
   position: relative;
   overflow: hidden;

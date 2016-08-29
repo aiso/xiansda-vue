@@ -1,5 +1,6 @@
 import Promise from 'nd-promise'
 import jsLoader from './js-loader'
+import geohash from './geohash'
 
 function extendBMap(){
     BMap.Map.prototype.geohash2point = function(gh){

@@ -23,6 +23,7 @@ xsd.install = function (Vue) {
     return null
   }
 
+  const xsdCache = [];
 	Object.defineProperties(Vue.prototype, {
 	  xsd:{
       get() {
@@ -44,11 +45,29 @@ xsd.install = function (Vue) {
           })
         }
 
-        const api = {
-          get: url => _request({ url }),
-          post: (url, data) => _request({ url, method:'POST', params:data }),
-          delete: url => _request({ url, method:'DELETE' })
+
+        const apiGet = url => _request({ url })
+        const apiPost = (url, data) => _request({ url, method:'POST', params:data })
+        const apiDelete = url => _request({ url, method:'DELETE' })
+        const apiGetCache = url => {
+          if(!!xsdCache[url])
+            return Promise.resolve(xsdCache[url])
+          else{
+            return apiGet(url).then(data=>{
+              xsdCache[url] = data
+              return data
+            })
+          }
         }
+
+        const api = {
+          get:apiGet,
+          post:apiPost,
+          delete:apiDelete,
+          getCache:apiGetCache
+        }
+
+
         return {
           api
         }
