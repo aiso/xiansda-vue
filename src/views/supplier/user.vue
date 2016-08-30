@@ -30,7 +30,7 @@ import { StringArray } from 'utils/string'
     computed: {
     	...mapGetters(['auth']),
     	stations(){
-    		const stations = new StringArray(this.auth.supplier.stations)
+    		const stations = new StringArray(this.auth.stations)
     		return stations.count()
     	}
     },

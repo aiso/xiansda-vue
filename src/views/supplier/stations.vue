@@ -43,7 +43,7 @@ export default {
     myStations(){
       if(!this.allStations) return []
 
-      const mySids = (new StringArray(this.auth.supplier.stations)).array()
+      const mySids = (new StringArray(this.auth.stations)).array()
       const stations = this.allStations.filter(station=>mySids.findIndex(sid=>sid==station.id)>=0)
       return stations.map(station=>{
         return { 
@@ -67,7 +67,7 @@ export default {
       })      
     },
     markers(){
-      const mySids = (new StringArray(this.auth.supplier.stations)).array()
+      const mySids = (new StringArray(this.auth.stations)).array()
       const stations = this.allStations.filter(station=>mySids.findIndex(sid=>sid==station.id)<0)
       return stations.map(station=>{
         return { 
@@ -95,25 +95,27 @@ export default {
   },
   methods: {
     ...mapActions(['setAuth']),
-    updateStations(stations){
-      this.xsd.api.post('supplier/profile', { stations }).then(data=>{
-        const newAuth = Object.assign({ }, this.auth)
-        newAuth.supplier = data.supplier
-        this.setAuth(newAuth);
-      })
+     updateAuth(stations){
+      const newAuth = Object.assign({ }, this.auth)
+      newAuth.stations = stations
+      this.setAuth(newAuth);
     },
     addStation(id) {
       this.addStationMap = false;
 
-      const stations = new StringArray(this.auth.supplier.stations)
-      stations.add(id);
-      this.updateStations(stations.toString())
+      this.xsd.api.post('supplier/station', { station:id }).then(data=>{
+        const stations = new StringArray(this.auth.stations)
+        stations.add(id);
+        this.updateAuth(stations.toString())
+      })
     },
     removeStation(id){
-      this.$confirm.open('取消发布至该站点？').then(()=>{
-        const stations = new StringArray(this.auth.supplier.stations)
-        stations.remove(id);
-        this.updateStations(stations.toString())
+      this.$confirm.open('确实停止供应此站点？').then(()=>{
+        this.xsd.api.delete('supplier/station/'+id).then(data=>{
+          const stations = new StringArray(this.auth.stations)
+          const idx = stations.remove(id);
+          this.updateAuth(stations.toString())
+        })
       })
     }
 

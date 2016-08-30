@@ -8,7 +8,7 @@ StringArray.prototype.add = function(item){
 }
 
 StringArray.prototype.remove = function(item){
-	const idx = this.arr.findIndex(i=>i=item)
+	const idx = this.arr.findIndex(i=>i==item)
 	if(idx>=0) 
 		this.arr.splice(idx, 1)
 	return idx
