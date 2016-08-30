@@ -1,22 +1,17 @@
 <template>
   <div>
-    <div v-if="!!selectMarker" class="bg-white p20 table-row marker-info">
-      <div>
-        <c-xsd-avatar :src="selectMarker.img" size=50></c-xsd-avatar>
-      </div>
-      <div class="extend plr20">
-        <h4>{{selectMarker.label}}</h4>
-      </div>
-      <div>
+    <c-xsd-item v-if="!!selectMarker" :item="selectMarker" class="bg-white p20 marker-info">
+      <p slot="subTitle">{{selectMarker.address}}</p>
+      <div slot="right">
         <a @click="onSelect(selectMarker.id)"><c-icon name="material-done" class="block"></c-icon></a>
       </div>
-    </div>
+    </c-xsd-item>
     <c-xsd-map :markers="markers" :marker-click="markerClick" class="map-wrapper"></c-xsd-map>
   </div>
 </template>
 
 <script>
-import { CXsdAvatar, CXsdMap, CIcon } from 'components'
+import { CXsdItem, CXsdMap, CIcon } from 'components'
 export default {
   props: {
     center: {
@@ -37,11 +32,16 @@ export default {
   },
   methods:{
     markerClick(marker){
-      this.selectMarker = marker;
+      this.selectMarker = {
+        id: marker.id,
+        title:marker.label,
+        avatar:marker.img,
+        address:marker.address
+      };
     }
   },
   components: {
-    CXsdAvatar,
+    CXsdItem,
     CXsdMap,
     CIcon
   }

@@ -107,9 +107,9 @@ var BaiduMap = {
         })
     },
     init(el, opts){
-        opts = Object.assign(opts, {
+        opts = Object.assign({
             zoom:13
-        });
+        }, opts);
 
         return this.getMap().then(function(BMap){
             var map = new BMap.Map(el);            // 创建Map实例

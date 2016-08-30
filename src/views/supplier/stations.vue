@@ -11,11 +11,11 @@
         <a @click="removeStation(station.id)"><c-icon name="material-delete_forever" class="block"></c-icon></a>
       </div>
     </c-xsd-item>
-
-
-
-    <c-frame :toggle.sync='showMap'>
+    <c-frame :toggle.sync='addStationMap' title='添加供应站'>
       <v-map-select :markers="markers" :on-select='addStation'></v-map-select> 
+    </c-frame>
+    <c-frame :toggle.sync='showStationMap' title='供应站'>
+      <v-map :location="mapLocation" ></v-map> 
     </c-frame>
 	</div>
 </template>
@@ -25,13 +25,16 @@
 import { CPane, CCell, CIcon, CXsdItem, CXsdAvatar, CFrame } from 'components'
 import { mapGetters, mapActions } from 'vuex'
 import VMapSelect from '../common/v-map-select'
+import VMap from '../common/v-map'
 import { StringArray } from 'utils/string'
 
 export default {
   data(){
     return {
-      showMap: false,
-      allStations:null
+      addStationMap: false,
+      showStationMap: false,
+      allStations:null,
+      mapLocation:null
     }
 
   },
@@ -43,14 +46,37 @@ export default {
       const mySids = (new StringArray(this.auth.supplier.stations)).array()
       const stations = this.allStations.filter(station=>mySids.findIndex(sid=>sid==station.id)>=0)
       return stations.map(station=>{
-        return { title:station.name, id:station.id, avatar:station.img, address:station.address }
+        return { 
+          id:station.id, 
+          avatar:station.img, 
+          address:station.address,
+          button:{
+            title:station.name,
+            click:()=>{
+              console.log(station.id)
+              this.mapLocation = {
+                title:station.name,
+                geohash:station.geohash,
+                avatar:station.img, 
+                subTitle:station.address
+              }
+              this.showStationMap = true
+            }
+          }
+        }
       })      
     },
     markers(){
       const mySids = (new StringArray(this.auth.supplier.stations)).array()
       const stations = this.allStations.filter(station=>mySids.findIndex(sid=>sid==station.id)<0)
       return stations.map(station=>{
-        return { label:station.name, geohash:station.geohash, id:station.id, img:station.img }
+        return { 
+          label:station.name, 
+          geohash:station.geohash, 
+          id:station.id, 
+          img:station.img, 
+          address:station.address
+        }
       })
     }
   },
@@ -61,7 +87,7 @@ export default {
         } ) 
 
         this.$navbar.setNavOptions([
-          { icon:'material-add', click: ()=>this.showMap=true },
+          { icon:'material-add', click: ()=>this.addStationMap=true },
         ])
 
       transition.next()
@@ -77,7 +103,7 @@ export default {
       })
     },
     addStation(id) {
-      this.showMap = false;
+      this.addStationMap = false;
 
       const stations = new StringArray(this.auth.supplier.stations)
       stations.add(id);
@@ -90,6 +116,7 @@ export default {
         this.updateStations(stations.toString())
       })
     }
+
   },
 	components: {
 		CPane,
@@ -98,6 +125,7 @@ export default {
 		CXsdItem,
 		CXsdAvatar,
     CFrame,
+    VMap,
     VMapSelect
 	}    
 }

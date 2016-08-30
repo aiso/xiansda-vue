@@ -2,7 +2,7 @@
   <div class='page-wrapper'>
 
 	  <c-pane>
-		  <c-cell  v-for='item in items'>
+		  <c-cell v-for='item in items'>
 		  	<a @click="showItem(item.id)"><c-xsd-item :item='item'></c-xsd-item></a>
 		  </c-cell>
 	  </c-pane>

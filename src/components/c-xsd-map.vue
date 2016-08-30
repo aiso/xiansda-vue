@@ -13,7 +13,7 @@ export default {
       type: String,
       default: ''
     },
-    center: {
+    options: {
       type: Object
     },
     markers: {
@@ -33,7 +33,7 @@ export default {
     const opts = Object.assign({
       lat:24.46,
       lng:118.1
-    }, this.center)
+    }, this.options)
 
     bmap.init(this.$els.xsdMap, opts).then( map => {
       //pin = map.createPin('images/marker_red_sprite.png', { width:36,height:36 });
