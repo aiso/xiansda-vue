@@ -10,9 +10,6 @@
         <div v-for="option in navigator.navOptions">
           <a @click="option.click"><c-icon :name="option.icon" class="block"></c-icon></a>  
         </div>
-        <div v-if="!!rightButton">
-          <c-button :disabled="rightButton.disabled" @click="rightButton.click">{{rightButton.text}}</c-button>
-        </div>
     </div>
     <c-xsd-menu :toggle.sync="navToggle" side="left" :items="navigator.mainItems"></c-xsd-menu>
   </div>
@@ -48,15 +45,12 @@ export default {
     ...mapGetters(['navMainRoutes', 'navCurrRoute']),
     lastNav(){
       return (this.navStack.length == 0)?null:this.navStack[this.navStack.length-1]
-    },
-    rightButton(){
-      return (!!this.navigator.rightButton)?this.navigator.rightButton():null
     }
   },
   methods: {
     pushNav(nav){
       this.navStack.push(this.navigator)
-      this.navigator = Object.assign({ mainItems:[], navOptions:[], rightButton:null } ,nav)
+      this.navigator = Object.assign({ mainItems:[], navOptions:[] } ,nav)
     },
     popNav(){
       this.navigator = this.navStack.pop()
@@ -65,14 +59,8 @@ export default {
       setTimeout(()=>{
           this.navigator.navOptions = options
       }, 100);
-    },
-    setRightButton(button){
-      setTimeout(()=>{
-        console.log(button)
-          this.navigator.rightButton = button
-      }, 100);
     }
-  },
+   },
   watch: {
     navCurrRoute(currentRoute){
       if(!currentRoute) {
@@ -100,8 +88,7 @@ export default {
         title:this.title || this.__(currentRoute.title),
         navButton,
         mainItems,
-        navOptions:[],
-        rightButton:null
+        navOptions:[]
       }
     }
   },

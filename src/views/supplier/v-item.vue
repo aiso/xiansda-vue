@@ -2,7 +2,7 @@
   <div class='page-wrapper'>
 
     <v-item v-if="item" :item='item'></v-item>
-    <c-frame :toggle.sync='edit'>
+    <c-frame :toggle.sync='edit' :title="__('supplier.item.edit')">
       <v-item-edit v-if="item" :callback="editCallback" :itemid='item.id'></v-item-edit> 
     </c-frame>
   </div>
@@ -31,7 +31,7 @@ export default {
   ready(){
     this.$navbar.setNavOptions([
       { icon:'material-delete_forever', click:this.removeItemL },
-      { icon:'material-edit', click:()=>{ this.edit=true;this.menu.show=false } }
+      { icon:'material-edit', click:()=>{ this.edit=true } }
     ])
   },
     methods: {

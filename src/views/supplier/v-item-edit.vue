@@ -33,7 +33,13 @@
           </div>
         </div>
       </div>
-<c-button :disabled="rightButton.disabled" @click="rightButton.click">{{rightButton.text}}</c-button>
+      <c-cell>
+        <c-button :class="action.class"
+          :type="action.type"
+          @click="save"
+          :disabled="action.disabled">{{action.label}}</c-button>
+      </c-cell>
+      
     </c-pane>
 
   </div>
@@ -63,9 +69,6 @@ export default {
       this.images.push({ id:img.id, url:img.url, name:img.name, size:img.size, delete:false })
     } )
     done();
-  },
-  ready(){
-    this.$navbar.setRightButton(this.rightButton)
   },
   computed: {
     fields () {
@@ -122,20 +125,12 @@ export default {
         }
       }
     },
-    /*
     action () {
       return {
         type: 'submit',
-        class: 'primary small',
+        class: 'primary',
         label: this.progress ? '保存中...' : '保存',
         disabled: !!this.progress || (this.$validation && this.$validation.invalid)
-      }
-    }*/
-    rightButton(){
-      return {
-        text:this.progress ? '保存中...' : '保存',
-        disabled: !!this.progress || (this.$validation && this.$validation.invalid),
-        click:this.save
       }
     }
   },
