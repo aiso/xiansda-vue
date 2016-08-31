@@ -2,8 +2,8 @@
   <div class='page-wrapper'>
 
 	  <c-pane>
-		  <c-cell v-for='item in items'>
-		  	<a @click="showItem(item.id)"><c-xsd-item :item='item'></c-xsd-item></a>
+		  <c-cell v-for='item in listItems'>
+		  	<c-xsd-item :item='item'></c-xsd-item>
 		  </c-cell>
 	  </c-pane>
 
@@ -15,7 +15,7 @@
   		</div>
 	  </c-pane>
 
-	  <c-frame :toggle.sync='newItem'>
+	  <c-frame :toggle.sync='newItem' :title="__('supplier.item.new')">
 	  	<v-item-edit :callback="editCallback" ></v-item-edit>	
 	  </c-frame>
 
@@ -37,7 +37,7 @@ export default {
 	route: {
 		activate (transition) {
 			if(this.items == null){
-				this.xsd.api.get('items?supplier='+this.auth.id).then( data => {
+				this.xsd.api.get('supplier/items').then( data => {
 					this.setItems(data.items)
 				} )			
 			}
@@ -58,7 +58,20 @@ export default {
 		}
 	},
     computed: {
-    	...mapGetters(['auth', 'items']),
+    	...mapGetters(['user', 'items']),
+    	listItems(){
+    		if(!this.items) return [];
+
+    		return this.items.map(item=>{
+    			return {
+    				img:item.img,
+    				button:{
+    					title:item.title,
+    					click:()=>{ this.showItem(item.id) }
+    				}
+    			}
+    		})
+    	}
     },
     methods: {
       ...mapActions(['setItems', 'addItem']),

@@ -28,8 +28,8 @@
 		color:var(--text);
 
 		&.active, &:active{
-			background: white;
-			color:var(--primary);
+			background: var(--primary);
+			color:white;
 		}
 	}
 

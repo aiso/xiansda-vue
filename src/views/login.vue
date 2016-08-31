@@ -16,7 +16,7 @@
       </c-form>
     </c-pane>
 
-    <h3>{{auth||'no user'}}</h3><a @click="test">test auth</a>
+    <h3>{{user||'no user'}}</h3><a @click="test">test auth</a>
   </div>
 </template>
 
@@ -37,7 +37,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['auth', 'navMainRoutes']),
+    ...mapGetters(['user', 'navMainRoutes']),
     cells () {
       return {
         username: {
@@ -123,7 +123,7 @@ export default {
           else if(data.user.role == 20)
             this.setMainRoutes(navSupplier)
 
-          this.setAuth(data.user);
+          this.setAuth({ user:data.user, profile:data.profile });
         }).catch( data => {
           this.addToast({ class:'error', title:'错误：' + data.error.code, message:data.error.message });
         })
@@ -150,15 +150,14 @@ export default {
   route: {
     activate (transition) {
       transition.next()
-      this.auth && this.$route.router.go(this.navMainRoutes.home)
+      this.user && this.$route.router.go(this.navMainRoutes.home)
     }
   },
 
   watch: {
-    auth (val) {
+    user (val) {
       if (val) {
         this.$nextTick(() => {
-   
           this.$route.router.go(this.navMainRoutes.home)
           //this.$route.router.go('/logout')
         })

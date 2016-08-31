@@ -10,6 +10,9 @@
         <div v-for="option in navigator.navOptions">
           <a @click="option.click"><c-icon :name="option.icon" class="block"></c-icon></a>  
         </div>
+        <div v-if="!!rightButton">
+          <c-button :disabled="rightButton.disabled" @click="rightButton.click">{{rightButton.text}}</c-button>
+        </div>
     </div>
     <c-xsd-menu :toggle.sync="navToggle" side="left" :items="navigator.mainItems"></c-xsd-menu>
   </div>
@@ -20,6 +23,7 @@
 import { mapGetters } from 'vuex'
 import CXsdMenu from './c-xsd-menu'
 import CIcon from './c-icon'
+import CButton from './c-button'
 
 export default {
   props: {
@@ -36,7 +40,8 @@ export default {
     return {
       navToggle:false,
       navStack:[],
-      navigator:null
+      navigator:null,
+
     }
   },
   computed: {
@@ -44,11 +49,14 @@ export default {
     lastNav(){
       return (this.navStack.length == 0)?null:this.navStack[this.navStack.length-1]
     },
+    rightButton(){
+      return (!!this.navigator.rightButton)?this.navigator.rightButton():null
+    }
   },
   methods: {
     pushNav(nav){
       this.navStack.push(this.navigator)
-      this.navigator = Object.assign({ mainItems:[], navOptions:[] } ,nav)
+      this.navigator = Object.assign({ mainItems:[], navOptions:[], rightButton:null } ,nav)
     },
     popNav(){
       this.navigator = this.navStack.pop()
@@ -56,6 +64,12 @@ export default {
     setNavOptions(options){
       setTimeout(()=>{
           this.navigator.navOptions = options
+      }, 100);
+    },
+    setRightButton(button){
+      setTimeout(()=>{
+        console.log(button)
+          this.navigator.rightButton = button
       }, 100);
     }
   },
@@ -86,13 +100,15 @@ export default {
         title:this.title || this.__(currentRoute.title),
         navButton,
         mainItems,
-        navOptions:[]
+        navOptions:[],
+        rightButton:null
       }
     }
   },
   components: {
     CXsdMenu,
-    CIcon
+    CIcon,
+    CButton
   }
 }
 </script>

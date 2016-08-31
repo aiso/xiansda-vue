@@ -14,6 +14,8 @@ const SET_ENV_I18N = 'SET_ENV_I18N'
 
 const SET_AUTH = 'SET_AUTH'
 const AUTH_KEY = 'XSD_AUTH_KEY'
+const SET_USER = 'SET_USER'
+const SET_PROFILE = 'SET_PROFILE'
 
 const NAVIGATOR_KEY = 'NAVIGATOR_KEY'
 const SET_NAV_MAIN_ROUTES = 'SET_NAV_MAIN_ROUTES'
@@ -34,8 +36,11 @@ export default {
     SET_ENV,
     ENV_KEY,
     SET_ENV_I18N,
+
     SET_AUTH,
     AUTH_KEY,
+    SET_USER,
+    SET_PROFILE,
 
     NAVIGATOR_KEY,
     SET_NAV_MAIN_ROUTES,

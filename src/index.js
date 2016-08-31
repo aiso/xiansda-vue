@@ -45,7 +45,7 @@ router.beforeEach(transition => {
   store.dispatch('setProgress', 80)
 //console.log('auth='+transition.to.auth);
   if(transition.to.auth){
-    const user = store.getters.auth
+    const user = store.getters.user
     if(!user){
       transition.abort()
       router.go('/login')

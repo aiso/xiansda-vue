@@ -1,17 +1,5 @@
 <template>
   <div class='page-wrapper'>
-    <c-xsd-navbar :title="title" type="frame">
-      <div slot="left">
-        <a @click="callback('close')"><c-icon name="material-clear" class="block"></c-icon></a>
-      </div>
-      <div slot="right" class="pr10">
-        <c-button class="plr10" :class="action.class"
-          :type="action.type"
-          @click="save"
-          :disabled="action.disabled">{{action.label}}</c-button>
-      </div>
-    </c-xsd-navbar>
-
     <c-pane>
       <c-validation
         :validation="$validation"></c-validation>
@@ -45,14 +33,15 @@
           </div>
         </div>
       </div>
-
+<c-button :disabled="rightButton.disabled" @click="rightButton.click">{{rightButton.text}}</c-button>
     </c-pane>
+
   </div>
 </template>
 
 
 <script>
-import { CPane, CCell, CLabel, CValidation, CForm, CButton, CIcon, CXsdNavbar, CXsdImage } from 'components'
+import { CPane, CCell, CLabel, CValidation, CForm, CButton, CIcon, CXsdImage } from 'components'
 import ImageUtil from 'utils/image'
 import ItemSupplierMixin from 'mixins/item-supplier'
 
@@ -75,10 +64,10 @@ export default {
     } )
     done();
   },
+  ready(){
+    this.$navbar.setRightButton(this.rightButton)
+  },
   computed: {
-    title () {
-      return this.item.id == 0?this.__('supplier.item.new'):this.__('supplier.item.edit')
-    },
     fields () {
       return {
         title: this.item.title,
@@ -133,12 +122,20 @@ export default {
         }
       }
     },
+    /*
     action () {
       return {
         type: 'submit',
         class: 'primary small',
         label: this.progress ? '保存中...' : '保存',
         disabled: !!this.progress || (this.$validation && this.$validation.invalid)
+      }
+    }*/
+    rightButton(){
+      return {
+        text:this.progress ? '保存中...' : '保存',
+        disabled: !!this.progress || (this.$validation && this.$validation.invalid),
+        click:this.save
       }
     }
   },
@@ -156,6 +153,9 @@ export default {
       this.images[idx].delete = true;
     },
     save () {
+      console.log('save');
+      return;
+
       if (!this.payload && !this.imageMutate) {
         return
       }
@@ -188,8 +188,7 @@ export default {
     CForm,
     CButton,
     CIcon,
-    CXsdNavbar,
-    CXsdImage
+    CXsdImage,
   }
 }
 </script>

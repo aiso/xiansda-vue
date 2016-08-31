@@ -26,19 +26,19 @@ export default {
   route: {
     activate () {
       /*
-      if (!this.auth) {
+      if (!this.user) {
         history.back()
         return
       }*/
     }
   },
 
-  computed: mapGetters(['auth']),
+  computed: mapGetters(['user']),
 
   methods: mapActions(['setAuth']),
 
   watch: {
-    'auth' (val) {
+    'user' (val) {
       if (!val) {
         this.$nextTick(() => {
           this.$route.router.go('/')

@@ -4,14 +4,14 @@ import store from 'store'
 import request from 'utils/request'
 import base64 from 'utils/base64'
 
-import { SET_AUTH } from 'store/constants'
+import { SET_AUTH, SET_USER } from 'store/constants'
 
 const xsd = {}
 xsd.install = function (Vue) {
 	if(this.installed) return;
 
   function chkAuth(){
-    const user = store.getters.auth
+    const user = store.getters.user
     if(!!user){
       return  { mutate: options => {
         //console.log(user);
@@ -30,7 +30,7 @@ xsd.install = function (Vue) {
         const _request = options => {
           return request(Object.assign(options, chkAuth())).then(data => {
             if(!!data.aiso_auth_refresh){
-              store.commit(SET_AUTH, data.aiso_auth_refresh)
+              store.commit(SET_USER, data.aiso_auth_refresh)
             }
             return data;
           }).catch(result=>{
