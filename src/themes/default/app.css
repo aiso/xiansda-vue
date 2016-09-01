@@ -70,6 +70,12 @@ h6{
   height: 60px;
 }
 
+
+.c-icon.icon{
+  font-size: 50px;
+  color:var(--textLight)
+}
+
 .list-item{
   margin: 1rem 0;
 
@@ -152,6 +158,28 @@ a.list-item{
 .bottom-in-transition{
   transition: all .5s ease;
 }
+
+.float-left{
+  float: left;
+}
+.float-right{
+  float: right;
+}
+
+.clearfix { 
+  *zoom: 1; 
+} 
+.clearfix:before, 
+.clearfix:after { 
+  display: table; 
+  line-height: 0; 
+  content: ""; 
+} 
+
+.clearfix:after { 
+  clear: both; 
+} 
+
 
 .table-row{
   width: 100%;

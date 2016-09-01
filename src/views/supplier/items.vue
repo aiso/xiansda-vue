@@ -4,12 +4,12 @@
 	  <div class="list-item" v-for='item in listItems'>
 	  	<c-xsd-item :item='item'>
 	  		<div slot="right">
-			  <c-button class="small" v-if="item.post==0" @click="postItem(item.id)">发布</c-button>
+			  <c-button class="small" v-if="item.post==0" @click="itemPostId=item.id">发布</c-button>
+			  <h4 v-if="item.post">{{ item.price | currency }}</h4>
 	  		</div>
 	  	</c-xsd-item>
 	  </div>
 	</c-pane>
-
 	  <c-pane v-if='!items || items.length==0' class="text-center">
   		<c-icon name='fa-dropbox' class="icon-background"></c-icon>
   		<h5 class="text-background">还没有产品？</h5>
@@ -19,18 +19,17 @@
 	  </c-pane>
 
 	  <c-frame :toggle.sync='newItem' :title="__('supplier.item.new')">
-	  	<v-item-edit :callback="editCallback" ></v-item-edit>	
+	  	<v-item-edit :callback="editCallback"></v-item-edit>	
 	  </c-frame>
 
-	  <c-frame :toggle.sync='viewItem' :title="__('supplier.routes.items')">
-	  	<v-item-view :itemid='viewItemId'></v-item-view>
+	  <c-frame :toggle.sync='viewItemId' :title="__('supplier.routes.items')">
+	  	<v-item-view :itemid.sync='viewItemId'></v-item-view>
 	  </c-frame>
 
-	  <v-item-post :show.sync="itemPostToggle"></v-item-post>
+	  <v-item-post :itemid.sync="itemPostId" ></v-item-post>
 
   </div>
 </template>
-
 
 
 <script>
@@ -51,7 +50,7 @@ export default {
 
 	    	this.$navbar.setNavOptions([{
 	    		icon:'material-add',
-	    		click: ()=>{this.newItem=true}
+	    		click: ()=>{this.newItem=1}
 	    	}])
 	    	
 			transition.next()
@@ -59,10 +58,10 @@ export default {
 	},
 	data () {
 		return { 
-			newItem:false,
-			viewItem:false,
+			newItem:0,
 			viewItemId:0,
-			itemPostToggle:false
+			postItem:null,
+			itemPostId:0
 		}
 	},
     computed: {
@@ -72,6 +71,7 @@ export default {
 
     		return this.items.map(item=>{
     			return {
+    				id:item.id,
     				img:item.img,
     				post:item.post,
     				price:item.price,
@@ -87,7 +87,7 @@ export default {
       ...mapActions(['setItems', 'addItem']),
       showItem(id){
       	this.viewItemId=id
-      	this.viewItem = true
+      	//this.viewItem = true
       },
       editCallback (event, data) {
       	this.newItem = false;
@@ -95,9 +95,6 @@ export default {
       	if(event == 'add'){
       		this.addItem(data);
       	}
-      },
-      postItem(id){
-      	this.itemPostToggle = true;
       }
     },
 	components: {

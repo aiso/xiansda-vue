@@ -1,0 +1,25 @@
+.c-modal-header {
+	@mixin table-row;
+	padding:25px 20px 15px 20px;
+	background: var(--bgLight);
+
+
+	& >* {
+		@mixin table-cell;
+	}
+
+	& .c-modal-header-content{
+		width: 100%;
+		padding:0 20px;
+	}
+
+	& .sub-title{
+		color:var(--textLight)
+	}
+
+	& .c-icon{
+		font-size:40px;
+		line-height: 40px;
+		color:var(--text);
+	}
+}

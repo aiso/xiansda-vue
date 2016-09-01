@@ -3,7 +3,7 @@
 
     <v-item v-if="item" :item='item'></v-item>
     <c-frame :toggle.sync='edit' :title="__('supplier.item.edit')">
-      <v-item-edit v-if="item" :callback="editCallback" :itemid='item.id'></v-item-edit> 
+      <v-item-edit :callback="editCallback" :item='item'></v-item-edit> 
     </c-frame>
   </div>
 </template>
@@ -19,37 +19,46 @@ export default {
   mixins: [ItemSupplierMixin],
   data () {
     return { 
-      edit:false,
+      edit:0,
+      item:null
     }
   },
   props : {
+    itemid: {
+      type: Number,
+      twoWay: true
+    },
     callback : {
       type : Function,
       default : () => true
     }
   },
   ready(){
-    this.$navbar.setNavOptions([
-      { icon:'material-delete_forever', click:this.removeItemL },
-      { icon:'material-edit', click:()=>{ this.edit=true } }
-    ])
+    this.getSupplierItem(this.itemid).then(item=>{
+      this.item=item;
+      this.$navbar.navigator.navOptions = [
+        { icon:'material-delete_forever', click:this.removeItemL },
+        { icon:'material-edit', click:()=>{ this.edit=this.item.id } }
+      ]
+    })
   },
     methods: {
     	...mapActions(['removeItem', 'addItem', 'updateItem']),
       removeItemL () {
         this.$confirm.open('你确定要删除此产品？').then( () => {
           this.xsd.api.delete('item/'+this.item.id).then( () => {
-            this.removeItem(this.stopGetItem())
-            this.callback('close')
+            this.removeItem(this.item.id)
+            this.itemid=0
           } )
         } )
       },
-      editCallback (event, data) {
-        this.edit = false;
+      editCallback (event, item) {
+        this.edit = 0;
         if(event == 'add')
-          this.addItem(data);
+          this.addItem(item);
         else if(event == 'update'){
-          this.updateItem(data);
+          this.updateItem(item)
+          this.item = item
         }
       }
     },

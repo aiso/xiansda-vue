@@ -8,7 +8,7 @@
 export default {
   props:{
     toggle:{
-      type:Boolean,
+      type:Number,
       twoWay:true
     },
     title: {
@@ -22,7 +22,7 @@ export default {
         navButton:{
   				icon:'material-arrow_back',
   				click: () => {
-  					this.toggle = false;
+  					this.toggle = 0;
   				}
 		   },
   			navOptions:[]
@@ -31,7 +31,7 @@ export default {
   },
   watch:{
   	toggle(val){
-  		if(val === true){
+  		if(!!val === true){
   			this.$navbar.pushNav(this.navigation)
   		}else{
   			this.$navbar.popNav()

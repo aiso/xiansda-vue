@@ -1,7 +1,7 @@
 <template>
   <div :class="['c-form-cell', class]">
     <c-icon class="c-form-cell-icon">{{model.icon}}</c-icon>
-    <c-label class="c-form-cell-label">{{model.label}}</c-label>
+    <c-label class="c-form-cell-label" v-if="!!model.label">{{model.label}}</c-label>
     <component class="c-form-cell-value"
       align="right"
       :is="model.type"

@@ -12,6 +12,7 @@
     </div>
 </template>
 
+
 <script>
     import CIcon from 'components/c-icon'
 

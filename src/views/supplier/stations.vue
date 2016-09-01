@@ -31,8 +31,8 @@ import { StringArray } from 'utils/string'
 export default {
   data(){
     return {
-      addStationMap: false,
-      showStationMap: false,
+      addStationMap: 0,
+      showStationMap: 0,
       allStations:null,
       mapLocation:null
     }
@@ -59,7 +59,7 @@ export default {
                 avatar:station.img, 
                 subTitle:station.address
               }
-              this.showStationMap = true
+              this.showStationMap = 1
             }
           }
         }
@@ -85,7 +85,7 @@ export default {
         } ) 
 
         this.$navbar.setNavOptions([
-          { icon:'material-add', click: ()=>this.addStationMap=true },
+          { icon:'material-add', click: ()=>this.addStationMap=1 },
         ])
 
       transition.next()
@@ -94,7 +94,7 @@ export default {
   methods: {
     ...mapActions(['setProfile']),
     addStation(id) {
-      this.addStationMap = false;
+      this.addStationMap = 0;
 
       this.xsd.api.post('supplier/station', { station:id }).then(data=>{
         const stations = this.profile.stations.slice(0)

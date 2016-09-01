@@ -1,38 +1,42 @@
 <template>
-  <div :class="['c-modal', class]" v-show="show" transition="fade">
-    <c-mask v-if="backdrop" v-show="show"
-      @touchend.prevent="show = false"
+  <div :class="['c-modal', class]" v-if="!!item" transition="fade">
+    <c-mask v-if="backdrop" v-if="!!item"
+      @touchend.prevent="itemid = 0"
       transition="fade"></c-mask>
 
-    <div v-show="show" class="c-modal-content" transition="slide-up">
-      <h3>发布产品</h3>
-      <c-validation
-        :validation="$validation"></c-validation>
-      <c-form
-        :submit="post"
-        :cells="cells"
-        :items="fields"
-        class="c-form-expand"
-        @mutate="mutate">
-        <c-pane dir="vertical" slot="footer">
-          <c-button :class="action.class"
-            :type="action.type"
-            :disabled="action.disabled">{{action.label}}</c-button>
-        </c-pane>
-      </c-form>
+    <div v-if="!!item" class="c-modal-content" transition="slide-up">
+      <c-modal-header :image="item.img" title="发布产品" :sub-title="item.title"></c-modal-header>
+      <div class="table-row p20">
+        <div class="extend">
+          <c-form
+            :submit="post"
+            :cells="cells"
+            :items="fields"
+            class="c-form-expand"
+            @mutate="mutate">
+          </c-form>
+        </div>
+        <div class="pl20">
+          <c-button class="plr20" :class="action.class" @click="post"
+              :disabled="action.disabled">{{action.label}}</c-button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { CMask, CValidation, CForm, CPane, CButton } from 'components'
+import { CMask, CValidation, CForm, CPane, CButton, CIcon, CModalHeader } from 'components'
+import { mapActions } from 'vuex'
+import ItemSupplierMixin from 'mixins/item-supplier'
 
 export default {
+  mixins: [ItemSupplierMixin],
   props : {
-    show : {
-      type : Boolean,
+    itemid : {
+      type : Number,
       twoWay: true,
-      default : false
+      default : 0
     },
     backdrop: {
       type: Boolean,
@@ -47,6 +51,9 @@ export default {
     }
   },
   computed:{
+    item(){
+      return this.itemid==0?null:this.getStoreItem(this.itemid)
+    },
     cells () {
       return {
         price: {
@@ -60,14 +67,6 @@ export default {
               rule: true,
               message: '请输入发布价格'
             },
-            minlength: {
-              rule: 4,
-              message: '产品不能少于 4 个字符'
-            },
-            maxlength: {
-              rule: 256,
-              message: '产品不能多于 256 个字符'
-            },
             pattern: {
               rule: '/^[0-9]{1,7}(\.[0-9]{1,2})?$/',
               message: '价格不符合规则'
@@ -80,12 +79,13 @@ export default {
       return {
         type: 'submit',
         class: 'primary',
-        label: this.progress ? '提交中...' : '提交',
+        label: this.progress ? '发布中...' : '发布',
         disabled: !!this.progress || (this.$validation && this.$validation.invalid)
       }
     }
   },
   methods: {
+    ...mapActions(['updateItem']),
     mutate ($payload) {
       this.payload = $payload
     },
@@ -95,8 +95,12 @@ export default {
       }
 
       this.$validate().then(() => {
-console.log(this.payload)        
- 
+        const modify = { post:1, price:this.payload.price }
+        this.xsd.api.post('item/'+this.item.id, modify).then(data=>{
+          this.updateItem(Object.assign({ }, this.item, modify))
+          this.itemid = 0;
+        })
+
       }).catch($validation => {
         // this.$emit('error', $validation)
       })
@@ -110,7 +114,9 @@ console.log(this.payload)
     CValidation,
     CForm,
     CPane,
-    CButton
+    CButton,
+    CIcon,
+    CModalHeader
   }
 }
 </script>

@@ -52,8 +52,13 @@ import ImageUtil from 'utils/image'
 import ItemSupplierMixin from 'mixins/item-supplier'
 
 export default {
-  mixins: [ItemSupplierMixin],
   props : {
+    item: {
+      type: Object,
+      default () {
+        return { id:0 }
+      }
+    },
     callback : {
       type : Function,
       default : () => true
@@ -148,9 +153,6 @@ export default {
       this.images[idx].delete = true;
     },
     save () {
-      console.log('save');
-      return;
-
       if (!this.payload && !this.imageMutate) {
         return
       }
@@ -162,7 +164,6 @@ export default {
           if(this.item.id == 0)
             this.callback('add', data.item);
           else{
-            this.stopGetItem()
             this.callback('update', data.item);
           }
         })
