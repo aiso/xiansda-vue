@@ -1,6 +1,7 @@
 <template>
   <div class='page-wrapper'>
 		businesses
+
   </div>
 </template>
 
@@ -14,7 +15,8 @@ import { mapActions } from 'vuex'
     },
     components: {
     	CPane,
-    	CIcon,
+    	CIcon
     }
+    
 }
 </script>

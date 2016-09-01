@@ -1,11 +1,14 @@
 <template>
   <div class='page-wrapper'>
-
-	  <c-pane>
-		  <c-cell v-for='item in listItems'>
-		  	<c-xsd-item :item='item'></c-xsd-item>
-		  </c-cell>
-	  </c-pane>
+	<c-pane>
+	  <div class="list-item" v-for='item in listItems'>
+	  	<c-xsd-item :item='item'>
+	  		<div slot="right">
+			  <c-button class="small" v-if="item.post==0" @click="postItem(item.id)">发布</c-button>
+	  		</div>
+	  	</c-xsd-item>
+	  </div>
+	</c-pane>
 
 	  <c-pane v-if='!items || items.length==0' class="text-center">
   		<c-icon name='fa-dropbox' class="icon-background"></c-icon>
@@ -20,18 +23,22 @@
 	  </c-frame>
 
 	  <c-frame :toggle.sync='viewItem' :title="__('supplier.routes.items')">
-	  	<v-item-view :itemid='viewItemId' :callback="viewCallback"></v-item-view>
+	  	<v-item-view :itemid='viewItemId'></v-item-view>
 	  </c-frame>
+
+	  <v-item-post :show.sync="itemPostToggle"></v-item-post>
+
   </div>
 </template>
 
 
 
 <script>
-import { CPane, CFrame, CCell, CIcon, CButton, CXsdItem, CLoading } from 'components'
+import { CPane, CFrame, CCell, CIcon, CButton, CXsdItem, CLoading  } from 'components'
 import { mapGetters, mapActions } from 'vuex'
 import VItemEdit from './v-item-edit'
 import VItemView from './v-item'
+import VItemPost from './v-item-post'
 
 export default {
 	route: {
@@ -54,7 +61,8 @@ export default {
 		return { 
 			newItem:false,
 			viewItem:false,
-			viewItemId:0
+			viewItemId:0,
+			itemPostToggle:false
 		}
 	},
     computed: {
@@ -65,6 +73,8 @@ export default {
     		return this.items.map(item=>{
     			return {
     				img:item.img,
+    				post:item.post,
+    				price:item.price,
     				button:{
     					title:item.title,
     					click:()=>{ this.showItem(item.id) }
@@ -86,8 +96,8 @@ export default {
       		this.addItem(data);
       	}
       },
-      viewCallback (event, data) {
-      	this.viewItem = 0;
+      postItem(id){
+      	this.itemPostToggle = true;
       }
     },
 	components: {
@@ -99,6 +109,7 @@ export default {
 		CXsdItem,
 		VItemEdit,
 		VItemView,
+		VItemPost,
 		CLoading
 	}
 }

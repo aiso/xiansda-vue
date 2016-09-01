@@ -4,7 +4,7 @@
     <c-xsd-avatar v-if="!!item.avatar" :src="item.avatar" size=50></c-xsd-avatar>
 	  <div class="xsd-content">
 	  	<h4 v-if="!!item.title" class="title">{{item.title}}</h4>
-      <a v-if="!!item.button" @click.stop="item.button.click">{{item.button.title}}</a>
+      <a class="title" v-if="!!item.button" @click.stop="item.button.click">{{item.button.title}}</a>
       <div class="subTitle">
         <slot name="subTitle"></slot> 
       </div>

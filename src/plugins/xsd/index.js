@@ -90,6 +90,7 @@ xsd.install = function (Vue) {
     }
 	})
 
+
 	this.installed = true;
 }
 
