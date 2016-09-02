@@ -24,6 +24,7 @@
 import { CValidation, CPane, CForm, CButton } from 'components'
 import { mapGetters, mapActions } from 'vuex'
 import navSupplier from 'routes/supplier/navigator'
+import navClient from 'routes/client/navigator'
 
 
 export default {
@@ -119,7 +120,7 @@ export default {
         this.xsd.api.post('user/login', { uid:this.payload.username, pwd:this.payload.password }).then( data => {
 
           if(data.user.role == 10)
-            this.setMainRoutes(navSupplier)
+            this.setMainRoutes(navClient)
           else if(data.user.role == 20)
             this.setMainRoutes(navSupplier)
 
@@ -149,13 +150,15 @@ export default {
 
   route: {
     activate (transition) {
-      transition.next()
-      this.user && this.$route.router.go(this.navMainRoutes.home)
+      if(!!this.user)
+        transition.redirect(this.navMainRoutes.home)
+      else
+        transition.next()
     }
   },
-
   watch: {
     user (val) {
+      console.log(val)
       if (val) {
         this.$nextTick(() => {
           this.$route.router.go(this.navMainRoutes.home)
@@ -164,7 +167,6 @@ export default {
       }
     }
   },
-
   components: {
     CValidation,
     CPane,

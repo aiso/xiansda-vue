@@ -3,9 +3,11 @@
 	<c-pane>
 	  <div class="list-item" v-for='item in listItems'>
 	  	<c-xsd-item :item='item'>
-	  		<div slot="right">
-			  <c-button class="small" v-if="item.post==0" @click="itemPostId=item.id">发布</c-button>
-			  <h4 v-if="item.post">{{ item.price | currency }}</h4>
+	  		<div slot="right" class="pl10 valign-top">
+			  <c-button class="small primary" v-if="item.post==0" @click="itemPostId=item.id">发布</c-button>
+			  <a v-if="item.post" @click="itemPostId=item.id">
+			  	<c-price :amount="item.price"></c-price>
+			  </a>
 	  		</div>
 	  	</c-xsd-item>
 	  </div>
@@ -33,7 +35,7 @@
 
 
 <script>
-import { CPane, CFrame, CCell, CIcon, CButton, CXsdItem, CLoading  } from 'components'
+import { CPane, CFrame, CCell, CIcon, CButton, CXsdItem, CLoading, CPrice  } from 'components'
 import { mapGetters, mapActions } from 'vuex'
 import VItemEdit from './v-item-edit'
 import VItemView from './v-item'
@@ -107,7 +109,8 @@ export default {
 		VItemEdit,
 		VItemView,
 		VItemPost,
-		CLoading
+		CLoading,
+		CPrice
 	}
 }
 </script>

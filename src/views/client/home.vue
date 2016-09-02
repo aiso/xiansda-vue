@@ -1,20 +1,20 @@
 <template>
   <div>
-home
+	home 
   </div>
 </template>
 
 <script>
+import store from 'store'
 
-
-  import { mapActions } from 'vuex'
-
-  export default {
-    computed: {
-
-    },
-    methods: {
-      ...mapActions(['addToast']),
+export default {
+  route: {
+    activate: transition => {
+      if(!!store.getters.profile.station)
+	      transition.next()
+	  else
+		transition.redirect('/client/station')
     }
+  }
 }
 </script>

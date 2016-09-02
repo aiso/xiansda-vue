@@ -2,6 +2,22 @@
 
 ::-webkit-scrollbar{width:0px}
 
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Montserrat-Regular'), url('fonts/Montserrat-Regular.woff') format('woff');
+}
+
+/*
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box
+}
+*/
+
+
 h1,h2,h3,h4,h5,h6,p{
   margin: 0;
   font-weight: normal;
@@ -89,6 +105,10 @@ h6{
   &:active{
     opacity: .6
   }
+}
+
+.valign-top{
+  vertical-align: top !important;
 }
 
 a.list-item{

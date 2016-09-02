@@ -6,7 +6,7 @@
 
     <div v-if="!!item" class="c-modal-content" transition="slide-up">
       <c-modal-header :image="item.img" title="发布产品" :sub-title="item.title"></c-modal-header>
-      <div class="table-row p20">
+      <div class="table-row p10">
         <div class="extend">
           <c-form
             :submit="post"
@@ -16,9 +16,12 @@
             @mutate="mutate">
           </c-form>
         </div>
-        <div class="pl20">
+        <div class="pl10">
           <c-button class="plr20" :class="action.class" @click="post"
               :disabled="action.disabled">{{action.label}}</c-button>
+        </div>
+        <div class="pl10" v-if="item.post">
+          <c-button class="plr20 secondary" @click="offShelves">下架</c-button>
         </div>
       </div>
     </div>
@@ -43,16 +46,14 @@ export default {
       default: true
     }
   },
-  data(){
-    return {
-      fields: {
-        price: ''
-      }
-    }
-  },
   computed:{
     item(){
       return this.itemid==0?null:this.getStoreItem(this.itemid)
+    },
+    fields(){
+      return { 
+        price: this.item.price.toFixed(2)
+      }
     },
     cells () {
       return {
@@ -103,6 +104,13 @@ export default {
 
       }).catch($validation => {
         // this.$emit('error', $validation)
+      })
+    },
+    offShelves(){
+      const modify = { post:0 }
+      this.xsd.api.post('item/'+this.item.id, modify).then(data=>{
+        this.updateItem(Object.assign({ }, this.item, modify))
+        this.itemid = 0;
       })
     }
   },

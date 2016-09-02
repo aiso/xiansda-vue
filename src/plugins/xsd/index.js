@@ -68,8 +68,18 @@ xsd.install = function (Vue) {
         }
 
 
+        const user = {
+          logout: ()=>{
+            this.$confirm.open('确实要退出登录？').then(()=>{
+              store.commit(SET_AUTH, null)
+              this.$route.router.go('/')
+            })
+          }
+        }
+
         return {
-          api
+          api,
+          user
         }
       }
 	  },

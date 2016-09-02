@@ -25,7 +25,7 @@ const actions = {
 
 const mutations = {
   [SET_AUTH] (state, payload) {
-    state = Object.assign(state, payload)
+    Object.assign(state, { user:null, profile:null }, payload)
     localStore.set(payload)
   },
   [SET_USER] (state, payload) {

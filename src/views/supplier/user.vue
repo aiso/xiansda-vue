@@ -4,7 +4,7 @@
 	<div class="table-row p20">
 		<c-xsd-avatar :src="profile.img"></c-xsd-avatar>	
 		<div class="extend pl20">
-			<h3>{{profile.name}}</h3>
+			<h2>{{profile.name}}</h2>
 			<h5 class="mt5 c-text-light">{{user.uid}}</h5>
 		</div>
 	</div>
@@ -23,7 +23,7 @@
 
 <script>
 import { CPane, CCell, CIcon, CListItem, CXsdAvatar, CButton } from 'components'
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 import { StringArray } from 'utils/string'
 
   export default {
@@ -39,12 +39,8 @@ import { StringArray } from 'utils/string'
 		}
 	},
     methods: {
-      ...mapActions(['setAuth']),
       logout() {
-      	this.$confirm.open('确实要退出登录？').then(()=>{
-      		this.setAuth(null)
-      		this.$route.router.go('/')
-      	})
+      	this.xsd.user.logout()
       }
     },
 	components: {
