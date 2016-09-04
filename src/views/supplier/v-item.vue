@@ -2,6 +2,13 @@
   <div class='page-wrapper'>
 
     <v-item v-if="item" :item='item'></v-item>
+
+    <c-xsd-nav-button>
+      <a class="icon" @click="removeItemL"><c-icon name="material-delete_forever" class="block"></c-icon></a>
+      <a class="icon" @click="this.edit=this.item.id"><c-icon name="material-edit" class="block"></c-icon></a>  
+    </c-xsd-nav-button>
+
+
     <c-frame :toggle.sync='edit' :title="__('supplier.item.edit')">
       <v-item-edit :callback="editCallback" :item='item'></v-item-edit> 
     </c-frame>
@@ -9,7 +16,7 @@
 </template>
 
 <script>
-import { CPane, CButton, CIcon,CListItem, CFrame, CXsdNavbar } from 'components'
+import { CPane, CButton, CIcon,CListItem, CFrame, CXsdNavButton } from 'components'
 import { mapActions } from 'vuex'
 import VItem from '../common/v-item'
 import VItemEdit from './v-item-edit'
@@ -36,10 +43,6 @@ export default {
   ready(){
     this.getSupplierItem(this.itemid).then(item=>{
       this.item=item;
-      this.$navbar.navigator.navOptions = [
-        { icon:'material-delete_forever', click:this.removeItemL },
-        { icon:'material-edit', click:()=>{ this.edit=this.item.id } }
-      ]
     })
   },
     methods: {
@@ -70,7 +73,7 @@ export default {
     VItem,
     VItemEdit,
     CFrame,
-    CXsdNavbar
+    CXsdNavButton
   }
 }
 </script>

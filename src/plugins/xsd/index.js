@@ -4,7 +4,7 @@ import store from 'store'
 import request from 'utils/request'
 import base64 from 'utils/base64'
 
-import { SET_AUTH, SET_USER } from 'store/constants'
+import { SET_AUTH, SET_USER, SET_PROFILE, SET_NAV_MAIN_ROUTES } from 'store/constants'
 
 const xsd = {}
 xsd.install = function (Vue) {
@@ -69,6 +69,21 @@ xsd.install = function (Vue) {
 
 
         const user = {
+          login: data=>{
+            store.commit(SET_AUTH, { user:data.user, profile:data.profile });
+
+            if(data.user.role == 10){
+              store.commit(SET_NAV_MAIN_ROUTES, require('routes/client/navigator'))
+              api.get('client/favorites').then(data=>{
+                store.commit(SET_PROFILE, Object.assign({ }, store.getters.profile, {
+                  favorites: data.favorites
+                }));
+              })
+            }
+            else if(data.user.role == 20){
+              store.commit(SET_NAV_MAIN_ROUTES, require('routes/supplier/navigator'))
+            }
+          },
           logout: ()=>{
             this.$confirm.open('确实要退出登录？').then(()=>{
               store.commit(SET_AUTH, null)

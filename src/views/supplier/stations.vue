@@ -52,7 +52,6 @@ export default {
           button:{
             title:station.name,
             click:()=>{
-              console.log(station.id)
               this.mapLocation = {
                 title:station.name,
                 geohash:station.geohash,
@@ -80,15 +79,14 @@ export default {
   },
   route: {
     activate (transition) {
-        this.xsd.api.getCache('stations').then( data => {
-          this.allStations = data.stations
-        } ) 
-
-        this.$navbar.setNavOptions([
+      this.$root.setNavOptions([
           { icon:'material-add', click: ()=>this.addStationMap=1 },
-        ])
+      ])
 
-      transition.next()
+      this.xsd.api.getCache('stations').then( data => {
+        this.allStations = data.stations
+        transition.next()
+      } ) 
     }
   },
   methods: {

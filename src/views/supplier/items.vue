@@ -50,7 +50,7 @@ export default {
 				} )			
 			}
 
-	    	this.$navbar.setNavOptions([{
+      		this.$root.setNavOptions([{
 	    		icon:'material-add',
 	    		click: ()=>{this.newItem=1}
 	    	}])

@@ -32,9 +32,9 @@ import { StringArray } from 'utils/string'
     },
 	route: {
 		activate (transition) {
-		    this.$navbar.setNavOptions([
+			this.$root.setNavOptions([
 		      { icon:'material-exit_to_app', click:this.logout },
-		    ])
+			])
 			transition.next()
 		}
 	},

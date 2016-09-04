@@ -1,0 +1,16 @@
+.c-layout-center{
+	width: 100%;
+	height: 100%;
+	padding:1rem;
+	box-sizing: border-box;
+	display: table;
+}
+.c-layout-center-content{
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+
+	& .avatar{
+		display: inline-block;
+	}
+}

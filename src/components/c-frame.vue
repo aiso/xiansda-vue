@@ -1,10 +1,18 @@
 <template>
   <div :class="['c-frame', class]" v-if='toggle' transition="right-in">
     <slot></slot>
+    <c-xsd-navigator :title="navigator.title">
+      <a slot="navButton" @click="navigator.navButton.click">
+        <c-icon :name="navigator.navButton.icon" class="block"></c-icon>
+      </a>
+    </c-xsd-navigator>
   </div>
 </template>
 
 <script>
+import CXsdNavigator from './c-xsd-navigator'
+import CIcon from './c-icon'
+
 export default {
   props:{
     toggle:{
@@ -16,27 +24,21 @@ export default {
     }
   },
   computed: {
-  	navigation (){
-  		return Object.assign({
+  	navigator (){
+      return {
         title:this.title,
         navButton:{
-  				icon:'material-arrow_back',
-  				click: () => {
-  					this.toggle = 0;
-  				}
-		   },
-  			navOptions:[]
-  		}, this.$children.navigation)
-  	}
+          icon:'material-arrow_back',
+          click: () => {
+            this.toggle = 0;
+          }
+        }
+      }
+    }
   },
-  watch:{
-  	toggle(val){
-  		if(!!val === true){
-  			this.$navbar.pushNav(this.navigation)
-  		}else{
-  			this.$navbar.popNav()
-  		}
-  	}
+  components: {
+    CXsdNavigator,
+    CIcon,
   }
 }
 </script>

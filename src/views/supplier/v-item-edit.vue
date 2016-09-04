@@ -33,21 +33,22 @@
           </div>
         </div>
       </div>
-      <c-cell>
-        <c-button :class="action.class"
+    </c-pane>
+
+    <c-xsd-nav-button class="p10">
+      <c-button :class="action.class"
           :type="action.type"
           @click="save"
           :disabled="action.disabled">{{action.label}}</c-button>
       </c-cell>
-      
-    </c-pane>
+    </c-xsd-nav-button>
 
   </div>
 </template>
 
 
 <script>
-import { CPane, CCell, CLabel, CValidation, CForm, CButton, CIcon, CXsdImage } from 'components'
+import { CPane, CCell, CLabel, CValidation, CForm, CButton, CIcon, CXsdImage, CXsdNavButton } from 'components'
 import ImageUtil from 'utils/image'
 import ItemSupplierMixin from 'mixins/item-supplier'
 
@@ -133,7 +134,7 @@ export default {
     action () {
       return {
         type: 'submit',
-        class: 'primary',
+        class: 'small primary',
         label: this.progress ? '保存中...' : '保存',
         disabled: !!this.progress || (this.$validation && this.$validation.invalid)
       }
@@ -185,6 +186,7 @@ export default {
     CButton,
     CIcon,
     CXsdImage,
+    CXsdNavButton
   }
 }
 </script>

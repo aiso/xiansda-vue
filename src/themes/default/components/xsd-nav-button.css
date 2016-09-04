@@ -1,7 +1,21 @@
 .c-xsd-nav-button {
 	position: fixed;
-	z-index: 12;
+	z-index: 20;
 	right:0;
 	bottom:0;
+
+	& a.icon{
+		color:var(--text);
+		float: right;
+		
+		&.active, &:active{
+			background: var(--primary);
+			color:white;
+		}
+	}
+
+	& .c-button{
+		padding:0 1rem;
+	}
 }
 

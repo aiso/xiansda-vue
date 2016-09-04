@@ -118,13 +118,7 @@ export default {
       // validate then submit
       this.$validate().then(() => {
         this.xsd.api.post('user/login', { uid:this.payload.username, pwd:this.payload.password }).then( data => {
-
-          if(data.user.role == 10)
-            this.setMainRoutes(navClient)
-          else if(data.user.role == 20)
-            this.setMainRoutes(navSupplier)
-
-          this.setAuth({ user:data.user, profile:data.profile });
+          this.xsd.user.login(data)
         }).catch( data => {
           this.addToast({ class:'error', title:'错误：' + data.error.code, message:data.error.message });
         })
