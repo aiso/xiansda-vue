@@ -23,7 +23,8 @@ xsd.install = function (Vue) {
     return null
   }
 
-  const xsdCache = [];
+  const xsdCache = []
+  const _items = []
 	Object.defineProperties(Vue.prototype, {
 	  xsd:{
       get() {
@@ -67,6 +68,33 @@ xsd.install = function (Vue) {
           getCache:apiGetCache
         }
 
+        
+        const item = {
+          get(id){
+            if(id instanceof Array){
+              const reqs = id.filter(i=>typeof(_items[i]) == 'undefined')
+              if(reqs.length > 0){
+                return api.get('items/'+reqs.join(',')+'?with=images').then(data=>{
+                  data.items.forEach(i=>{
+                    _items[i.id] = i
+                  })
+                  return id.map(i=>_items[i])
+                })
+              }else{
+                return Promise.resolve(id.map(i=>_items[i]))
+              }
+            }else if(typeof(id) === 'number'){
+              if(!!_items[id])
+                return Promise.resolve(_items[id])
+              else
+                return api.get('item/'+id+'?with=images').then(data=>{
+                  _items[id] = data.item
+                  return data.item
+                })
+            }
+          }
+        }
+
 
         const user = {
           login: data=>{
@@ -94,6 +122,7 @@ xsd.install = function (Vue) {
 
         return {
           api,
+          item,
           user
         }
       }

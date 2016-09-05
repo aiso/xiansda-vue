@@ -196,6 +196,7 @@ webpackConfig.callbackLoader = require("vue-icons/icon-loader")([
   "fa-thumbs-up",
   "fa-file-o",
   'fa-dropbox',
+  'fa-shopping-basket',
   'material-home',
   'material-menu',
   'material-more_horiz',
@@ -206,6 +207,7 @@ webpackConfig.callbackLoader = require("vue-icons/icon-loader")([
   'material-clear',
   'material-person',
   'material-add',
+  'material-remove',
   'material-clear',
   'material-exit_to_app',
   'material-keyboard_backspace',
@@ -217,6 +219,8 @@ webpackConfig.callbackLoader = require("vue-icons/icon-loader")([
   'material-notifications',
   'material-delete_forever',
   'material-shopping_cart',
+  'material-favorite',
+  'material-favorite_border',
   ])
 
 

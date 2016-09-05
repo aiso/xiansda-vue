@@ -8,7 +8,7 @@ const state = localStore.get();
 
 const getters = {
   user: state => state.user,
-  profile: state => state.profile
+  profile: state => state.profile,
 }
 
 const actions = {
@@ -20,7 +20,7 @@ const actions = {
   },
   setProfile({ commit }, profile) {
     commit(SET_PROFILE, profile)
-  }
+  },
 }
 
 const mutations = {
@@ -35,7 +35,7 @@ const mutations = {
   [SET_PROFILE] (state, payload) {
     state.profile = payload
     localStore.set(state)
-  }
+  },
 }
 
 export default {
