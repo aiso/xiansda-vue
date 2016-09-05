@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { CModal, CPrice, CIcon } from 'components'
+import { CModal, CPrice, CIcon, CXsdImage } from 'components'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
@@ -78,7 +78,8 @@ export default {
   components: {
     CModal,
     CPrice,
-    CIcon
+    CIcon,
+    CXsdImage
   }
 }
 </script>

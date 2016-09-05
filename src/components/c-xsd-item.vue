@@ -2,13 +2,12 @@
   <div :class="['c-xsd-item', class]">
 	  <c-xsd-image v-if="!!item.img" :src="item.img" class="thumbnail" width=50 height=50></c-xsd-image>
     <c-xsd-avatar v-if="!!item.avatar" :src="item.avatar" size=50></c-xsd-avatar>
-	  <div class="xsd-content">
+	  <a class="xsd-content" @click="itemClick(item)">
 	  	<h4 v-if="!!item.title" class="title">{{item.title}}</h4>
-      <a class="title" v-if="!!item.button" @click.stop="item.button.click">{{item.button.title}}</a>
       <div class="subTitle">
         <slot name="subTitle"></slot> 
       </div>
-	  </div>
+	  </a>
     <slot name="right"></slot>
   </div>
 </template>
@@ -25,6 +24,12 @@ export default {
     },
     item: {
     	type: Object
+    }
+  },
+  methods:{
+    itemClick(item){
+      if(typeof(item.click) == 'function')
+        item.click()
     }
   },
   components: {

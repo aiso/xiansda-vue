@@ -9,13 +9,13 @@
   src: local('Montserrat-Regular'), url('fonts/Montserrat-Regular.woff') format('woff');
 }
 
-/*
+
 * {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box
 }
-*/
+
 
 .font-montserrat{
   font-family: Montserrat
@@ -89,6 +89,10 @@ h6{
   height: 60px;
 }
 
+.nowrap{
+  white-space:nowrap;
+}
+
 
 .span0{
   width:1% !important;
@@ -128,6 +132,10 @@ h6{
   font-size: 30px;
 }
 
+.ib{
+  display: inline-block;
+}
+
 .input-simple{
   border: 0;
   outline: 0;
@@ -139,7 +147,7 @@ h6{
 }
 
 .list-item{
-  margin: 1rem 0;
+  padding:15px 0 15px 15px;
 
 }
 

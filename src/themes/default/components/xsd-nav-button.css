@@ -3,6 +3,7 @@
 	z-index: 20;
 	right:0;
 	bottom:0;
+	height: var(--navbar);
 
 	& a.icon{
 		color:var(--text);
@@ -16,6 +17,10 @@
 
 	& .c-button{
 		padding:0 1rem;
+	}
+
+	& .text{
+		line-height: var(--navbar);
 	}
 }
 

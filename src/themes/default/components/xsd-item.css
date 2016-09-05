@@ -26,11 +26,16 @@
 		& .title{
 			color:var(--text);
 			font-weight: normal;
-			line-height: 1.6em
+			//line-height: 1.6em
 		}
 
 		& .subTitle{
+			margin-top: 5px;
 			color:var(--textLight)
+		}
+
+		&.active, &:active{
+			opacity: .6
 		}
 	}
 
