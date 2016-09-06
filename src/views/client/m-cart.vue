@@ -4,8 +4,8 @@
       <div class="extend text-left pl20">
         <h2>购物篮</h2>
       </div>
-      <div>
-        <c-icon name="material-shopping_cart" class="block c-text-light"></c-icon>
+      <div v-if="inCart">
+        <a @click="removeItem"><c-icon name="material-delete_forever" class="block c-text-light"></c-icon></a>
       </div>
     </div>
     <div v-if="!!cartItem">
@@ -48,14 +48,21 @@ export default {
   },
   data(){
     return{
-      cartItem:null
+      cartItem:null,
     }
   },
   computed:{
     ...mapGetters(['cart']),
+    inCart(){
+      return !!this.cart.find(i=>i.id == this.item.id)
+    }
   },
   methods: {
-    ...mapActions(['setCartItem']),
+    ...mapActions(['setCartItem', 'removeCartItem']),
+    removeItem(){
+      this.removeCartItem(this.item)
+      this.show = false
+    },
     modalAction(key){
       if(key=='submit'){
         this.setCartItem(this.cartItem)

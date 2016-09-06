@@ -15,6 +15,10 @@ const actions = {
     cart.push(cartItem)
     commit(SET_CART, cart)
   },
+  removeCartItem ({ commit }, cartItem) {
+    const cart = state.cart.filter(i=>i.id!=cartItem.id)
+    commit(SET_CART, cart)
+  },
 }
 
 const mutations = {
