@@ -1,28 +1,19 @@
-export default {
-  routes: {
+const routes = {
     '/': require('./home'),
     '/about': require('./about'),
     '/login': require('./login'),
     '/logout': require('./logout'),
     '/demo': require('./demo'),
     '/docs': require('./docs'),
+}
 
-    //'/client': require('./client'),
+Object.assign(routes, require('./supplier'))
+Object.assign(routes, require('./client'))
 
-    '/supplier': require('./supplier'),
-    '/supplier/businesses': require('./supplier/businesses'),
-    '/supplier/items': require('./supplier/items'),
-    '/supplier/user': require('./supplier/user'),
-    '/supplier/stations': require('./supplier/stations'),
+Object.assign(routes, require('./s101'))
 
-    '/client/businesses': require('./client/businesses'),
-    '/client/home': require('./client/home'),
-    '/client/cart': require('./client/cart'),
-    '/client/user': require('./client/user'),
-    '/client/station': require('./client/station'),
-
-  },
-
+export default {
+  routes,
   alias: {
     // '/login/:username': '/login'
   }

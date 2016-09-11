@@ -16,13 +16,11 @@
   		<c-icon name='fa-dropbox' class="icon-background"></c-icon>
   		<h5 class="text-background">还没有产品？</h5>
   		<div class="p20">
-  			<c-button class="primary">添加产品</c-button>	
+  			<c-button class="primary" @click="addItem">添加产品</c-button>	
   		</div>
 	  </c-pane>
+	  <c-modal-options :show.sync="newItem" :options="services" title="新建产品" sub-title="从下面选择新建的产品类型"></c-modal-options>
 
-	  <c-frame :toggle.sync='newItem' :title="__('supplier.item.new')">
-	  	<v-item-edit :callback="editCallback"></v-item-edit>	
-	  </c-frame>
 
 	  <c-frame :toggle.sync='viewItemId' :title="__('supplier.routes.items')">
 	  	<v-item-view :itemid.sync='viewItemId'></v-item-view>
@@ -35,13 +33,21 @@
 
 
 <script>
-import { CPane, CFrame, CCell, CIcon, CButton, CXsdItem, CLoading, CPrice  } from 'components'
+import { CPane, CFrame, CCell, CIcon, CButton, CXsdItem, CLoading, CPrice, CModalOptions } from 'components'
 import { mapGetters, mapActions } from 'vuex'
-import VItemEdit from './v-item-edit'
 import VItemView from './v-item'
 import VItemPost from './v-item-post'
 
 export default {
+	data () {
+		return { 
+			newItem:false,
+			viewItemId:0,
+			postItem:null,
+			itemPostId:0,
+			services:null
+		}
+	},
 	route: {
 		activate (transition) {
 			if(this.items == null){
@@ -52,18 +58,10 @@ export default {
 
       		this.$root.setNavOptions([{
 	    		icon:'material-add',
-	    		click: ()=>{this.newItem=1}
+	    		click: this.addItem
 	    	}])
 	    	
 			transition.next()
-		}
-	},
-	data () {
-		return { 
-			newItem:0,
-			viewItemId:0,
-			postItem:null,
-			itemPostId:0
 		}
 	},
     computed: {
@@ -87,6 +85,22 @@ export default {
     },
     methods: {
       ...mapActions(['setItems', 'addItem']),
+      addItem(){
+      	this.xsd.api.getCache('services').then(data=>{
+      		this.services = this.services || data.services.map(service=>{
+      			return{
+	      			icon:service.icon,
+	      			title:service.title,
+	      			subTitle:service.info,
+	      			click:()=>{ 
+	      				this.newItem = false
+	      				this.$route.router.go({ name:'s' + service.id + '/item/edit' }) 
+	      			}
+      			}
+      		})
+			this.newItem = true;
+      	})
+      },
       showItem(id){
       	this.viewItemId=id
       	//this.viewItem = true
@@ -106,11 +120,11 @@ export default {
 		CIcon,
 		CButton,
 		CXsdItem,
-		VItemEdit,
 		VItemView,
 		VItemPost,
 		CLoading,
-		CPrice
+		CPrice,
+		CModalOptions
 	}
 }
 </script>

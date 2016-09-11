@@ -1,0 +1,8 @@
+.c-modal-options {
+  text-align: left;
+}
+
+.c-modal-options-sub-title{
+	margin-top: 5px;
+	color:var(--textLight);
+}

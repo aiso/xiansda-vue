@@ -119,8 +119,6 @@ export default {
       this.$validate().then(() => {
         this.xsd.api.post('user/login', { uid:this.payload.username, pwd:this.payload.password }).then( data => {
           this.xsd.user.login(data)
-        }).catch( data => {
-          this.addToast({ class:'error', title:'错误：' + data.error.code, message:data.error.message });
         })
         
         /*
@@ -132,8 +130,6 @@ export default {
       })
     },
     test () {
-      //this.setAuth({ a:'1', b:'2' })
-      //this.xsd.api.get('test').then(data=>{console.log(data)})
       this.addToast({ class:'error', message:'test message' ,title:'错误' });
     }
   },

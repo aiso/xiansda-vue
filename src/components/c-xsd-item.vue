@@ -1,5 +1,6 @@
 <template>
   <div :class="['c-xsd-item', class]">
+    <c-icon v-if="!!item.icon" :name="item.icon"></c-icon>
 	  <c-xsd-image v-if="!!item.img" :src="item.img" class="thumbnail" width=50 height=50></c-xsd-image>
     <c-xsd-avatar v-if="!!item.avatar" :src="item.avatar" size=50></c-xsd-avatar>
 	  <a class="xsd-content" @click="itemClick(item)">
@@ -13,6 +14,7 @@
 </template>
 
 <script>
+import CIcon from './c-icon'
 import CXsdImage from './c-xsd-image'
 import CXsdAvatar from './c-xsd-avatar'
 
@@ -33,6 +35,7 @@ export default {
     }
   },
   components: {
+    CIcon,
     CXsdImage,
     CXsdAvatar,
   }
