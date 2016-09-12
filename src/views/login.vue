@@ -140,8 +140,9 @@ export default {
 
   route: {
     activate (transition) {
-      if(!!this.user)
+      if(!!this.user){
         transition.redirect(this.navMainRoutes.home)
+      }
       else
         transition.next()
     }

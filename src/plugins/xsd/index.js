@@ -4,8 +4,11 @@ import store from 'store'
 import request from 'utils/request'
 import base64 from 'utils/base64'
 
-import { SET_AUTH, SET_USER, SET_PROFILE, SET_NAV_MAIN_ROUTES } from 'store/constants'
+import { initStaticData, staticData } from './static'
 
+import { SET_AUTH, SET_USER, SET_PROFILE, SET_NAV_MAIN_ROUTES } from 'store/constants'
+console.log(initStaticData)
+console.log(staticData)
 const xsd = {}
 xsd.install = function (Vue) {
 	if(this.installed) return;
@@ -68,6 +71,10 @@ xsd.install = function (Vue) {
           getCache:apiGetCache
         }
 
+        api.get('static/default').then(data=>{
+          initStaticData(data.statics)
+        })
+
         
         const item = {
           get(id){
@@ -119,11 +126,12 @@ xsd.install = function (Vue) {
             })
           }
         }
-
+console.log(staticData)
         return {
           api,
           item,
-          user
+          user,
+          sd:staticData
         }
       }
 	  },

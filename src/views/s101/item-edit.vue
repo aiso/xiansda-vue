@@ -80,6 +80,7 @@ export default {
     fields () {
       return {
         title: this.item.title,
+        price: this.item.price,
         content: this.item.content,
       }
     },
@@ -114,6 +115,24 @@ export default {
             }
           }
         },
+        price: {
+          label: '产品价格',
+          icon: 'user',
+          type: 'textfield',
+          attrs: {
+            placeholder: '例如：12.34'
+          },
+          validate: {
+            required: {
+              rule: true,
+              message: '请输入产品价格'
+            },
+            pattern: {
+              rule: '/^[0-9]{1,7}(\.[0-9]{1,2})?$/',
+              message: '输入价格格式不符'
+            }  
+          }
+        },
         content: {
           label: '产品描述',
           icon: 'check',
@@ -122,12 +141,6 @@ export default {
           attrs: {
             placeholder: '关于产品的描述...'
           },
-          validate: {
-            required: {
-              rule: true,
-              message: '请输入产品描述'
-            }
-          }
         }
       }
     },
@@ -161,7 +174,7 @@ export default {
       this.$validate().then(() => {
         var modify = Object.assign({ images:this.images }, this.payload)
 
-        this.xsd.api.post('item/'+this.item.id, modify).then( data => {
+        this.xsd.api.post('s101/item/'+this.item.id, modify).then( data => {
           if(this.item.id == 0)
             this.callback('add', data.item);
           else{
