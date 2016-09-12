@@ -3,12 +3,10 @@ import Promise from 'nd-promise'
 import store from 'store'
 import request from 'utils/request'
 import base64 from 'utils/base64'
-
-import { initStaticData, staticData } from './static'
+import { createStaticData } from 'utils/static-data'
 
 import { SET_AUTH, SET_USER, SET_PROFILE, SET_NAV_MAIN_ROUTES } from 'store/constants'
-console.log(initStaticData)
-console.log(staticData)
+
 const xsd = {}
 xsd.install = function (Vue) {
 	if(this.installed) return;
@@ -50,17 +48,28 @@ xsd.install = function (Vue) {
         }
 
 
-        const apiGet = url => _request({ url })
+        const apiGet = url => {
+          if(typeof(url) == 'string')
+            return _request({ url })
+          else if(url instanceof Array){
+            return Promise.all(url.map(u=>apiGet(u)))
+          }
+        }
         const apiPost = (url, data) => _request({ url, method:'POST', params:data })
         const apiDelete = url => _request({ url, method:'DELETE' })
         const apiGetCache = url => {
-          if(!!xsdCache[url])
-            return Promise.resolve(xsdCache[url])
-          else{
-            return apiGet(url).then(data=>{
-              xsdCache[url] = data
-              return data
-            })
+          if(typeof(url) == 'string'){
+            if(!!xsdCache[url])
+              return Promise.resolve(xsdCache[url])
+            else{
+              return apiGet(url).then(data=>{
+                xsdCache[url] = data
+                return data
+              })
+            }
+          }
+          else if(url instanceof Array){
+            return Promise.all(url.map(u=>apiGetCache(u)))
           }
         }
 
@@ -71,11 +80,6 @@ xsd.install = function (Vue) {
           getCache:apiGetCache
         }
 
-        api.get('static/default').then(data=>{
-          initStaticData(data.statics)
-        })
-
-        
         const item = {
           get(id){
             if(id instanceof Array){
@@ -126,12 +130,15 @@ xsd.install = function (Vue) {
             })
           }
         }
-console.log(staticData)
+/*
+        api.get('static/default').then(data=>{
+          _staticData = createStaticData(data.statics)
+        })
+*/
         return {
           api,
           item,
           user,
-          sd:staticData
         }
       }
 	  },

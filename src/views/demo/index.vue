@@ -8,6 +8,9 @@
         <c-button class='primary fit small' @click='confirmTest' >confirm</c-button>
         <c-button class='primary fit small' @click='frameTest' >frame</c-button>
         <c-button class='primary fit small' @click='promiseTest' >promise</c-button>
+        <c-button class='primary fit small' @click='apiCache1' >apiCache1</c-button>
+        <c-button class='primary fit small' @click='apiCache2' >apiCache2</c-button>
+        <c-button class='primary fit small' @click='apiCache3' >apiCache3</c-button>
       </c-cell>
     </c-pane>
 
@@ -103,6 +106,22 @@
         promise.then( v=>v+1 ).then( v=>{
           return Promise.reject(6)
         } ).catch( v=>{ console.log('catch '+v);return Promise.reject(0) } ).then( v=>{ console.log(v) } );
+      },
+      apiCache1(){
+        this.xsd.api.getCache('services').then(data=>{
+          console.log(data)
+        })
+
+      },
+      apiCache2(){
+        this.xsd.api.getCache('regions').then(data=>{
+          console.log(data)
+        })
+      },
+      apiCache3(){
+        this.xsd.api.getCache(['services', 'regions']).then(data=>{
+          console.log(data)
+        })
       }
     },
     components: {
