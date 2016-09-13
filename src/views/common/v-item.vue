@@ -8,10 +8,6 @@
     <c-pane>
     	<h3>{{item.title}}</h3>
     </c-pane>
-    <c-pane>
-    	<p>{{item.content}}</p>
-    </c-pane>
-    <a></a>
   </div>
 </template>
 

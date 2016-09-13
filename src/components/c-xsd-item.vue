@@ -1,6 +1,6 @@
 <template>
   <div :class="['c-xsd-item', class]">
-    <c-icon v-if="!!item.icon" :name="item.icon"></c-icon>
+    <c-icon v-if="!!item.icon" :name="item.icon" class="block"></c-icon>
 	  <c-xsd-image v-if="!!item.img" :src="item.img" class="thumbnail" width=50 height=50></c-xsd-image>
     <c-xsd-avatar v-if="!!item.avatar" :src="item.avatar" size=50></c-xsd-avatar>
 	  <a class="xsd-content" @click="itemClick(item)">

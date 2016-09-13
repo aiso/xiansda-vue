@@ -1,6 +1,6 @@
 <template>
   <div class='page-wrapper'>
-    <c-pane>
+    <c-pane v-if="post">
       <c-validation
         :validation="$validation"></c-validation>
       <c-form
@@ -22,7 +22,7 @@
       <div v-for="img in images">
         <div class="table-row mb10" v-show="img.delete!==true">
           <div class="plr20">
-            <c-xsd-image :src="img.url" class="image-square"></c-xsd-image>  
+            <c-xsd-image :src="img.url" class="image-square" width=50 height=50></c-xsd-image>  
           </div>
           <div class="extend pr10">
             <h4>{{img.name}}</h4>
@@ -35,7 +35,7 @@
       </div>
     </c-pane>
 
-    <c-xsd-nav-button class="p10">
+    <c-xsd-nav-button class="p10" v-if="!!post">
       <c-button :class="action.class"
           :type="action.type"
           @click="save"
@@ -49,39 +49,56 @@
 
 <script>
 import { CPane, CCell, CLabel, CValidation, CForm, CButton, CIcon, CXsdImage, CXsdNavButton } from 'components'
+import { mapActions } from 'vuex'
 import ImageUtil from 'utils/image'
-import ItemSupplierMixin from 'mixins/item-supplier'
 
 export default {
-  props : {
-    item: {
-      type: Object,
-      default () {
-        return { id:0 }
-      }
-    },
-    callback : {
-      type : Function,
-      default : () => true
-    }
-  },
   data () {
     return {
-      images:[]
+      post: null,
+      images:null,
     }
   },
-  activate(done) {
-    !!this.item && !!this.item.images && this.item.images.forEach( img =>{
-      this.images.push({ id:img.id, url:img.url, name:img.name, size:img.size, delete:false })
-    } )
-    done();
+  route: {
+    data(transition){
+      if(this.$route.params.id > 0){
+        this.xsd.api.getCache('s101/item/'+this.$route.params.id).then(data=>{
+
+          const images = []
+          !!data.item.images  && data.item.images.forEach( img =>{
+            images.push({ id:img.id, url:img.url, name:img.name, size:img.size, delete:false })
+          } )
+
+          const post = {
+            id:data.item.id,
+            title:data.item.title,
+            price:data.item.sItem.price.toFixed(2),
+            content:data.item.sItem.content
+          }
+
+          transition.next({
+            post,
+            images
+          })
+        })
+      }else{
+        transition.next({
+          post: { id:0 },
+          images:[]
+        })
+      }
+    },
+    deactivate(transition){
+      this.post = null
+      transition.next()
+    }
   },
   computed: {
     fields () {
       return {
-        title: this.item.title,
-        price: this.item.price,
-        content: this.item.content,
+        title: this.post.title,
+        price: this.post.price,
+        content: this.post.content,
       }
     },
     imageMutate() {
@@ -137,7 +154,7 @@ export default {
           label: '产品描述',
           icon: 'check',
           type: 'multiline',
-          value: this.item.content,
+          value: this.post.content,
           attrs: {
             placeholder: '关于产品的描述...'
           },
@@ -154,12 +171,14 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['addItem', 'updateItem']),
     mutate ($payload) {
       this.payload = $payload
     },
     addImage () {
         ImageUtil.select().then( img => {
             this.images.push({ id:0, url:img.dataUrl, name:img.file.name, size:img.file.size,delete:false })
+            console.log(this.images)
         })
 
     },
@@ -173,13 +192,14 @@ export default {
       // validate then submit
       this.$validate().then(() => {
         var modify = Object.assign({ images:this.images }, this.payload)
-
-        this.xsd.api.post('s101/item/'+this.item.id, modify).then( data => {
-          if(this.item.id == 0)
-            this.callback('add', data.item);
-          else{
-            this.callback('update', data.item);
+        this.xsd.api.post('s101/item/'+this.post.id, modify).then( data => {
+          if(this.$route.params.id > 0){
+            this.updateItem(data.item)
+            this.xsd.api.dirty('s101/item/'+this.$route.params.id)
           }
+          else
+            this.addItem(data.item)
+          history.back()
         })
 
       }).catch($validation => {
@@ -189,6 +209,12 @@ export default {
   },
   validator: {
     auto: true
+  },
+  watch: {
+    post(val){
+      if(!!val) this.$validate()
+    }
+
   },
   components: {
     CPane,

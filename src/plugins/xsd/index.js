@@ -59,7 +59,7 @@ xsd.install = function (Vue) {
         const apiDelete = url => _request({ url, method:'DELETE' })
         const apiGetCache = url => {
           if(typeof(url) == 'string'){
-            if(!!xsdCache[url])
+            if(!!xsdCache[url] && xsdCache[url].dirty !== true )
               return Promise.resolve(xsdCache[url])
             else{
               return apiGet(url).then(data=>{
@@ -77,7 +77,10 @@ xsd.install = function (Vue) {
           get:apiGet,
           post:apiPost,
           delete:apiDelete,
-          getCache:apiGetCache
+          getCache:apiGetCache,
+          dirty(url){
+            if(!!xsdCache[url]) xsdCache[url].dirty = true
+          }
         }
 
         const item = {
