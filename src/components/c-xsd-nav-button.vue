@@ -1,5 +1,5 @@
 <template>
-  <div :class="['c-xsd-nav-button', class]" v-show="toggle" transition="right-in">
+  <div :class="['c-xsd-nav-button', class]">
     <slot></slot>
   </div>
 </template>
@@ -11,16 +11,7 @@ export default {
     class: {
       type: String,
       default: ''
-    },
-    toggle: {
-    	type: Boolean,
-    	default:false
     }
-  },
-  attached(){
-	setTimeout(()=>{
-		this.toggle=true
-	}, 500);
   }
 }
 </script>

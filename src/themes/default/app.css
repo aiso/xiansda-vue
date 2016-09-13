@@ -197,6 +197,16 @@ a.list-item{
   transform: translate3d(0, 1rem, 0);
 }
 
+.slide-left-transition {
+  transition: all .5s ease;
+}
+.slide-left-enter,
+.slide-left-leave {
+  opacity: 0;
+  position: fixed;
+  transform: translate3d(1rem, 0, 0);
+}
+
 .fade-transition {
   transition: all .5s ease;
 }

@@ -29,6 +29,10 @@
       "latest_commits": "最新提交"
     }
   },
+  "item" : {
+    "new": "新建产品",
+    "edit": "编辑产品"
+  },
   "client": {
     "routes" : {
       "home" : "首页",
@@ -45,10 +49,6 @@
       "item" : "产品",
       "user" : "用户",
       "stations" : "供应站点"
-    },
-    "item" : {
-      "new": "新建产品",
-      "edit": "编辑产品"
     }
-  }  
+  }
 }

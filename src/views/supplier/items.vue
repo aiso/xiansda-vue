@@ -2,10 +2,18 @@
   <div class='page-wrapper'>
 	<c-pane>
 	  <div class="list-item" v-for='item in items'>
-	  	<component :is="'CS' +item.service + 'Item'" :item="item"></component>
+		<c-xsd-item :item='item'>
+	  		<div slot="right">
+	  			<a class="pl10 ib text-center nowrap" v-if="item.service==0" @click="addItemService(item)">
+	  				<c-icon name="material-wifi"></c-icon>
+	  				<h5>发布</h5>	
+	  			</a>
+	 		</div>
+		</c-xsd-item>
 	  </div>
-
 	</c-pane>
+
+
 	  <c-pane v-if='!items || items.length==0' class="text-center">
   		<c-icon name='fa-dropbox' class="icon-background"></c-icon>
   		<h5 class="text-background">还没有产品？</h5>
@@ -13,7 +21,7 @@
   			<c-button class="primary" @click="newItem=true">添加产品</c-button>	
   		</div>
 	  </c-pane>
-	  <c-modal-options :show.sync="newItem" :options="optionServices" title="新建产品" sub-title="从下面选择新建的产品类型"></c-modal-options>
+	  <c-modal-options :show.sync="showAddServiceModal" :options="optionServices" title="发布产品" sub-title="从下面选择发布类型"></c-modal-options>
 
   </div>
 </template>
@@ -24,14 +32,13 @@ import Promise from 'nd-promise'
 
 import { CPane, CFrame, CCell, CIcon, CButton, CXsdItem, CLoading, CPrice, CModalOptions } from 'components'
 import { mapGetters, mapActions } from 'vuex'
-import CS101Item from '../s101/c-item'
 
 export default {
 	data () {
 		return { 
 			services:null,
 			optionServices:null,
-			newItem:false,
+			showAddServiceModal:false,
 			viewItemId:0,
 			postItem:null,
 			itemPostId:0
@@ -40,20 +47,7 @@ export default {
 	route: {
 		data(transition){
 			this.xsd.api.getCache('services').then(data=>{
-				const optionServices = data.services.map(service=>{
-		  			return{
-		      			icon:service.icon,
-		      			title:service.title,
-		      			subTitle:service.info,
-		      			click:()=>{ 
-		      				this.newItem = false
-		      				this.$route.router.go({ name:'s' + service.id + '/item/edit', params:{ id:0 } }) 
-		      			}
-		  			}
-		  		})
-
 				transition.next({
-					optionServices,
 					services:data.services
 				})
 			})
@@ -67,7 +61,7 @@ export default {
 
       		this.$root.setNavOptions([{
 	    		icon:'material-add',
-	    		click: ()=>{ this.newItem=true }
+	    		click: ()=>{ this.$route.router.go({ name:'item/new' })  }
 	    	}])
 	    	
 			transition.next()
@@ -95,6 +89,23 @@ export default {
     },
     methods: {
       ...mapActions(['setItems', 'addItem']),
+      addItemService(item){
+		this.xsd.api.getCache('services').then(data=>{
+			this.optionServices = data.services.map(service=>{
+	  			return{
+	      			icon:service.icon,
+	      			title:service.title,
+	      			subTitle:service.info,
+	      			click:()=>{ 
+	      				this.showAddServiceModal = false
+	      				this.$route.router.go({ name:'s' + service.id + '/item/service', params:{ id:item.id } }) 
+	      			}
+	  			}
+	  		})
+	  		this.showAddServiceModal = true
+		})
+
+      },
       showItem(id){
       	this.viewItemId=id
       	//this.viewItem = true
@@ -117,7 +128,6 @@ export default {
 		CLoading,
 		CPrice,
 		CModalOptions,
-		CS101Item
 	}
 }
 </script>

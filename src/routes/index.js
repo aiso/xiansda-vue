@@ -7,6 +7,7 @@ const routes = {
     '/docs': require('./docs'),
 }
 
+Object.assign(routes, require('./item'))
 Object.assign(routes, require('./supplier'))
 Object.assign(routes, require('./client'))
 

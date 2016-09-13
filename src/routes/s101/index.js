@@ -4,11 +4,11 @@ const defaultConfig = {
 
 export default {
 	
-  '/s101/item/:id/edit':  Object.assign({ }, defaultConfig, {
+  '/s101/item/:id/service':  Object.assign({ }, defaultConfig, {
   	auth: 20,
-	title: '产品',
-	name: 's101/item/edit',
-	component: resolve => require(['views/s101/item-edit'], resolve)
+	title: '发布服务',
+	name: 's101/item/service',
+	component: resolve => require(['views/s101/item-service'], resolve)
   }),
 
   '/s101/item/:id':  Object.assign({ }, defaultConfig, {

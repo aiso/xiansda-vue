@@ -4,7 +4,7 @@
     <c-toast class="toast" :toasts="toasts"></c-toast>
     <!--v-header :routes="routes"></v-header-->
     <div class="content">
-      <router-view class="router-view" transition="slide-up" transition-mode="out-in" keep-alive></router-view>
+      <router-view class="router-view" transition="fade" transition-mode="out-in" keep-alive></router-view>
     </div>
     <c-alert v-ref:modal-alert></c-alert>
     <c-confirm v-ref:modal-confirm></c-confirm>
