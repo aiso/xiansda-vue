@@ -91,8 +91,11 @@ Vue.use(VueLazyload, {
 
 import xsd from 'plugins/xsd'
 Vue.use(xsd)
+xsd.init().then(()=>{
+  router.start(App, 'app')
+})
 
-router.start(App, 'app')
+//router.start(App, 'app')
 
 if(__DEV__ && __WEINRE__){
   document.write('<script src="http://' + __LOCALHOST__ + ':8099/target/target-script-min.js#anonymous"></script>')

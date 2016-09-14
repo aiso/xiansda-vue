@@ -7,6 +7,8 @@ import { createStaticData } from 'utils/static-data'
 
 import { SET_AUTH, SET_USER, SET_PROFILE, SET_NAV_MAIN_ROUTES } from 'store/constants'
 
+import service from './service'
+
 const xsd = {}
 xsd.install = function (Vue) {
 	if(this.installed) return;
@@ -142,6 +144,9 @@ xsd.install = function (Vue) {
           api,
           item,
           user,
+          service,
+          default:require('./default'),
+          regex:require('./regex'),
         }
       }
 	  },
@@ -166,6 +171,12 @@ xsd.install = function (Vue) {
 	this.installed = true;
 }
 
+xsd.init = () =>{
+  return request({ url:'static/default' }).then(data=>{
+    service.init(data.services)
+    return true
+  })
+}
 
 if (window.Vue) {
   //window.xsd = xsdModules

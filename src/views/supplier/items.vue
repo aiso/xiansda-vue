@@ -4,15 +4,17 @@
 	  <div class="list-item" v-for='item in items'>
 		<c-xsd-item :item='item'>
 	  		<div slot="right">
-	  			<a class="pl10 ib text-center nowrap" v-if="item.service==0" @click="addItemService(item)">
+	  			<a class="pl10 ib text-center nowrap" v-if="item.service==0" @click="itemService(item)">
 	  				<c-icon name="material-wifi"></c-icon>
 	  				<h5>发布</h5>	
+	  			</a>
+	  			<a v-if="item.service>0" class="pl10 ib" @click="itemService(item)">
+	  				<c-xsd-item-service :item="item"></c-xsd-item-service>
 	  			</a>
 	 		</div>
 		</c-xsd-item>
 	  </div>
 	</c-pane>
-
 
 	  <c-pane v-if='!items || items.length==0' class="text-center">
   		<c-icon name='fa-dropbox' class="icon-background"></c-icon>
@@ -29,14 +31,13 @@
 
 <script>
 import Promise from 'nd-promise'
-
-import { CPane, CFrame, CCell, CIcon, CButton, CXsdItem, CLoading, CPrice, CModalOptions } from 'components'
+import { CPane, CFrame, CCell, CIcon, CButton, CXsdItem, CModalOptions } from 'components'
 import { mapGetters, mapActions } from 'vuex'
+import CXsdItemService from '../item/c-item-service'
 
 export default {
 	data () {
 		return { 
-			services:null,
 			optionServices:null,
 			showAddServiceModal:false,
 			viewItemId:0,
@@ -45,13 +46,6 @@ export default {
 		}
 	},
 	route: {
-		data(transition){
-			this.xsd.api.getCache('services').then(data=>{
-				transition.next({
-					services:data.services
-				})
-			})
-		},
 		activate (transition) {
 			if(this.items == null){
 				this.xsd.api.get('supplier/items').then( data => {
@@ -79,7 +73,7 @@ export default {
     				img:item.img,
     				post:item.post,
     				price:item.price,
-    				service:this.services.find(s=>s.id==item.service),
+    				service:this.xsd.service.cfg(item.service),
     				click:()=>{ 
     					this.$route.router.go({ name:'s' + item.service + '/item', params:{ id:item.id } })  
     				}
@@ -89,22 +83,23 @@ export default {
     },
     methods: {
       ...mapActions(['setItems', 'addItem']),
-      addItemService(item){
-		this.xsd.api.getCache('services').then(data=>{
-			this.optionServices = data.services.map(service=>{
+      itemService(item){
+      	if(item.service == 0){
+			this.optionServices = this.xsd.service.all().map(service=>{
 	  			return{
-	      			icon:service.icon,
-	      			title:service.title,
-	      			subTitle:service.info,
+	      			icon:service.config.icon,
+	      			title:service.config.title,
+	      			subTitle:service.config.info,
 	      			click:()=>{ 
 	      				this.showAddServiceModal = false
-	      				this.$route.router.go({ name:'s' + service.id + '/item/service', params:{ id:item.id } }) 
+	      				this.$route.router.go(service.routeItemService(item.id)) 
 	      			}
 	  			}
 	  		})
 	  		this.showAddServiceModal = true
-		})
-
+      	}else{
+      		this.$route.router.go(this.xsd.service.get(item.service).routeItemService(item.id)) 
+      	}
       },
       showItem(id){
       	this.viewItemId=id
@@ -121,13 +116,11 @@ export default {
 	components: {
 		CPane,
 		CFrame,
-		CCell,
 		CIcon,
 		CButton,
 		CXsdItem,
-		CLoading,
-		CPrice,
 		CModalOptions,
+		CXsdItemService
 	}
 }
 </script>

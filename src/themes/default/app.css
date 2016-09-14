@@ -141,6 +141,10 @@ h6{
   outline: 0;
 }
 
+.full-width{
+  width: 100%;
+}
+
 .c-icon.icon{
   font-size: 50px;
   color:var(--textLight)
@@ -317,11 +321,38 @@ a.list-item{
   margin-bottom: 30px;
 }
 
+.text-small{
+  font-size:10px;
+}
+
 .reserval{
   color:white;
 
   &.primary{
     background: var(--primary)
+  }
+}
+
+.i-text{
+  position: relative;
+  padding-left:16px;
+  font-size:14px;
+
+  & .c-icon{
+    position: absolute;
+    left:0;
+    top:2px;
+    font-size:14px;
+  }
+}
+
+.i-text.small{
+  padding-left:12px;
+  font-size:10px;
+
+  & .c-icon{
+    top:1px;
+    font-size:10px;
   }
 }
 
