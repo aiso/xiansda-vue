@@ -28,7 +28,7 @@ export default {
       return {
         title:this.title,
         navButton:{
-          icon:'material-arrow_back',
+          icon:'material-clear',
           click: () => {
             this.toggle = 0;
           }

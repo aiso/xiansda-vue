@@ -31,7 +31,8 @@
   },
   "item" : {
     "new": "新建产品",
-    "edit": "编辑产品"
+    "edit": "编辑产品",
+    "view": "产品"
   },
   "client": {
     "routes" : {
@@ -49,6 +50,13 @@
       "item" : "产品",
       "user" : "用户",
       "stations" : "供应站点"
+    }
+  },
+  "station": {
+    "routes" : {
+      "business" : "服务单",
+      "agents" : "我的代理",
+      "user" : "用户"
     }
   }
 }

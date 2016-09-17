@@ -35,7 +35,25 @@ export default {
           price: this.item.params.price
         })
       else
-        transition.next()
+        transition.next({
+          price:''
+        })
+    },
+    activate(transition){
+      if(this.item.service > 0){
+        this.$root.setNavOptions([{
+            icon:'material-delete_forever',
+            click: ()=>{ 
+              this.$confirm.open('停止发布服务？').then(()=>{
+                this.xsd.api.delete(this.service.surl('item/'+this.$route.params.id+'/service')).then(data=>{
+                  this.updateItem(data.item)
+                  history.back()
+                })
+              })
+            }
+          }])
+      }
+      transition.next()
     }
   },
   computed:{
@@ -44,7 +62,7 @@ export default {
       return this.items.find(i=>i.id==this.$route.params.id)
     },
     service() {
-      return this.xsd.service.get(this.item.service)
+      return this.xsd.service.get(101)
     },
     validator(){
       return this.xsd.regex.price.test(this.price)

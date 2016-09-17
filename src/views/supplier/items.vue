@@ -1,8 +1,8 @@
 <template>
   <div class='page-wrapper'>
 	<c-pane>
-	  <div class="list-item" v-for='item in items'>
-		<c-xsd-item :item='item'>
+	  <c-cell v-for='item in items'>
+		<c-xsd-item :item='item' :click='showItem'>
 	  		<div slot="right">
 	  			<a class="pl10 ib text-center nowrap" v-if="item.service==0" @click="itemService(item)">
 	  				<c-icon name="material-wifi"></c-icon>
@@ -13,7 +13,7 @@
 	  			</a>
 	 		</div>
 		</c-xsd-item>
-	  </div>
+	  </c-cell>
 	</c-pane>
 
 	  <c-pane v-if='!items || items.length==0' class="text-center">
@@ -23,7 +23,12 @@
   			<c-button class="primary" @click="newItem=true">添加产品</c-button>	
   		</div>
 	  </c-pane>
-	  <c-modal-options :show.sync="showAddServiceModal" :options="optionServices" title="发布产品" sub-title="从下面选择发布类型"></c-modal-options>
+	  <c-modal-options 
+	  	:show.sync="showAddServiceModal" 
+	  	:options="optionServices" 
+	  	title="发布产品" 
+	  	sub-title="从下面选择发布类型">
+  	  </c-modal-options>
 
   </div>
 </template>
@@ -48,7 +53,7 @@ export default {
 	route: {
 		activate (transition) {
 			if(this.items == null){
-				this.xsd.api.get('supplier/items').then( data => {
+				this.xsd.api.get('supplier/' + user.id +'/items').then( data => {
 					this.setItems(data.items)
 				} )			
 			}
@@ -71,7 +76,6 @@ export default {
     				id:item.id,
     				title:item.title,
     				img:item.img,
-    				post:item.post,
     				price:item.price,
     				service:this.xsd.service.cfg(item.service),
     				click:()=>{ 
@@ -101,9 +105,8 @@ export default {
       		this.$route.router.go(this.xsd.service.get(item.service).routeItemService(item.id)) 
       	}
       },
-      showItem(id){
-      	this.viewItemId=id
-      	//this.viewItem = true
+      showItem(item){
+      	this.$route.router.go({ name:'item', params:{ id: item.id } })  
       },
       editCallback (event, data) {
       	this.newItem = false;
@@ -116,6 +119,7 @@ export default {
 	components: {
 		CPane,
 		CFrame,
+		CCell,
 		CIcon,
 		CButton,
 		CXsdItem,

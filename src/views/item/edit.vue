@@ -22,7 +22,7 @@
       <div v-for="img in images">
         <div class="table-row mb10" v-show="img.delete!==true">
           <div class="plr20">
-            <c-xsd-image :src="img.url" class="image-square"></c-xsd-image>  
+            <c-xsd-image :src="img.url" class="image-square" width=40 height=40></c-xsd-image>  
           </div>
           <div class="extend pr10">
             <h4>{{img.name}}</h4>
@@ -62,19 +62,12 @@ export default {
   route: {
     data(transition){
       if(!!this.$route.params.id){
-        this.xsd.api.getCache('s101/item/'+this.$route.params.id).then(data=>{
+        this.xsd.item.get(this.$route.params.id).then(item=>{
 
           const images = []
-          !!data.item.images  && data.item.images.forEach( img =>{
+          !!item.images  && item.images.forEach( img =>{
             images.push({ id:img.id, url:img.url, name:img.name, size:img.size, delete:false })
           } )
-
-          const item = {
-            id:data.item.id,
-            title:data.item.title,
-            price:data.item.sItem.price.toFixed(2),
-            content:data.item.sItem.content
-          }
 
           transition.next({
             item,
@@ -178,7 +171,7 @@ export default {
         this.xsd.api.post('item/'+this.item.id, modify).then( data => {
           if(!!this.$route.params.id){
             this.updateItem(data.item)
-            this.xsd.api.dirty('item/'+this.$route.params.id)
+            this.xsd.item.dirty(+this.$route.params.id)
           }
           else
             this.addItem(data.item)

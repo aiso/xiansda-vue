@@ -1,5 +1,5 @@
 <template>
-  <component :is="'CItemService'+this.item.service" :item="item"></component>
+  <component :is="'CItemService'+this.item.service" :item="item" :class="class"></component>
 </template>
 
 <script>
@@ -9,6 +9,10 @@ export default {
   props: {
     item: {
       type: Object
+    },
+    class: {
+      type: String,
+      default:''
     },
   },
   components:{

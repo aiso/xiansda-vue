@@ -11,11 +11,6 @@ export default {
 	component: resolve => require(['views/s101/item-service'], resolve)
   }),
 
-  '/s101/item/:id':  Object.assign({ }, defaultConfig, {
-  	auth: 20,
-	title: '产品',
-	name: 's101/item',
-	component: resolve => require(['views/s101/item-view'], resolve)
-  })
+
 
 }

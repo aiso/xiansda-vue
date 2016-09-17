@@ -26,12 +26,16 @@ export default {
     },
     item: {
     	type: Object
+    },
+    click: {
+      type: Function,
+      default:null
     }
   },
   methods:{
     itemClick(item){
-      if(typeof(item.click) == 'function')
-        item.click()
+      if(typeof(this.click) == 'function')
+        this.click(item)
     }
   },
   components: {

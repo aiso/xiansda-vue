@@ -10,6 +10,9 @@ XsdService.prototype.surl = function(url){
 XsdService.prototype.routeItemService = function(id){
 	return { name:this.surl('item/service'), params:{ id } }
 }
+XsdService.prototype.routeItem = function(id){
+	return { name:this.surl('item'), params:{ id } }
+}
 
 let services = []
 

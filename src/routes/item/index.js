@@ -18,4 +18,10 @@ export default {
 	component: resolve => require(['views/item/edit'], resolve)
   }),
 
+  '/item/:id': Object.assign({ }, defaultConfig, {
+	title: 'item.view',
+	name: 'item',
+	component: resolve => require(['views/item/view'], resolve)
+  }),
+
 }
