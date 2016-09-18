@@ -1,0 +1,78 @@
+<template>
+  <c-modal :show.sync='show' :callback='modalAction'>
+    <div class="table-row p10">
+      <div class="extend text-left pl20">
+        <h2>代理产品</h2>
+      </div>
+      <div>
+        <a><c-icon name="material-delete_forever" class="block c-text-light"></c-icon></a>
+      </div>
+    </div>
+    <div>
+      <div class="table-row p10">
+          <div class="span3">
+              <span class="c-gray-light">数量</span>
+          </div>
+          <div class="span9">
+            <button class="float-right" @click="cartItem.quantity=cartItem.quantity+1"><c-icon name="material-add" class="block"></c-icon></button>
+            <input class="float-right input-simple text-center font-montserrat" style="width:80px;line-height: 50px;font-size:16px" v-model="cartItem.quantity" />
+            <button :disabled="cartItem.quantity<=1" class="float-right" @click="cartItem.quantity=cartItem.quantity-1"><c-icon name="material-remove" class="block"></c-icon></button>
+          </div>
+      </div>
+      <div class="table-row p10">
+          <div class="span3">
+              <span class="c-gray-light">金额</span>
+          </div>
+          <div class="span9 plr20 text-right">
+            <span>{{cartItem.price | currency ''}}</span> x {{cartItem.quantity}} = <c-price :amount="cartItem.price*cartItem.quantity" style="display: inline-block"></c-price>
+          </div>
+      </div>
+    </div>
+  </c-modal>
+</template>
+
+<script>
+import { CModal, CPrice, CIcon, CXsdImage } from 'components'
+import { mapActions, mapGetters } from 'vuex'
+
+export default {
+  props:{
+    show: {
+      twoWay: true,
+      type: Boolean,
+      default: false
+    },
+    item:{
+      type:Object
+    }
+  },
+  data(){
+    return{
+      cartItem:null,
+    }
+  },
+  computed:{
+    ...mapGetters(['cart']),
+  },
+  methods: {
+    modalAction(key){
+      if(key=='submit'){
+        this.setCartItem(this.cartItem)
+      }
+    }
+  },
+  watch:{
+    show(val){
+
+    }
+  },
+  components: {
+    CModal,
+    CPrice,
+    CIcon,
+    CXsdImage
+  }
+}
+</script>
+
+

@@ -1,7 +1,10 @@
 <template>
   <div class='page-wrapper'>
     <div v-if="item">
-      <c-swipe v-if="!!item.images && item.images.length" class='swipe' :auto="4000">
+      <c-pane v-if="!!user">
+        <c-xsd-service-action :item="item" class="text"></c-xsd-service-action>  
+      </c-pane>
+      <c-swipe v-if="!!item.images && item.images.length" class='swipe border-top' :auto="4000">
         <c-swipe-item v-for="image in item.images">
           <c-xsd-image :src='image.url' :width='slideWidth' height=200 style="overflow: visible"></c-xsd-image>
         </c-swipe-item>
@@ -11,25 +14,26 @@
           <div class="extend">
             <h3>{{item.title}}</h3>  
           </div>
-          <div class="pl10">
-            <a class="ib p5 btn">
-              <c-xsd-item-service :item="item" class="big"></c-xsd-item-service>  
-            </a>
-          </div>
-          <div class="pl10">
-            <c-xsd-service-action :item="item" class="big"></c-xsd-service-action>
-          </div>
         </div>
       </c-pane>
       <c-pane>
         <p class="c-text-light">{{item.content}}</p>
       </c-pane>
+
+      <c-xsd-nav-button v-if="!!user && user.role==20">
+        <a class="icon"
+          @click="deleteItem">
+            <c-icon name="material-delete_forever" class="block"></c-icon>
+        </a>
+        <a class="icon" 
+          v-link="{ name:'item/edit', params:{ id:item.id } }">
+            <c-icon name="material-edit" class="block"></c-icon>
+        </a>
+      </c-xsd-nav-button>
+
     </div>
 
-    <c-xsd-nav-button v-if="!!item && !!user && user.role==20" >
-      <a class="icon" @click="deleteItem"><c-icon name="material-delete_forever" class="block"></c-icon></a>
-      <a class="icon" v-link="{ name:'item/edit', params:{ id:item.id } }"><c-icon name="material-edit" class="block"></c-icon></a>  
-    </c-xsd-nav-button>
+
 
   </div>
 </template>

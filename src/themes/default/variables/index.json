@@ -16,5 +16,15 @@
   "blockSize": "50px",
   "grayLight": "#dbdbdb",
   "border": "#e7e7e9",
-  "red": "#ee5f5b"
+
+  "blue":"#2D96E9",
+  "blue-primary":"#3598db",
+  "blue-light":"#4FC7E8",
+  "blue-deep":"#2d3e50",
+  "green":"#4fd2c2",
+  "green-light":"#7FD17C",
+  "green-dark":"#598102",
+  "orange":"#FF8702",
+  "red":"#ee5f5b",
+  "red-dark":"#E53206"
 }

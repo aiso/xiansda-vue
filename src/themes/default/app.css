@@ -165,6 +165,19 @@ h6{
   }
 }
 
+.btn-block{
+  color:white;
+  background: var(--grayLight);
+
+  &.green{
+    background: var(--green);
+  }
+
+  &:active{
+    opacity: .6
+  }
+}
+
 .valign-top{
   vertical-align: top !important;
 }
@@ -335,14 +348,14 @@ a.list-item{
 
 .i-text{
   position: relative;
-  padding-left:16px;
+  padding-left:26px;
   font-size:14px;
 
   & .c-icon{
     position: absolute;
     left:0;
-    top:2px;
-    font-size:14px;
+    top:-4px;
+    font-size:24px;
   }
 }
 

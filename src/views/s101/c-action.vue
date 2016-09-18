@@ -1,12 +1,25 @@
 <template>
-  <c-button v-if="!!action" @click="action.click" class="c-service-action primary">
-    <c-icon :name="action.icon"></c-icon>
-    <h5>{{action.title}}</h5>
-  </c-button>
+  <div class="table-row">
+    <div>
+      <c-icon :name="service.config.icon" class="block"></c-icon>  
+    </div>
+    <div class="extend plr10">
+      <c-price :amount="item.params.price" class="big"></c-price>
+      <h5 class="c-text-light">{{service.config.title}}</h5>
+    </div>
+    <div>
+      <c-button v-if="action=='addAgent'" class="ib plr10 primary" @click="addAgent">添加代理</c-button>
+      <c-button v-if="action=='modifyAgent'" class="ib plr10 warning" @click="modifyAgent">修改代理</c-button>
+      <c-button v-if="action=='order'" class="ib plr10 primary" @click="order">下单</c-button>
+    </div>
+
+    <m-agent :show.sync="agentModal"></m-agent>
+  </div>
 </template>
 
 <script>
 import { CButton, CIcon, CPrice } from 'components'
+import MAgent from './m-agent'
 
 export default {
   props: {
@@ -27,46 +40,49 @@ export default {
   		service:this.xsd.service.get(this.item.service),
       action:null,
       station:null,
-      agent:null
+      agent:null,
+      agentModal:false
   	}
   },
   ready(){
     if(!this.user) return
 
     if(this.user.role == 30){
-      this.xsd.api.get(this.service.surl('item/'+this.item.id+'/agent/'+this.user.id)).then(data=>{
-        this.agent = data.agent
+      this.xsd.api.getCache(this.service.surl('item/'+this.item.id+'/agent/'+this.user.id)).then(data=>{
+        if(data.agent){
+          this.agent = data.agent
+          this.action = 'modifyAgent'
+        }
+        else{
+          this.action = 'addAgent'
+        }
       })
     }else if(this.user.role == 10){
-      this.xsd.api.get(this.service.surl('item/'+this.item.id+'/agent/'+this.user.station)).then(data=>{
-        this.agent = data.agent
+      this.xsd.api.getCache(this.service.surl('item/'+this.item.id+'/agent/'+this.user.station)).then(data=>{
+        if(data.agent){
+          this.agent = data.agent
+          this.action = 'order'
+        }
       })
     }
 
 
 
   },
-  computed: {
-    action(){
-      if(!this.user) return null
+  methods: {
+    addAgent(){
+      this.agentModal = true
 
-      if(this.user.role == 30 && !this.agent){
-        return {
-          title:'我要代理',
-          icon:'material-add',
-          click:()=>{
-            console.log('agent')
-          }
-        }
-      }
+    },
+    modifyAgent(){
 
-      if(this.user.role == 30 && !!this.agent){
-
-      }
+    },
+    order(){
 
     }
   },
   components:{
+    MAgent,
     CButton,
   	CIcon,
   	CPrice
@@ -74,23 +90,3 @@ export default {
 }
 </script>
 
-<style>
-  .c-service-action.c-button{
-    min-width: 4.2rem;
-    display: inline-block;
-    padding:0 .5rem;
-  }
-  .c-service-action .c-icon{
-    margin-top: .5rem;
-    font-size:32px;
-    line-height:1;
-  }
-
-  .c-service-action h5{
-    font-size: 10px;
-    margin-top:-.6rem;
-    line-height: 1;
-    margin-bottom: .5rem
-  }
-
-</style>
