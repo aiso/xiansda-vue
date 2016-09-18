@@ -16,6 +16,9 @@
               <c-xsd-item-service :item="item" class="big"></c-xsd-item-service>  
             </a>
           </div>
+          <div class="pl10">
+            <c-xsd-service-action :item="item" class="big"></c-xsd-service-action>
+          </div>
         </div>
       </c-pane>
       <c-pane>
@@ -36,6 +39,7 @@ import { CPane, CButton, CIcon, CSwipe, CSwipeItem, CXsdImage, CXsdNavButton } f
 import { mapActions, mapGetters } from 'vuex'
 
 import CXsdItemService from './c-item-service'
+import CXsdServiceAction from './c-service-action'
 
 export default {
   data () {
@@ -50,24 +54,10 @@ export default {
   route: {
     data(transition){
       this.xsd.item.get(this.$route.params.id).then(item=>{
-        console.log(item)
         transition.next({
           item
         })
       })
-    },
-    activate(transition){
-      /*
-      this.$root.setNavOptions([{
-        icon:'material-add',
-        click: ()=>{   }
-      }])
-      */
-      if(!user) 
-        transition.next()
-      else{
-        transition.next()
-      }
     },
     deactivate(transition){
       this.item = null
@@ -96,7 +86,8 @@ export default {
     CSwipeItem,
     CXsdNavButton,
     CXsdImage,
-    CXsdItemService
+    CXsdItemService,
+    CXsdServiceAction
   }
 }
 </script>
