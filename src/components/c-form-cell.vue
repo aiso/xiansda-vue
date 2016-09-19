@@ -10,6 +10,7 @@
       :attrs="model.attrs"
       :extra="model.extra"
       :validate="model.validate"></component>
+    <c-label class="c-form-cell-unit" v-if="!!model.unit">{{model.unit}}</c-label>
   </div>
 </template>
 

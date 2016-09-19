@@ -34,6 +34,11 @@
   text-align: right;
 }
 
+.c-form-cell-unit {
+  flex: none;
+  margin-left: 0.3em;
+}
+
 /* 输入框独占一行 */
 .c-form-expand {
   & .c-form-cell {

@@ -149,7 +149,6 @@ export default {
   },
   watch: {
     user (val) {
-      console.log(val)
       if (val) {
         this.$nextTick(() => {
           this.$route.router.go(this.navMainRoutes.home)

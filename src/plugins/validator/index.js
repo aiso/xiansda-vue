@@ -62,7 +62,20 @@ export default function plugin (Vue) {
       })
       // 校验当前 field
       Object.keys(validate).some(key => {
-        if (rules[key]) {
+        if(key == 'required'){
+          const { rule, message } = validate[key]
+          if(rule === true && !this.value){
+            errors.push({
+              field: this.field,
+              rule,
+              message
+            })
+            return true
+          }else
+            return false
+        }
+
+        if (rules[key] && !!this.value) {
           const { rule, message } = validate[key]
           if (!rules[key](this.value, rule)) {
             errors.push({
