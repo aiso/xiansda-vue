@@ -1,6 +1,6 @@
 <template>
   <div :class="['c-price', class]">
-    <span class="c-price-currency">￥</span><span class="c-price-amount">{{ amount | currency '' }}</span>
+    <span class="c-price-currency">{{pref}}</span><span class="c-price-amount">{{ amount | currency '' }}</span>
   </div>
 </template>
 
@@ -10,7 +10,11 @@ export default {
   props: {
     class: {
       type: String,
-      default: ''
+      default: 'red'
+    },
+    pref: {
+      type: String,
+      default: '￥'
     },
     amount: {
       type: [String, Number],

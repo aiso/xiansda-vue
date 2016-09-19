@@ -4,7 +4,7 @@ import { SET_ITEMS, ADD_ITEM, UPDATE_ITEM, REMOVE_ITEM, PROMISE_SUCCESS } from '
  * vuex的state
  */
 const state = {
-  items: null
+  items: []
 }
 
 /**

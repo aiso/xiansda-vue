@@ -320,7 +320,12 @@ a.list-item{
 .text-right{
   text-align: right;
 }
-
+.text-bold{
+  font-weight: bold;
+}
+.text-ls{
+  letter-spacing: 1px;
+}
 .icon-background{
   font-size: 80px !important;
   line-height: 80px;
@@ -433,3 +438,33 @@ a.list-item{
   color:var(--textLight)
 }
 
+.c-blue{
+  color:var(--blue);
+}
+.c-blue-primary{
+  color:var(--blue-primary);
+}
+.c-blue-light{
+  color:var(--blue-light);
+}
+.c-blue-deep{
+  color:var(--blue-deep);
+}
+.c-green{
+  color:var(--green);
+}
+.c-green-light{
+  color:var(--green-light);
+}
+.c-green-dark{
+  color:var(--green-dark);
+}
+.c-orange{
+  color:var(--orange);
+}
+.c-red{
+  color:var(--red);
+}
+.c-red-dark{
+  color:var(--red-dark);
+}

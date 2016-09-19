@@ -1,7 +1,7 @@
 <template>
   <c-modal :show.sync='show' :callback='modalAction' :actions="null">
     <div class="table-row p10">
-      <div class="extend text-left pl20">
+      <div class="extend text-left">
         <h2>代理产品</h2>
       </div>
       <div>
@@ -19,7 +19,7 @@
       <c-pane class="c-modal-footer">
         <c-cell direction="row">
           <c-flex>
-            <c-button :class="action.class" @click="postAgent" :disabled="action.disabled">{{action.label}}</c-button>
+            <c-submit class="primary" :submit="postAgent" :disabled="$validation && $validation.invalid" label="确定"></c-submit>
           </c-flex>
           <c-flex>
             <c-button class="default" @click="show=false">取消</c-button>
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { CValidation, CPane, CCell, CButton, CFlex, CModal, CPrice, CIcon, CXsdImage, CForm } from 'components'
+import { CValidation, CPane, CCell, CButton, CSubmit, CFlex, CModal, CPrice, CIcon, CXsdImage, CForm } from 'components'
 
 import { mapActions, mapGetters } from 'vuex'
 
@@ -42,22 +42,23 @@ export default {
       default: false
     },
     item:{
-      type:Object
+      type: Object
+    },
+    agent:{
+      type: Object,
+      default: null
     }
   },
-  data(){
-    return{
-      items: {
+  computed:{
+    ...mapGetters(['user']),
+    items(){
+      return Object.assign({
         strategy:1,
         fee:null,
         fee_min:null,
         fee_max:null
-      },
-    }
-  },
-
-  computed:{
-    ...mapGetters(['cart']),
+      }, this.agent)
+    },
     cells(){
       const strategy = {
         label:'代理费率策略',
@@ -134,13 +135,6 @@ export default {
       }
 
       return { strategy, fee, fee_min, fee_max  }
-    },
-    action () {
-      return {
-        class: 'primary',
-        label: this.progress ? '请求中...' : '确定',
-        disabled: !!this.progress || (this.$validation && this.$validation.invalid)
-      }
     }
   },
   methods: {
@@ -148,8 +142,10 @@ export default {
       this.payload = $payload
     },
     postAgent(){
-      this.xsd.api.get('static/default').then(data=>{
-        console.log(data);
+      const service = this.xsd.service.get(this.item.service)
+      this.xsd.api.post(service.surl('item/'+this.item.id+'/agent/'+this.user.id), this.payload).then(data=>{
+        this.$emit('mutate', data)
+        this.show = false
       })
     }
   },
@@ -161,6 +157,7 @@ export default {
     CPane,
     CCell,
     CButton,
+    CSubmit,
     CFlex,
     CModal,
     CPrice,

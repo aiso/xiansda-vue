@@ -1,10 +1,8 @@
 .c-price-currency {
-	color:var(--price);
 	font-weight: bold;
 }
 
 .c-price-amount{
-	color:var(--price);
 	font-family: Montserrat,sans-serif;
 	font-size: 16px;
 }

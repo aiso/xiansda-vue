@@ -44,15 +44,27 @@ export default {
   methods: {
     _click(){
       this.progress = true
-      const r = this.submit()
-
-
-
+      promisify(this.submit()).then(() => { 
+        this.progress = false 
+      })
     }
   },
   components: {
     CButton
   }
 }
+
+function promisify (val) {
+  if (!val) {
+    return val === false ? Promise.reject(val) : Promise.resolve(val)
+  }
+
+  if (typeof val.then === 'function') {
+    return val
+  }
+
+  return Promise.resolve(val)
+}
+
 </script>
 
