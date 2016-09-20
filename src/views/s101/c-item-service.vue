@@ -1,6 +1,6 @@
 <template>
   <div :class="['c-item-service-101', class]">
-    <c-price :amount="item.params.price" ></c-price>
+    <c-price :amount="item.params.price" class="c-red"></c-price>
     <span class="i-text small nowrap text-small c-text-light"><c-icon :name="service.icon"></c-icon>{{service.title}}</span>
   </div>
 </template>

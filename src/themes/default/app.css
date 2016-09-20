@@ -298,6 +298,20 @@ a.list-item{
   }
 }
 
+.flex-row{
+  display: flex;
+  flex-direction: row;
+
+  & >*{
+    flex: none;
+  }
+
+  & .flex-auto{
+    flex: auto;
+
+  }
+}
+
 .border-bottom{
   border-bottom: 1px solid var(--border);
 }

@@ -1,11 +1,11 @@
 <template>
   <c-modal :show.sync='show' :callback='modalAction' :actions="null">
-    <div class="table-row p10">
+    <div class="table-row">
       <div class="extend text-left">
         <h2>代理产品</h2>
       </div>
       <div>
-        <a><c-icon name="material-delete_forever" class="block c-text-light"></c-icon></a>
+        <a @click="show=false" class="c-text-light"><c-icon name="material-clear" class="block"></c-icon></a>
       </div>
     </div>
     <c-validation
@@ -21,8 +21,8 @@
           <c-flex>
             <c-submit class="primary" :submit="postAgent" :disabled="$validation && $validation.invalid" label="确定"></c-submit>
           </c-flex>
-          <c-flex>
-            <c-button class="default" @click="show=false">取消</c-button>
+          <c-flex v-if="!!agent.id">
+            <c-button class="warning" @click="deleteAgent">删除</c-button>
           </c-flex>
         </c-cell>
       </c-pane>
@@ -135,6 +135,9 @@ export default {
       }
 
       return { strategy, fee, fee_min, fee_max  }
+    },
+    agentUrl(){
+      return this.xsd.service.get(this.item.service).surl('item/'+this.item.id+'/agent/'+this.user.id)
     }
   },
   methods: {
@@ -142,8 +145,13 @@ export default {
       this.payload = $payload
     },
     postAgent(){
-      const service = this.xsd.service.get(this.item.service)
-      this.xsd.api.post(service.surl('item/'+this.item.id+'/agent/'+this.user.id), this.payload).then(data=>{
+      this.xsd.api.post(this.agentUrl, this.payload).then(data=>{
+        this.$emit('mutate', data)
+        this.show = false
+      })
+    },
+    deleteAgent(){
+      this.xsd.api.delete(this.agentUrl).then(data=>{
         this.$emit('mutate', data)
         this.show = false
       })

@@ -10,7 +10,7 @@ export default {
   props: {
     class: {
       type: String,
-      default: 'red'
+      default: ''
     },
     pref: {
       type: String,

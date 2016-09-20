@@ -11,19 +11,21 @@
       <h5 class="c-text-light" v-if="!!agent && agent.strategy==3">代理费：总价<span class="font-montserrat text-bold"> {{agent.fee| currency ''}}%</span></h5>
     </div>
     <div>
-      <c-button v-if="action=='addAgent'" class="ib plr10 primary text-ls" @click="addAgent">添加代理</c-button>
-      <c-button v-if="action=='modifyAgent'" class="ib plr10 text-ls" @click="modifyAgent">修改代理</c-button>
-      <c-button v-if="action=='order'" class="ib plr10 primary text-ls" @click="order">下单</c-button>
+      <c-button v-if="action=='addAgent'" class="ib plr10 primary text-ls" @click="agentModal=true">添加代理</c-button>
+      <c-button v-if="action=='modifyAgent'" class="ib plr10 text-ls" @click="agentModal=true">修改代理</c-button>
+      <c-button v-if="action=='order'" class="ib plr10 primary text-ls" @click="orderModal=true">下单</c-button>
     </div>
 
     <m-agent v-if="agentModal" :show.sync="agentModal" :item="item" :agent="agent" @mutate='onUpdateAgent'></m-agent>
+    <m-order v-if="orderModal" :show.sync="orderModal" :item="item" :agent="agent"></m-order>
   </div>
 </template>
 
 <script>
 import { CButton, CIcon, CPrice } from 'components'
 import MAgent from './m-agent'
-import { mapActions } from 'vuex'
+import MOrder from './m-order'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   props: {
@@ -45,7 +47,8 @@ export default {
       action:null,
       station:null,
       agent:null,
-      agentModal:false
+      agentModal:false,
+      orderModal:false
   	}
   },
   ready(){
@@ -71,24 +74,16 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(['user', 'profile']),
     agentUrl(){
       if(this.user.role == 30)
         return this.service.surl('item/'+this.item.id+'/agent/'+this.user.id)
       else if(this.user.role == 10)
-        return this.service.surl('item/'+this.item.id+'/agent/'+this.user.station)
+        return this.service.surl('item/'+this.item.id+'/agent/'+this.profile.station)
     }
   },
   methods: {
     ...mapActions(['addItem', 'updateItem']),
-    addAgent(){
-      this.agentModal = true
-    },
-    modifyAgent(){
-      this.agentModal = true
-    },
-    order(){
-
-    },
     onUpdateAgent(data){
       if(!this.agent)
         this.addItem(data.item)
@@ -102,6 +97,7 @@ export default {
   },
   components:{
     MAgent,
+    MOrder,
     CButton,
   	CIcon,
   	CPrice

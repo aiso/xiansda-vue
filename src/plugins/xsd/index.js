@@ -124,11 +124,12 @@ xsd.install = function (Vue) {
 
             if(data.user.role == 10){
               store.commit(SET_NAV_MAIN_ROUTES, require('routes/client/navigator'))
+              /*
               api.get('client/favorites').then(data=>{
                 store.commit(SET_PROFILE, Object.assign({ }, store.getters.profile, {
                   favorites: data.favorites
                 }));
-              })
+              })*/
             }
             else if(data.user.role == 20){
               store.commit(SET_NAV_MAIN_ROUTES, require('routes/supplier/navigator'))
