@@ -31,6 +31,15 @@
         </a>
       </c-xsd-nav-button>
 
+      <c-xsd-nav-button v-if="!!user && user.role==10">
+        <a class="icon" v-if="!hasFavorite" @click="addFavorite">
+            <c-icon name="material-favorite_border" class="block"></c-icon>
+        </a>
+        <a class="icon" v-if="!!hasFavorite" @click="removeFavorite">
+            <c-icon name="material-favorite" class="block c-orange"></c-icon>
+        </a>
+      </c-xsd-nav-button>
+
     </div>
 
 
@@ -69,19 +78,39 @@ export default {
     }
   },
   computed:{
-    ...mapGetters(['user']),
+    ...mapGetters(['user','favorites']),
+    hasFavorite(){
+      return this.favorites.findIndex(i=>i==this.item.id)>=0
+    }
   },
-    methods: {
-    	...mapActions(['removeItem', 'addItem', 'updateItem']),
-      deleteItem () {
-        this.$confirm.open('你确定要删除此产品？').then( () => {
-          this.xsd.api.delete('item/'+this.item.id).then( () => {
-            this.removeItem(this.item.id)
-            history.back()
-          } )
+  methods: {
+  	...mapActions(['removeItem', 'addItem', 'updateItem', 'setFavorites', 'addToast']),
+    deleteItem () {
+      this.$confirm.open('你确定要删除此产品？').then( () => {
+        this.xsd.api.delete('item/'+this.item.id).then( () => {
+          this.removeItem(this.item.id)
+          history.back()
         } )
-      }
+      } )
     },
+    addFavorite(){
+      this.xsd.api.post('favorite', { item:this.item.id }).then(data=>{
+        const favorites = this.favorites.slice(0)
+        favorites.push(this.item.id)
+        this.setFavorites(favorites)
+        this.addToast('收藏成功')
+      })
+    },
+    removeFavorite(){
+      this.xsd.api.delete('favorite/'+this.item.id).then(data=>{
+        const favorites = this.favorites.slice(0)
+        const idx = favorites.findIndex(i=>i==this.item.id)
+        favorites.splice(idx,1)
+        this.setFavorites(favorites)
+        this.addToast('您已取消收藏')
+      })
+    }
+  },
   components: {
     CPane,
     CButton,

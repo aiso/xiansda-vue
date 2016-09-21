@@ -30,10 +30,13 @@ const ADD_ITEM = 'ADD_ITEM'
 const UPDATE_ITEM = 'UPDATE_ITEM'
 const REMOVE_ITEM = 'REMOVE_ITEM'
 
+const SET_FAVORITES = 'SET_FAVORITES'
+
 export default { 
     PROMISE_PENDING, 
     PROMISE_SUCCESS, 
     PROMISE_FAILURE, 
+
     SET_PROGRESS, 
     ADD_TOAST, 
     DELETE_TOAST,
@@ -56,6 +59,8 @@ export default {
     SET_ITEMS,
     ADD_ITEM,
     UPDATE_ITEM,
-    REMOVE_ITEM
+    REMOVE_ITEM,
+
+    SET_FAVORITES,
 }
 

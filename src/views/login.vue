@@ -117,14 +117,9 @@ export default {
       }
       // validate then submit
       this.$validate().then(() => {
-        this.xsd.api.post('user/login', { uid:this.payload.username, pwd:this.payload.password }).then( data => {
-          this.xsd.user.login(data)
+        this.xsd.user.login({ uid:this.payload.username, pwd:this.payload.password }).then(()=>{
+          this.$route.router.go(this.navMainRoutes.home)
         })
-        
-        /*
-        this.setEnv({
-          authorized: true
-        })*/
       }).catch($validation => {
         // this.$emit('error', $validation)
       })
@@ -147,6 +142,7 @@ export default {
         transition.next()
     }
   },
+  /*
   watch: {
     user (val) {
       if (val) {
@@ -156,7 +152,7 @@ export default {
         })
       }
     }
-  },
+  },*/
   components: {
     CValidation,
     CPane,

@@ -5,7 +5,13 @@ import request from 'utils/request'
 import base64 from 'utils/base64'
 import { createStaticData } from 'utils/static-data'
 
-import { SET_AUTH, SET_USER, SET_PROFILE, SET_NAV_MAIN_ROUTES } from 'store/constants'
+import { 
+  SET_AUTH, 
+  SET_USER, 
+  SET_PROFILE, 
+  SET_NAV_MAIN_ROUTES,
+  SET_FAVORITES,
+} from 'store/constants'
 
 import service from './service'
 
@@ -119,24 +125,28 @@ xsd.install = function (Vue) {
 
 
         const user = {
-          login: data=>{
-            store.commit(SET_AUTH, { user:data.user, profile:data.profile });
-
-            if(data.user.role == 10){
-              store.commit(SET_NAV_MAIN_ROUTES, require('routes/client/navigator'))
-              /*
-              api.get('client/favorites').then(data=>{
-                store.commit(SET_PROFILE, Object.assign({ }, store.getters.profile, {
-                  favorites: data.favorites
-                }));
-              })*/
-            }
-            else if(data.user.role == 20){
-              store.commit(SET_NAV_MAIN_ROUTES, require('routes/supplier/navigator'))
-            }
-            else if(data.user.role == 30){
-              store.commit(SET_NAV_MAIN_ROUTES, require('routes/station/navigator'))
-            }
+          login: auth=>{
+            return api.post('user/login', auth).then( data => {
+              store.commit(SET_AUTH, { user:data.user, profile:data.profile });
+              return data.user
+            }).then(user=>{
+              if(user.role == 10){
+                store.commit(SET_NAV_MAIN_ROUTES, require('routes/client/navigator'))
+                return api.get('client/props').then(data=>{
+                  store.commit(SET_FAVORITES, data.favorites)
+                  return true
+                })
+              }
+              else if(user.role == 20){
+                store.commit(SET_NAV_MAIN_ROUTES, require('routes/supplier/navigator'))
+                return true
+              }
+              else if(user.role == 30){
+                store.commit(SET_NAV_MAIN_ROUTES, require('routes/station/navigator'))
+                return true
+              }else
+                return false
+            })
           },
           logout: ()=>{
             this.$confirm.open('确实要退出登录？').then(()=>{

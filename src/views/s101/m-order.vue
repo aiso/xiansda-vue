@@ -1,6 +1,6 @@
 <template>
   <c-modal :show.sync='show' :actions="null">
-    <div class="flex-row">
+    <div class="flex-row mb10">
       <div class="flex-auto text-left p10">
         <h2>下单</h2>
       </div>
@@ -8,7 +8,7 @@
     </div>
 
 
-    <div class="flex-row border-top p10">
+    <div class="flex-row border-top">
       <c-label class="p10">产品数量</c-label>
       <div class="flex-auto">
         <button class="float-right" @click="order.quantity=order.quantity+1"><c-icon name="material-add" class="block"></c-icon></button>
@@ -17,34 +17,34 @@
       </div>
     </div>
     <div class="flex-row border-top p10">
-      <c-label class="p10">订单金额</c-label>
-      <div class="flex-auto text-right p10">
+      <c-label>订单金额</c-label>
+      <div class="flex-auto text-right ">
         <span class="font-montserrat">{{order.price | currency ''}} x {{order.quantity}} =</span> <c-price :amount="itemAmount" class="ib"></c-price>
       </div>
     </div>
 
     <div class="flex-row border-top p10" v-if="agent.strategy == 1">
-      <c-label class="p10">代理费用</c-label>
-      <div class="flex-auto text-right p10">
+      <c-label>代理费用</c-label>
+      <div class="flex-auto text-right">
         <span class="font-montserrat">{{agent.fee | currency ''}} x {{order.quantity}} =</span> <c-price :amount="feeAmount" class="ib"></c-price>
       </div>
     </div>
     <div class="flex-row border-top p10" v-if="agent.strategy == 2">
-      <c-label class="p10">代理费用</c-label>
-      <div class="flex-auto text-right p10">
+      <c-label>代理费用</c-label>
+      <div class="flex-auto text-right">
         <c-price :amount="feeAmount" class="ib"></c-price>
       </div>
     </div>
     <div class="flex-row border-top p10" v-if="agent.strategy == 3">
-      <c-label class="p10">代理费用</c-label>
-      <div class="flex-auto text-right p10">
+      <c-label>代理费用</c-label>
+      <div class="flex-auto text-right">
         <span class="font-montserrat">{{itemAmount | currency ''}} x {{agent.fee}}% =</span> <c-price :amount="feeAmount" class="ib"></c-price>
       </div>
     </div>
 
     <div class="flex-row border-top p10">
-      <c-label class="p10">合计金额</c-label>
-      <div class="flex-auto text-right pr10">
+      <c-label>合计金额</c-label>
+      <div class="flex-auto text-right">
         <c-price :amount="totalAmount" class="big c-red-dark ib"></c-price>
       </div>
     </div>
