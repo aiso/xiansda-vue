@@ -49,7 +49,7 @@
       </div>
     </div>
     <c-pane>
-      <c-submit class="primary" :submit="postAgent" :disabled="false" label="确定"></c-submit>
+      <c-submit class="primary" :submit="postOrder" :disabled="false" label="确定"></c-submit>
     </c-pane>
 
   </c-modal>
@@ -103,6 +103,9 @@ export default {
     }
    },
   methods: {
+    postOrder(){
+
+    }
 
   },
   components: {

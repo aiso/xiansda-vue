@@ -227,6 +227,8 @@ webpackConfig.callbackLoader = require("vue-icons/icon-loader")([
   'material-favorite_border',
   'material-check_box',
   'material-check_box_outline_blank',
+  'material-local_shipping',
+  'material-payment',
   ])
 
 

@@ -14,6 +14,7 @@ import {
 } from 'store/constants'
 
 import service from './service'
+import action from './action'
 
 const xsd = {}
 xsd.install = function (Vue) {
@@ -165,6 +166,7 @@ xsd.install = function (Vue) {
           item,
           user,
           service,
+          action,
           default:require('./default'),
           regex:require('./regex'),
         }
@@ -194,6 +196,7 @@ xsd.install = function (Vue) {
 xsd.init = () =>{
   return request({ url:'static/default' }).then(data=>{
     service.init(data.services)
+    action.init(data.actions)
     return true
   })
 }
