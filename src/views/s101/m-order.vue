@@ -19,33 +19,33 @@
     <div class="flex-row border-top p10">
       <c-label>订单金额</c-label>
       <div class="flex-auto text-right ">
-        <span class="font-montserrat">{{order.price | currency ''}} x {{order.quantity}} =</span> <c-price :amount="itemAmount" class="ib"></c-price>
+        <span class="font-montserrat">{{order.price | currency ''}} x {{order.quantity}} =</span> <c-price :amount="agentAmount.cost" class="ib"></c-price>
       </div>
     </div>
 
     <div class="flex-row border-top p10" v-if="agent.strategy == 1">
       <c-label>代理费用</c-label>
       <div class="flex-auto text-right">
-        <span class="font-montserrat">{{agent.fee | currency ''}} x {{order.quantity}} =</span> <c-price :amount="feeAmount" class="ib"></c-price>
+        <span class="font-montserrat">{{agent.fee | currency ''}} x {{order.quantity}} =</span> <c-price :amount="agentAmount.fee" class="ib"></c-price>
       </div>
     </div>
     <div class="flex-row border-top p10" v-if="agent.strategy == 2">
       <c-label>代理费用</c-label>
       <div class="flex-auto text-right">
-        <c-price :amount="feeAmount" class="ib"></c-price>
+        <c-price :amount="agentAmount.fee" class="ib"></c-price>
       </div>
     </div>
     <div class="flex-row border-top p10" v-if="agent.strategy == 3">
       <c-label>代理费用</c-label>
       <div class="flex-auto text-right">
-        <span class="font-montserrat">{{itemAmount | currency ''}} x {{agent.fee}}% =</span> <c-price :amount="feeAmount" class="ib"></c-price>
+        <span class="font-montserrat">{{agentAmount.cost | currency ''}} x {{agent.fee}}% =</span> <c-price :amount="agentAmount.fee" class="ib"></c-price>
       </div>
     </div>
 
     <div class="flex-row border-top p10">
       <c-label>合计金额</c-label>
       <div class="flex-auto text-right">
-        <c-price :amount="totalAmount" class="big c-red-dark ib"></c-price>
+        <c-price :amount="agentAmount.amount" class="big c-red-dark ib"></c-price>
       </div>
     </div>
     <c-pane>
@@ -86,6 +86,14 @@ export default {
   },
   computed:{
     ...mapGetters(['user']),
+    agentAmount(){
+      if(!this) 
+        return { cost:0, fee:0, amount:0 }
+      else{
+        return this.xsd.trans.agentAmount(this.order.price, this.order.quantity, this.agent)
+      }
+    },
+    /*
     itemAmount(){
       return this.order.quantity * this.order.price
     },
@@ -100,7 +108,7 @@ export default {
     },
     totalAmount(){
       return this.itemAmount + this.feeAmount
-    }
+    }*/
    },
   methods: {
     postOrder(){

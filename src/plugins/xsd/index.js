@@ -167,6 +167,7 @@ xsd.install = function (Vue) {
           user,
           service,
           action,
+          trans:require('./trans'),
           default:require('./default'),
           regex:require('./regex'),
         }
