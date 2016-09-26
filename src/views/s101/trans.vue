@@ -1,6 +1,18 @@
 <template>
   <div class='page-wrapper'>
     <div v-if="trans">
+      <div class="table-row p15 border-bottom">
+        <div class="valign-top">
+          <c-xsd-image :src="trans.item.img" class="image-square"></c-xsd-image>
+        </div>
+        <div class="extend plr10">
+          <a>{{trans.item.title}}</a>
+          <h5 class="c-text-light mt5">下单：{{trans.ctime}}</h5>
+        </div>
+        <div class="nowrap">
+          <h3>x{{trans.sadd.quantity}}</h3>
+        </div>
+      </div>
 
       <c-xsd-nav-button>
         <a class="icon">
@@ -13,7 +25,7 @@
 </template>
 
 <script>
-import { CPane, CButton, CIcon, CXsdNavButton } from 'components'
+import { CPane, CButton, CIcon, CXsdImage, CXsdNavButton } from 'components'
 
 export default {
   data(){
@@ -34,6 +46,7 @@ export default {
     CPane,
     CButton,
     CIcon,
+    CXsdImage,
     CXsdNavButton,
   }
 }

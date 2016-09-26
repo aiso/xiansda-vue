@@ -312,6 +312,23 @@ a.list-item{
   }
 }
 
+div.divider{
+  margin:1rem 0;
+  background: transparent;
+  height: 1px;
+  border-bottom: 1px solid var(--border);
+  &.dashed{
+    border-bottom: 1px dashed var(--border);
+  }
+  &.m5{
+    margin: .5rem 0;
+  }
+  &.m20{
+    margin:2rem 0;
+  }
+}
+
+
 .border-bottom{
   border-bottom: 1px solid var(--border);
 }
