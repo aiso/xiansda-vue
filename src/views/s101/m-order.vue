@@ -87,31 +87,21 @@ export default {
   computed:{
     ...mapGetters(['user']),
     agentAmount(){
-      if(!this) 
-        return { cost:0, fee:0, amount:0 }
-      else{
-        return this.xsd.trans.agentAmount(this.order.price, this.order.quantity, this.agent)
-      }
+      return this.xsd.trans.agentAmount(this.order.price, this.order.quantity, this.agent)
     },
-    /*
-    itemAmount(){
-      return this.order.quantity * this.order.price
-    },
-    feeAmount(){
-      if(this.agent.strategy == 1)
-        return this.agent.fee *  this.order.quantity
-      else if(this.agent.strategy == 2)
-        return this.agent.fee
-      else if(this.agent.strategy == 3)
-        return (this.itemAmount * this.agent.fee)/100
-      return 0
-    },
-    totalAmount(){
-      return this.itemAmount + this.feeAmount
-    }*/
    },
   methods: {
     postOrder(){
+      const post = {
+        agent:this.agent.id,
+        quantity:this.order.quantity,
+        price:this.order.price,
+        amount:this.agentAmount.amount
+      }
+      this.xsd.api.post(this.xsd.service.get(this.item.service).surl('trans'), post).then(data=>{
+        console.log(data)
+      })
+
 
     }
 

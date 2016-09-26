@@ -5,10 +5,10 @@ const defaultConfig = {
 
 export default {
 	
-  '/client/businesses': Object.assign({ }, defaultConfig, {
-		title: 'client.routes.business',
-	  	name: 'client/businesses',
-	  	component: resolve => require(['views/client/businesses'], resolve)
+  '/client/trans': Object.assign({ }, defaultConfig, {
+		title: 'client.routes.trans',
+	  	name: 'client/trans',
+	  	component: resolve => require(['views/client/trans'], resolve)
 	}),
 
   '/client/home': Object.assign({ }, defaultConfig, {

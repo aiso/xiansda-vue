@@ -11,6 +11,11 @@ export default {
 	component: resolve => require(['views/s101/item-service'], resolve)
   }),
 
+  '/s101/trans/:id':  Object.assign({ }, defaultConfig, {
+	title: '服务单',
+	name: 's101/trans',
+	component: resolve => require(['views/s101/trans'], resolve)
+  }),
 
 
 }

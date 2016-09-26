@@ -6,6 +6,9 @@ function XsdService(config){
 XsdService.prototype.surl = function(url){
 	return 's'+ this.config.id +'/' + url
 }
+XsdService.prototype.router = function(url, params){
+	return { name:this.surl(url), params }
+}
 
 XsdService.prototype.routeItemService = function(id){
 	return { name:this.surl('item/service'), params:{ id } }
