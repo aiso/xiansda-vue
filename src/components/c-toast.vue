@@ -6,13 +6,20 @@
       :transition="transition"
       v-for="toast in toasts"
       track-by="_id">
-      <h4 v-if="toast.title" class="title">{{toast.title}}</h4>
-      <p class="message">{{toast.message}}</p>
+      <div class="toast-content">
+        <h4 v-if="toast.title" class="title">{{toast.title}}</h4>
+        <p class="message">{{toast.message}}</p>
+      </div>
+      <a class="remove" v-if="!!toast.remove" @click="toast.remove" >
+        <c-icon name="material-clear"></c-icon>
+      </a>
     </div>
   </div>
 </template>
 
 <script>
+import CIcon from './c-icon'
+
 export default {
   props: {
     class: {
@@ -29,6 +36,9 @@ export default {
         return []
       }
     }
+  },
+  components: {
+    CIcon
   }
 }
 </script>

@@ -11,6 +11,8 @@ import {
   SET_PROFILE, 
   SET_NAV_MAIN_ROUTES,
   SET_FAVORITES,
+  ADD_TOAST,
+  DELETE_TOAST,
 } from 'store/constants'
 
 import service from './service'
@@ -49,7 +51,11 @@ xsd.install = function (Vue) {
               store.commit(SET_AUTH, null);
               this.$route.router.go({ name:'login' })
             }else{
-              this.$alert.error(result)
+              const toast = { class:'error', timeout:0, message:result.error.message, remove:()=>{
+                store.commit(DELETE_TOAST, toast)
+              } }
+              store.commit(ADD_TOAST, toast)
+              //this.$alert.error(result)
             }
 
             return Promise.reject(result)

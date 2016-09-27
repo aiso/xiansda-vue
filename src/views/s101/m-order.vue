@@ -91,6 +91,7 @@ export default {
     },
    },
   methods: {
+    ...mapActions(['addToast']),
     postOrder(){
       const post = {
         agent:this.agent.id,
@@ -99,7 +100,10 @@ export default {
         amount:this.agentAmount.amount
       }
       this.xsd.api.post(this.xsd.service.get(this.item.service).surl('trans'), post).then(data=>{
-        console.log(data)
+        this.addToast('您已下单，请到结算台统一付款。')
+        this.xsd.api.dirty('client/trans')
+      }).finally(()=>{
+        this.show=false
       })
 
 

@@ -1,8 +1,10 @@
 .c-xsd-image {
+	/*
   display: flex;
   align-items: center;
   text-align: center;
   justify-content: center;
+  */
   position: relative;
 	overflow: hidden;
 }

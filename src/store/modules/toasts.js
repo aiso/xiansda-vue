@@ -19,14 +19,22 @@ const actions = {
         class: 'info',
         message: toast
       }
-    }else{
-      toast = Object.assign({ class:'info' }, toast)
     }
+
+    toast = Object.assign({ class:'info', timeout:3000 }, toast)
     toast._id = Date.now()
+
+    if(toast.timeout > 0){
+      setTimeout(() => {
+        commit(DELETE_TOAST, toast)
+      }, toast.timeout)
+    }else{
+      toast.remove = () => {
+        commit(DELETE_TOAST, toast)
+      }
+    }
+
     commit(ADD_TOAST, toast)
-    setTimeout(() => {
-      commit(DELETE_TOAST, toast)
-    }, 3000)
   }
 }
 

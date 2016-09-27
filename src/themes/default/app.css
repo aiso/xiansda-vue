@@ -81,9 +81,12 @@ h6{
   bottom: var(--navbar);
 }
 
-.image-square{
-  position: relative;
-  overflow: hidden;
+.square-40{
+  display: block;
+  width: 40px;
+  height: 40px;
+}
+.square-60{
   display: block;
   width: 60px;
   height: 60px;
@@ -177,6 +180,7 @@ h6{
     opacity: .6
   }
 }
+
 
 .valign-top{
   vertical-align: top !important;
@@ -301,6 +305,8 @@ a.list-item{
 .flex-row{
   display: flex;
   flex-direction: row;
+  justify-content:center;
+  align-items:center;
 
   & >*{
     flex: none;
@@ -357,6 +363,9 @@ div.divider{
 .text-ls{
   letter-spacing: 1px;
 }
+.text-lh2{
+  line-height: 2
+}
 .icon-background{
   font-size: 80px !important;
   line-height: 80px;
@@ -396,7 +405,7 @@ div.divider{
 }
 
 .i-text.small{
-  padding-left:12px;
+  padding-left:13px;
   font-size:10px;
 
   & .c-icon{
@@ -458,13 +467,6 @@ div.divider{
 .mr10{margin-right: 10px}
 .mr20{margin-right: 20px}
 
-.bg-white{
-  background: white;
-}
-.bg-gray-light{
-  background-color: #f1f1f1;
-}
-
 .c-text-light{
   color:var(--textLight)
 }
@@ -498,4 +500,44 @@ div.divider{
 }
 .c-red-dark{
   color:var(--red-dark);
+}
+
+.bg-white{
+  background: white;
+}
+.bg-text{
+  background: var(--text);;
+}
+.bg-gray-light{
+  background-color: #f1f1f1;
+}
+.bg-blue{
+  background: var(--blue);
+}
+.bg-blue-primary{
+  background: var(--blue-primary);
+}
+.bg-blue-light{
+  background: var(--blue-light);
+}
+.bg-blue-deep{
+  background: var(--blue-deep);
+}
+.bg-green{
+  background: var(--green);
+}
+.bg-green-light{
+  background: var(--green-light);
+}
+.bg-green-dark{
+  background: var(--green-dark);
+}
+.bg-orange{
+  background: var(--orange);
+}
+.bg-red{
+  background: var(--red);
+}
+.bg-red-dark{
+  background: var(--red-dark);
 }

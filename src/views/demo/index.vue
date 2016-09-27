@@ -4,6 +4,7 @@
       <c-group v-for="demo in demos" :title="__(demo.title)" :cells="demo.cells" :items="demo.items"></c-group>
       <c-cell>
         <c-button class='primary fit small' @click='test'>test</c-button>
+        <c-button class='primary fit small' @click='toastTest' >toast</c-button>
         <c-button class='primary fit small' @click='alertTest' >alert</c-button>
         <c-button class='primary fit small' @click='confirmTest' >confirm</c-button>
         <c-button class='primary fit small' @click='frameTest' >frame</c-button>
@@ -75,6 +76,13 @@
       test () {
         this.xsd.api.get('test').then(data=>{this.$modal.alert.open(data)}).catch( data => { this.$modal.alert.open(data)} )
         //this.xsd.nav.home();
+      },
+      toastTest(){
+        this.addToast({
+          class:'error',
+          message:'test11',
+        })
+
       },
       alertTest () {
         this.$alert.open('aa');

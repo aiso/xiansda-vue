@@ -4,8 +4,10 @@
 
 <script>
 import CButton from './c-button'
+import promisify from './promisify'
 
 export default {
+  mixins: [promisify],
   props: {
     class: {
       type: String,
@@ -44,7 +46,7 @@ export default {
   methods: {
     _click(){
       this.progress = true
-      promisify(this.submit()).then(() => { 
+      this.promisify(this.submit()).then(() => { 
         this.progress = false 
       })
     }
@@ -52,18 +54,6 @@ export default {
   components: {
     CButton
   }
-}
-
-function promisify (val) {
-  if (!val) {
-    return val === false ? Promise.reject(val) : Promise.resolve(val)
-  }
-
-  if (typeof val.then === 'function') {
-    return val
-  }
-
-  return Promise.resolve(val)
 }
 
 </script>
