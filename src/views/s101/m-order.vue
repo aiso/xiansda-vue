@@ -79,17 +79,32 @@ export default {
   data(){
     return {
       order:{
+        id:0,
         quantity:1,
         price:this.item.params.price,
       }
     }
+  },
+  ready(){
+    this.xsd.api.getCache('client/trans').then(data=>{
+      console.log(data.transes)
+      const trans = data.transes.find(t=>{
+        return t.item.id == this.item.id && t.stat == 0
+      })
+      /*
+      if(!!trans) {
+        this.order.id = trans.id
+        this.order.quantity = trans.
+      }*/
+
+    })
   },
   computed:{
     ...mapGetters(['user']),
     agentAmount(){
       return this.xsd.trans.agentAmount(this.order.price, this.order.quantity, this.agent)
     },
-   },
+  },
   methods: {
     ...mapActions(['addToast']),
     postOrder(){
@@ -99,13 +114,17 @@ export default {
         price:this.order.price,
         amount:this.agentAmount.amount
       }
-      this.xsd.api.post(this.xsd.service.get(this.item.service).surl('trans'), post).then(data=>{
-        this.addToast('您已下单，请到结算台统一付款。')
-        this.xsd.api.dirty('client/trans')
-      }).finally(()=>{
-        this.show=false
-      })
 
+      if(this.order.id == 0){
+        this.xsd.api.post(this.xsd.service.get(this.item.service).surl('trans'), post).then(data=>{
+          this.addToast('您已下单，请到结算台统一付款。')
+          this.xsd.api.dirty('client/trans')
+        }).finally(()=>{
+          this.show=false
+        })
+      }else{
+
+      }
 
     }
 
