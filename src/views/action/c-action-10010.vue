@@ -1,17 +1,22 @@
 <template>
   <div class="table-row">
     <div>
-      <c-icon :name="cfg.icon" class="block"></c-icon>
+      <c-icon :name="cfg.icon" class="block c-text-light"></c-icon>
     </div>
-    <div class="extend plr20" v-if="action.stat == 0">
-      <a>{{action.content}}</a>
-      <h5>未付账单</h5>
+    <div class="extend plr10" v-if="action.stat == 0">
+      <c-price :amount="action.content" class="big"></c-price>
+    </div>
+    <div class="nowrap">
+      <a>付款</a>
+    </div>
+    <div>
+      <c-icon name="material-chevron_right" class="block c-text-light"></c-icon>
     </div>
   </div>
 </template>
 
 <script>
-import { CIcon } from 'components'
+import { CIcon, CPrice } from 'components'
 
 export default {
   props: {
@@ -29,6 +34,7 @@ export default {
   },
   components:{
   	CIcon,
+    CPrice
   }
 }
 

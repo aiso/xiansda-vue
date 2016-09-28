@@ -16,9 +16,9 @@ const agentAmount = (price, quantity, agent) => {
 	fee = (!!agent.fee_max && agent.fee_max> 0 && fee>agent.fee_max)?agent.fee_max:fee
 
 	return {
-		cost,
-		fee,
-		amount:cost + fee,
+		cost:cost.toFixed(2),
+		fee:fee.toFixed(2),
+		amount:(cost + fee).toFixed(2),
 		max:fee==agent.fee_max,
 		min:fee==agent.fee_min
 	}

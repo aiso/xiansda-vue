@@ -9,7 +9,7 @@
           <a>{{trans.item.title}}</a>
         </div>
         <div>
-          <c-icon name="material-chevron_right" class="block"></c-icon>
+          <c-icon name="material-chevron_right" class="block c-text-light"></c-icon>
         </div>
       </div>
       <div class="p20 border-bottom table-row">
@@ -34,7 +34,7 @@
           <c-btn-circle icon="material-delete_forever" title="取消订单" color="red-dark" :click="removeTrans"></c-btn-circle>
         </div>
       </div>
-      <c-action v-for="action in trans.actions" :action="action" class="border-bottom p10"></c-action>
+      <c-action v-for="action in trans.actions" :action="action" class="action"></c-action>
 
       <c-xsd-nav-button>
         <a class="icon" @click="reload">
