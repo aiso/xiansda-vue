@@ -30,18 +30,19 @@
           </h4>
         </div>
         <div class="nowrap valign-top" v-if="user.role==10">
-          <c-btn-circle icon="material-edit" title="修改订单" color="blue" class="mb10" ></c-btn-circle>
+          <c-btn-circle icon="material-edit" title="修改订单" color="blue" class="mb10" :click="modifyTrans"></c-btn-circle>
           <c-btn-circle icon="material-delete_forever" title="取消订单" color="red-dark" :click="removeTrans"></c-btn-circle>
         </div>
       </div>
       <c-action v-for="action in trans.actions" :action="action" class="border-bottom p10"></c-action>
 
       <c-xsd-nav-button>
-        <a class="icon">
+        <a class="icon" @click="reload">
             <c-icon name="material-refresh" class="block"></c-icon>
         </a>
       </c-xsd-nav-button>
 
+      <m-order v-if="orderModal" :show.sync="orderModal" :item="trans.item" :agent="agent" @mutate="reload"></m-order>
     </div>
   </div>
 </template>
@@ -49,12 +50,15 @@
 <script>
 import { CPane, CBtnCircle, CIcon, CXsdImage, CXsdNavButton } from 'components'
 import CAction from '../action/c-action'
+import MOrder from './m-order'
 import { mapGetters } from 'vuex'
 
 export default {
   data(){
     return {
       trans:null,
+      agent:null,
+      orderModal:false,
       service:this.xsd.service.get(101)
     }
   },
@@ -68,19 +72,35 @@ export default {
     }
   },
   computed:{
-    ...mapGetters(['user'])
+    ...mapGetters(['user']),
+    transUrl(){
+      return this.service.surl('trans/'+this.trans.id)
+    }
   },
   methods: {
     removeTrans(){
       this.$confirm.open('确定取消订单？').then(()=>{
-        this.xsd.api.delete(this.service.surl('trans/'+this.trans.id)).then(()=>{
+        this.xsd.api.delete(this.transUrl).then(()=>{
           this.xsd.api.dirty('client/trans')
           history.back()
         })
       })
-    }
+    },
+    modifyTrans(){
+      this.xsd.api.getCache(this.service.surl('item/'+this.trans.item.id+'/agent/'+this.trans.station)).then(data=>{
+        this.agent = data.agent
+        this.orderModal = true
+      })
+    },
+    reload(){
+      this.xsd.api.dirty(this.transUrl)
+      this.xsd.api.getCache(this.transUrl).then(data=>{
+        this.trans = data.trans
+      })
+    },
   },
   components: {
+    MOrder,
     CPane,
     CBtnCircle,
     CIcon,

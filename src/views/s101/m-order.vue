@@ -2,7 +2,7 @@
   <c-modal :show.sync='show' :actions="null">
     <div class="flex-row mb10">
       <div class="flex-auto text-left p10">
-        <h2>下单</h2>
+        <h2>订单</h2>
       </div>
       <a @click="show=false" class="c-text-light"><c-icon name="material-clear" class="block"></c-icon></a>
     </div>
@@ -26,7 +26,10 @@
     <div class="flex-row border-top p10" v-if="agent.strategy == 1">
       <c-label>代理费用</c-label>
       <div class="flex-auto text-right">
-        <span class="font-montserrat">{{agent.fee | currency ''}} x {{order.quantity}} =</span> <c-price :amount="agentAmount.fee" class="ib"></c-price>
+        <span class="font-montserrat" v-if="agentAmount.min == false && agentAmount.max == false">{{agent.fee | currency ''}} x {{order.quantity}} =</span> 
+        <span v-if="agentAmount.min == true" class="c-text-light">最低代理费</span> 
+        <span v-if="agentAmount.max == true" class="c-text-light">最高代理费</span> 
+        <c-price :amount="agentAmount.fee" class="ib"></c-price>
       </div>
     </div>
     <div class="flex-row border-top p10" v-if="agent.strategy == 2">
@@ -38,7 +41,10 @@
     <div class="flex-row border-top p10" v-if="agent.strategy == 3">
       <c-label>代理费用</c-label>
       <div class="flex-auto text-right">
-        <span class="font-montserrat">{{agentAmount.cost | currency ''}} x {{agent.fee}}% =</span> <c-price :amount="agentAmount.fee" class="ib"></c-price>
+        <span class="font-montserrat" v-if="agentAmount.min == false && agentAmount.max == false">{{agentAmount.cost | currency ''}} x {{agent.fee}}% =</span> 
+        <span v-if="agentAmount.min == true" class="c-text-light">最低代理费</span> 
+        <span v-if="agentAmount.max == true" class="c-text-light">最高代理费</span> 
+        <c-price :amount="agentAmount.fee" class="ib"></c-price>
       </div>
     </div>
 
@@ -87,15 +93,14 @@ export default {
   },
   ready(){
     this.xsd.api.getCache('client/trans').then(data=>{
-      console.log(data.transes)
       const trans = data.transes.find(t=>{
         return t.item.id == this.item.id && t.stat == 0
       })
-      /*
+
       if(!!trans) {
         this.order.id = trans.id
-        this.order.quantity = trans.
-      }*/
+        this.order.quantity = trans.sadd.quantity
+      }
 
     })
   },
@@ -123,9 +128,14 @@ export default {
           this.show=false
         })
       }else{
-
+        this.xsd.api.post(this.xsd.service.get(this.item.service).surl('trans/'+this.order.id), post).then(data=>{
+          this.addToast('修改完成！')
+          this.xsd.api.dirty('client/trans')
+          this.$emit('mutate', this.order.id)
+        }).finally(()=>{
+          this.show=false
+        })
       }
-
     }
 
   },

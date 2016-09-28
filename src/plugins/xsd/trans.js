@@ -10,13 +10,17 @@ const agentAmount = (price, quantity, agent) => {
   	else if(agent.strategy == 3)
 		fee = (cost * agent.fee)/100.0
 
-	fee = (!!agent.fee_min && agent.fee_min> 0 && fee<agent.fee_min)?agent.min_fee:fee
+	agent.fee_min *= 1.00 
+	agent.fee_max *= 1.00
+	fee = (!!agent.fee_min && agent.fee_min> 0 && fee<agent.fee_min)?agent.fee_min:fee
 	fee = (!!agent.fee_max && agent.fee_max> 0 && fee>agent.fee_max)?agent.fee_max:fee
 
 	return {
 		cost,
 		fee,
-		amount:cost + fee
+		amount:cost + fee,
+		max:fee==agent.fee_max,
+		min:fee==agent.fee_min
 	}
 } 
 

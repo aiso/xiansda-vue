@@ -37,7 +37,7 @@
   "client": {
     "routes" : {
       "home" : "首页",
-      "cart" : "购物车",
+      "payment" : "结算台",
       "trans" : "服务单",
       "user" : "用户",
       "station" : "服务站"

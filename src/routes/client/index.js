@@ -17,10 +17,10 @@ export default {
 		component: resolve => require(['views/client/home'], resolve)
 	}),
 
-  '/client/cart': Object.assign({ }, defaultConfig, {
-		title: 'client.routes.cart',
-		name: 'client/cart',
-		component: resolve => require(['views/client/cart'], resolve)
+  '/client/payment': Object.assign({ }, defaultConfig, {
+		title: 'client.routes.payment',
+		name: 'client/payment',
+		component: resolve => require(['views/client/payment'], resolve)
 	}),
 
   '/client/user': Object.assign({ }, defaultConfig, {
