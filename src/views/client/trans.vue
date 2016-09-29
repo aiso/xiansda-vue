@@ -1,9 +1,6 @@
 <template>
   <div class='page-wrapper'>
-    <c-pane v-if='!transes || transes.length==0' class="text-center">
-      <c-icon name='fa-dropbox' class="icon-background"></c-icon>
-      <h5 class="text-background">还没有产品？</h5>
-    </c-pane>
+    <c-xsd-background v-if="transes.length==0" title="没有进行中的服务单"></c-xsd-background>
     <c-cell v-for='trans in transes'>
       <c-xsd-item :item='trans.item' @click="goTrans(trans)">
   		  <h5 slot="subTitle">{{trans.ctime}}</h5>
@@ -17,7 +14,7 @@
 </template>
 
 <script>
-import { CPane, CIcon, CCell, CXsdItem } from 'components'
+import { CPane, CIcon, CCell, CXsdItem, CXsdBackground } from 'components'
 import { mapActions } from 'vuex'
 import CActionStatus from '../action/c-status'
 
@@ -47,7 +44,8 @@ export default {
     CIcon,
     CCell,
     CXsdItem,
-    CActionStatus
+    CActionStatus,
+    CXsdBackground
   } 
 }
 </script>

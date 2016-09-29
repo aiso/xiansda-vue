@@ -173,6 +173,7 @@ xsd.install = function (Vue) {
           user,
           service,
           action,
+          nav:require('./nav'),
           trans:require('./trans'),
           default:require('./default'),
           regex:require('./regex'),
@@ -196,7 +197,8 @@ xsd.install = function (Vue) {
     }
 	})
 
-
+  require('./filter').install(Vue)
+  
 	this.installed = true;
 }
 

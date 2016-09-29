@@ -7,7 +7,7 @@
       <c-price :amount="action.content" class="big"></c-price>
     </div>
     <div class="nowrap">
-      <a>付款</a>
+      <a v-link="{ name:'client/payment' }">付款</a>
     </div>
     <div>
       <c-icon name="material-chevron_right" class="block c-text-light"></c-icon>

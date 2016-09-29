@@ -131,6 +131,9 @@ h6{
   width:100% !important;
 }
 
+.font-10{
+  font-size: 10px;
+}
 .font-20{
   font-size: 20px;
 }
@@ -364,7 +367,7 @@ div.divider{
   font-weight: bold;
 }
 .text-ls{
-  letter-spacing: 1px;
+  letter-spacing: 0.1em;
 }
 .text-lh2{
   line-height: 2
@@ -470,6 +473,9 @@ div.divider{
 .mr10{margin-right: 10px}
 .mr20{margin-right: 20px}
 
+.c-text{
+  color:var(--text)
+}
 .c-text-light{
   color:var(--textLight)
 }

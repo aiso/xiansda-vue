@@ -3,7 +3,7 @@
     <c-icon v-if="!!item.icon" :name="item.icon" class="block"></c-icon>
 	  <c-xsd-image v-if="!!item.img" :src="item.img" class="thumbnail" width=50 height=50></c-xsd-image>
     <c-xsd-avatar v-if="!!item.avatar" :src="item.avatar" size=50></c-xsd-avatar>
-	  <div class="xsd-content">
+	  <div class="xsd-content" @click="_click">
 	  	<h4 v-if="!!item.title" class="title">{{item.title}}</h4>
       <div class="subTitle">
         <slot name="subTitle"></slot> 
@@ -26,6 +26,11 @@ export default {
     },
     item: {
     	type: Object
+    }
+  },
+  methods: {
+    _click(){
+      this.$emit('xsd-item-click', this.item)
     }
   },
   components: {
