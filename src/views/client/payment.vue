@@ -26,7 +26,7 @@
       </div>
     </c-xsd-item>
 
-    <c-xsd-nav-button style="width:15rem">
+    <c-xsd-nav-button style="width:15rem" v-if="bills.length>0">
       <div class="p10 float-right">
         <c-submit class="primary small" :disabled="summary.count==0" label="提交" :submit="submit"></c-submit>
       </div>

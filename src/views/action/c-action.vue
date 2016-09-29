@@ -1,5 +1,5 @@
 <template>
-  <component :is="'CAction'+this.action.action" :action="action" :class="class"></component>
+  <component :is="'CAction'+this.action.action" :action="action"></component>
 </template>
 
 <script>
@@ -9,10 +9,6 @@ export default {
   props: {
     action: {
       type: Object
-    },
-    class: {
-      type: String,
-      default:''
     },
   },
   components:{

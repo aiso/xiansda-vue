@@ -1,6 +1,6 @@
 <template>
-  <div class='page-wrapper'>
-    <div v-if="trans">
+  <div class='page-wrapper bg-gray-light'>
+    <div v-if="trans" class="bg-white">
       <div class="table-row border-bottom" style="padding:10px 0 10px 10px">
         <div class="valign-top">
           <c-xsd-image :src="trans.item.img" width=48 height=48></c-xsd-image>
@@ -12,7 +12,7 @@
           <c-icon name="material-chevron_right" class="block c-text-light"></c-icon>
         </div>
       </div>
-      <div class="p20 border-bottom table-row">
+      <div class="p20 table-row">
         <div class="extend">
           <h4 class="text-lh2"><span class="c-text-light">服务单号：</span><span class="font-montserrat">{{trans.id}}</span></h4>
           <h4 class="text-lh2"><span class="c-text-light">下单时间：</span><span class="font-montserrat">{{trans.ctime}}</span></h4>
@@ -29,14 +29,17 @@
             <span class="font-montserrat">{{trans.sadd.amount|currency ''}} </span>
           </h4>
         </div>
-        <div class="nowrap valign-top" v-if="user.role==10">
+        <div class="nowrap valign-top" v-if="user.role==10 && trans.stage==0">
           <c-btn-circle icon="material-edit" title="修改订单" color="blue" class="mb10" :click="modifyTrans"></c-btn-circle>
           <c-btn-circle icon="material-delete_forever" title="取消订单" color="red-dark" :click="removeTrans"></c-btn-circle>
         </div>
       </div>
-      <c-action v-for="action in trans.actions" :action="action" class="action"></c-action>
+      <c-action v-for="action in trans.actions" :action="action"></c-action>
 
       <c-xsd-nav-button>
+        <a class="icon">
+            <c-icon name="material-textsms" class="block"></c-icon>
+        </a>
         <a class="icon" @click="reload">
             <c-icon name="material-refresh" class="block"></c-icon>
         </a>

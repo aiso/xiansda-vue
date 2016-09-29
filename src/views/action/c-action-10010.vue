@@ -1,22 +1,17 @@
 <template>
-  <div class="table-row">
-    <div>
-      <c-icon :name="cfg.icon" class="block c-text-light"></c-icon>
-    </div>
-    <div class="extend plr10" v-if="action.stat == 0">
+  <c-cell class="action row" @click="onAction">
+    <c-icon :name="cfg.icon" class="block c-text-light"></c-icon>
+    <div class="extend plr10">
       <c-price :amount="action.content" class="big"></c-price>
     </div>
-    <div class="nowrap">
-      <a v-link="{ name:'client/payment' }">付款</a>
-    </div>
-    <div>
-      <c-icon name="material-chevron_right" class="block c-text-light"></c-icon>
-    </div>
-  </div>
+    <span class="c-text-light">{{statement}}</span>
+    <c-icon name="material-chevron_right" class="block c-text-light"></c-icon>
+  </c-cell>
 </template>
 
 <script>
-import { CIcon, CPrice } from 'components'
+import { CCell, CIcon, CPrice } from 'components'
+import { mapGetters } from 'vuex'
 
 export default {
   props: {
@@ -30,9 +25,19 @@ export default {
     }
   },
   computed: {
-
+    ...mapGetters(['user']),
+    statement(){
+      return (this.action.stat == 0)?'点击付款':'已付款'
+    }
+  },
+  methods: {
+    onAction(){
+      if(this.action.stat == 0 && this.user.role == this.xsd.static.role.client)
+        this.$route.router.go({ name:'client/payment' })
+    }
   },
   components:{
+    CCell,
   	CIcon,
     CPrice
   }

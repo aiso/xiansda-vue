@@ -54,7 +54,7 @@ export default {
   ready(){
     if(!this.user) return
 
-    if(this.user.role == 30){
+    if(this.user.role == this.xsd.static.role.station){
       this.xsd.api.getCache(this.agentUrl).then(data=>{
         if(data.agent){
           this.agent = data.agent
@@ -64,7 +64,7 @@ export default {
           this.action = 'addAgent'
         }
       })
-    }else if(this.user.role == 10){
+    }else if(this.user.role == this.xsd.static.role.client){
       this.xsd.api.getCache(this.agentUrl).then(data=>{
         if(data.agent){
           this.agent = data.agent
@@ -76,9 +76,9 @@ export default {
   computed: {
     ...mapGetters(['user', 'profile']),
     agentUrl(){
-      if(this.user.role == 30)
+      if(this.user.role == this.xsd.static.role.station)
         return this.service.surl('item/'+this.item.id+'/agent/'+this.user.id)
-      else if(this.user.role == 10)
+      else if(this.user.role == this.xsd.static.role.client)
         return this.service.surl('item/'+this.item.id+'/agent/'+this.profile.station)
     }
   },

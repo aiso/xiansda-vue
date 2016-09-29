@@ -17,6 +17,7 @@ import {
 
 import service from './service'
 import action from './action'
+import staticData from './static'
 
 const xsd = {}
 xsd.install = function (Vue) {
@@ -137,18 +138,18 @@ xsd.install = function (Vue) {
               store.commit(SET_AUTH, { user:data.user, profile:data.profile });
               return data.user
             }).then(user=>{
-              if(user.role == 10){
+              if(user.role == staticData.role.client){
                 store.commit(SET_NAV_MAIN_ROUTES, require('routes/client/navigator'))
                 return api.get('client/props').then(data=>{
                   store.commit(SET_FAVORITES, data.favorites)
                   return true
                 })
               }
-              else if(user.role == 20){
+              else if(user.role == staticData.role.supplier){
                 store.commit(SET_NAV_MAIN_ROUTES, require('routes/supplier/navigator'))
                 return true
               }
-              else if(user.role == 30){
+              else if(user.role == staticData.role.station){
                 store.commit(SET_NAV_MAIN_ROUTES, require('routes/station/navigator'))
                 return true
               }else
@@ -173,9 +174,9 @@ xsd.install = function (Vue) {
           user,
           service,
           action,
+          static:staticData,
           nav:require('./nav'),
           trans:require('./trans'),
-          default:require('./default'),
           regex:require('./regex'),
         }
       }
