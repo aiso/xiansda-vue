@@ -1,5 +1,4 @@
 .c-xsd-avatar {
-
 	& .c-xsd-image{
 		@mixin circle;
 	}

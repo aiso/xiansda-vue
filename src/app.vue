@@ -6,6 +6,7 @@
     <div class="content">
       <router-view class="router-view" transition="fade" transition-mode="out-in" keep-alive></router-view>
     </div>
+    <m-text v-ref:modal-text></m-text>
     <c-alert v-ref:modal-alert></c-alert>
     <c-confirm v-ref:modal-confirm></c-confirm>
 
@@ -26,6 +27,7 @@
 
 <script>
 import { CProgress, CToast, CQrcode, CAlert, CConfirm, CXsdNavigator, CXsdMenu, CIcon } from 'components'
+import MText from 'views/common/m-text'
 import VHeader from 'views/common/v-header'
 import VFooter from 'views/common/v-footer'
 import store from 'store'
@@ -105,6 +107,7 @@ export default {
   components: {
     CProgress,
     CToast,
+    MText,
     VHeader,
     VFooter,
     CQrcode,

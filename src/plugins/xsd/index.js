@@ -191,6 +191,11 @@ xsd.install = function (Vue) {
         return this.$root.$refs.modalConfirm
       }
     },
+    $text: {
+      get () {
+        return this.$root.$refs.modalText
+      }
+    },
     $navbar: {
       get () {
         return this.$root.$refs.xsdNavbar

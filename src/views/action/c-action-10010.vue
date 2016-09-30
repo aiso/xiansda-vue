@@ -1,16 +1,21 @@
 <template>
   <c-cell class="action row" @click="onAction">
-    <c-icon :name="cfg.icon" class="block c-text-light"></c-icon>
-    <div class="extend plr10">
-      <c-price :amount="action.content" class="big"></c-price>
+    <div>
+      <c-xsd-avatar :src="action.user.img" size=50></c-xsd-avatar>
     </div>
-    <span class="c-text-light">{{statement}}</span>
-    <c-icon name="material-chevron_right" class="block c-text-light"></c-icon>
+    <div class="extend plr10">
+      <h5 class="sub-title">{{cfg.name}} - {{statement}}</h5>
+      <c-price :amount="action.content" class="c-red-dark mt5"></c-price>
+    </div>
+    <div class="text-center">
+      <h5 class="sub-title">{{action.utime|timeago}}</h5>
+      <c-icon :name="cfg.icon" class="c-text-light mt5"></c-icon>
+    </div>
   </c-cell>
 </template>
 
 <script>
-import { CCell, CIcon, CPrice } from 'components'
+import { CCell, CIcon, CPrice, CXsdAvatar } from 'components'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -39,7 +44,8 @@ export default {
   components:{
     CCell,
   	CIcon,
-    CPrice
+    CPrice,
+    CXsdAvatar
   }
 }
 

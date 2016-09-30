@@ -37,7 +37,7 @@
       <c-action v-for="action in trans.actions" :action="action"></c-action>
 
       <c-xsd-nav-button>
-        <a class="icon">
+        <a class="icon" @click="postMessage">
             <c-icon name="material-textsms" class="block"></c-icon>
         </a>
         <a class="icon" @click="reload">
@@ -94,6 +94,17 @@ export default {
         this.agent = data.agent
         this.orderModal = true
       })
+    },
+    postMessage(){
+      this.$text.open({
+        title: '提点要求什么的',
+        callback: message=>{
+          this.xsd.api.post('trans/'+this.trans.id+'/message', { message }).then(data=>{
+            this.trans.actions.push(data.action)
+            this.$text.close(true)
+          })
+        }
+      });
     },
     reload(){
       this.xsd.api.dirty(this.transUrl)

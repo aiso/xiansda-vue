@@ -552,6 +552,9 @@ div.divider{
 }
 
 .action{
-  padding:10px 0 10px 10px;
   border-bottom: 1px solid var(--border);
+
+  & .sub-title{
+    color:var(--textLight);
+  }
 }
