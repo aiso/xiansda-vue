@@ -24,7 +24,7 @@ const init = configs => {
 }
 
 const all = () => services
-const get = sid => services.find(s=>s.id=sid)
+const get = sid => services.find(s=>s.config.id==sid)
 const cfg = sid => get(sid).config
 
 export default {

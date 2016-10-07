@@ -479,7 +479,9 @@ div.divider{
 .c-text-light{
   color:var(--textLight)
 }
-
+.c-gray-light{
+  color:var(--grayLight)
+}
 .c-blue{
   color:var(--blue);
 }
@@ -552,8 +554,13 @@ div.divider{
 }
 
 .action{
-  border-bottom: 1px solid var(--border);
+  border-top:1px dashed var(--border);
+  padding:10px 0;
 
+  & .c-icon{
+    margin-bottom:-5px;
+    padding-left:4px;
+  }
   & .sub-title{
     color:var(--textLight);
   }

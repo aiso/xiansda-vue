@@ -1,4 +1,6 @@
 .c-xsd-avatar {
+	-webkit-transform:rotate(0deg);
+	
 	& .c-xsd-image{
 		@mixin circle;
 	}

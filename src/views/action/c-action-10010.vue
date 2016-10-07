@@ -1,38 +1,41 @@
 <template>
-  <c-cell class="action row" @click="onAction">
-    <div>
-      <c-xsd-avatar :src="action.user.img" size=50></c-xsd-avatar>
+  <div>
+    <div class="flex-row action" v-if="statement=='client-pay'">
+      <h4 class="pr10 flex-auto">金额：<c-price :amount="action.content" class="c-red ib"></c-price></h4>
+      <a v-link="{ name:'client/payment' }">点击付款</a>
+      <c-icon name="material-chevron_right" class="c-text-light"></c-icon>
     </div>
-    <div class="extend plr10">
-      <h5 class="sub-title">{{cfg.name}} - {{statement}}</h5>
-      <c-price :amount="action.content" class="c-red-dark mt5"></c-price>
+    <div class="flex-row action" v-if="statement=='client-payed'">
+      <h4 class="pr10 flex-auto">金额：<c-price :amount="action.content" class="c-red ib"></c-price></h4>
+      <a>已付款</a>
+      <c-icon name="material-done" class="c-text-light"></c-icon>
     </div>
-    <div class="text-center">
-      <h5 class="sub-title">{{action.utime|timeago}}</h5>
-      <c-icon :name="cfg.icon" class="c-text-light mt5"></c-icon>
+    <div class="flex-row action" v-if="statement=='unpay'">
+      <h4 class="pr10 flex-auto">金额：<c-price :amount="action.content" class="c-red ib"></c-price></h4>
+      <h4 class="c-red">未付款</h4>
     </div>
-  </c-cell>
+    <div class="flex-row action" v-if="statement=='payed'">
+      <h4 class="pr10 flex-auto">金额：<c-price :amount="action.content" class="c-red ib"></c-price></h4>
+      <h4 class="c-text-light">已付款</h4>
+      <c-icon name="material-done" class="c-text-light"></c-icon>
+    </div>
+  </div>
 </template>
 
 <script>
-import { CCell, CIcon, CPrice, CXsdAvatar } from 'components'
+import actionMixin from './action-mixin'
+import { CIcon, CPrice, CButton } from 'components'
 import { mapGetters } from 'vuex'
 
 export default {
-  props: {
-    action: {
-      type: Object
-    },
-  },
-  data(){
-    return{
-      cfg:this.xsd.action.get(this.action.action),
-    }
-  },
+  mixins: [actionMixin],
   computed: {
-    ...mapGetters(['user']),
     statement(){
-      return (this.action.stat == 0)?'点击付款':'已付款'
+      if(this.user.role == this.xsd.static.role.client){
+        return (this.action.stat == 0)?'client-pay':'client-payed'
+      }else if(this.user.role == this.xsd.static.role.station){
+        return (this.action.stat == 0)?'unpay':'payed'
+      }
     }
   },
   methods: {
@@ -42,10 +45,9 @@ export default {
     }
   },
   components:{
-    CCell,
-  	CIcon,
+    CIcon,
     CPrice,
-    CXsdAvatar
+    CButton
   }
 }
 

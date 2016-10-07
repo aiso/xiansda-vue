@@ -7,7 +7,7 @@ const init = actions => {
 }
 
 const all = () => _actions
-const get = id => _actions.find(a=>a.id=id)
+const get = id => _actions.find(a=>a.id==id)
 
 export default {
 	init,

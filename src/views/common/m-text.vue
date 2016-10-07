@@ -11,7 +11,7 @@
       
     </div>
     <div class="mb10">
-      <textarea style="width:100%" class="input-simple bg-gray-light p10"
+      <textarea style="width:100%;resize: none;" class="input-simple bg-gray-light p10"
         v-autosize="value||''"
         v-model="textMessage"
         debounce="500"></textarea>

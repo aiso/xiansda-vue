@@ -94,7 +94,7 @@ export default {
   ready(){
     this.xsd.api.getCache('client/trans').then(data=>{
       const trans = data.transes.find(t=>{
-        return t.item.id == this.item.id && t.stat == 0
+        return t.item.id == this.item.id && t.stat == 0 && t.stage == 0
       })
 
       if(!!trans) {

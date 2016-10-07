@@ -1,37 +1,37 @@
 <template>
   <div class='page-wrapper bg-gray-light'>
     <div v-if="trans" class="bg-white">
-      <div class="table-row border-bottom" style="padding:10px 0 10px 10px">
-        <div class="valign-top">
-          <c-xsd-image :src="trans.item.img" width=48 height=48></c-xsd-image>
+      <div class="p20">
+        <div class="table-row">
+          <div class="valign-top">
+            <c-xsd-image :src="trans.item.img" width=48 height=48></c-xsd-image>
+          </div>
+          <div class="extend pl20">
+            <a>{{trans.item.title}}</a>
+          </div>
         </div>
-        <div class="extend plr10">
-          <a>{{trans.item.title}}</a>
-        </div>
-        <div>
-          <c-icon name="material-chevron_right" class="block c-text-light"></c-icon>
-        </div>
-      </div>
-      <div class="p20 table-row">
-        <div class="extend">
-          <h4 class="text-lh2"><span class="c-text-light">服务单号：</span><span class="font-montserrat">{{trans.id}}</span></h4>
-          <h4 class="text-lh2"><span class="c-text-light">下单时间：</span><span class="font-montserrat">{{trans.ctime}}</span></h4>
-          <h4 class="text-lh2">
-            <span class="c-text-light">产品价格：</span>
-            <span class="font-montserrat">{{trans.sadd.price|currency ''}} x {{trans.sadd.quantity}} = {{trans.sadd.cost|currency ''}}</span>
-          </h4>
-          <h4 class="text-lh2">
-            <span class="c-text-light">代理费用：</span>
-            <span class="font-montserrat">{{trans.sadd.agent_fee|currency ''}} </span>
-          </h4>
-          <h4 class="text-lh2">
-            <span class="c-text-light">合计金额：</span>
-            <span class="font-montserrat">{{trans.sadd.amount|currency ''}} </span>
-          </h4>
-        </div>
-        <div class="nowrap valign-top" v-if="user.role==10 && trans.stage==0">
-          <c-btn-circle icon="material-edit" title="修改订单" color="blue" class="mb10" :click="modifyTrans"></c-btn-circle>
-          <c-btn-circle icon="material-delete_forever" title="取消订单" color="red-dark" :click="removeTrans"></c-btn-circle>
+        <div class="divider dashed"></div>
+        <div class="table-row">
+          <div class="extend">
+            <h4 class="text-lh2"><span class="c-text-light">服务单号：</span><span class="font-montserrat">{{trans.id}}</span></h4>
+            <h4 class="text-lh2"><span class="c-text-light">下单时间：</span><span class="font-montserrat">{{trans.ctime}}</span></h4>
+            <h4 class="text-lh2">
+              <span class="c-text-light">产品价格：</span>
+              <span class="font-montserrat">{{trans.sadd.price|currency ''}} x {{trans.sadd.quantity}} = {{trans.sadd.cost|currency ''}}</span>
+            </h4>
+            <h4 class="text-lh2">
+              <span class="c-text-light">代理费用：</span>
+              <span class="font-montserrat">{{trans.sadd.agent_fee|currency ''}} </span>
+            </h4>
+            <h4 class="text-lh2">
+              <span class="c-text-light">合计金额：</span>
+              <span class="font-montserrat">{{trans.sadd.amount|currency ''}} </span>
+            </h4>
+          </div>
+          <div class="nowrap valign-top" v-if="user.role==10 && trans.stage==0">
+            <c-btn-circle icon="material-edit" title="修改订单" color="blue" class="mb10" :click="modifyTrans"></c-btn-circle>
+            <c-btn-circle icon="material-delete_forever" title="取消订单" color="red-dark" :click="removeTrans"></c-btn-circle>
+          </div>
         </div>
       </div>
       <c-action v-for="action in trans.actions" :action="action"></c-action>

@@ -1,11 +1,11 @@
 <template>
-  <div class='page-wrapper'>
+  <div class='page-wrapper bg-gray-light'>
     <c-xsd-background v-if="transes.length==0" title="没有进行中的服务单"></c-xsd-background>
-    <c-cell v-for='trans in transes'>
+    <c-cell v-for='trans in transes' class="bg-white">
       <c-xsd-item :item='trans.item' @click="goTrans(trans)">
-  		  <h5 slot="subTitle">{{trans.ctime|timeago}}</h5>
+        <h5 slot="subTitle">{{trans.ctime|timeago}}</h5>
         <div slot="right" class="pl10">
-        	<c-action-status :action="trans.curract"></c-action-status>
+          <c-action-status :action="trans.curract"></c-action-status>
         </div>
       </c-xsd-item>
     </c-cell>
@@ -20,24 +20,24 @@ import CActionStatus from '../action/c-status'
 
 export default {
   data(){
-  	return{
-  	  transes:[]
-  	}
+    return{
+      transes:[]
+    }
   },
   route: {
-  	data(transition){
-  	  this.xsd.api.getCache('client/trans').then(data=>{
-  	  	transition.next({
-  	  		transes:data.transes
-		    })
+    data(transition){
+      this.xsd.api.getCache('station/trans').then(data=>{
+        transition.next({
+          transes:data.transes
+        })
       })
-  	}
+    }
   },
   methods:{
-  	goTrans(trans){
-  		const service = this.xsd.service.get(trans.item.service)
-  		this.$route.router.go(service.router('trans', { id:trans.id }))
-  	}
+    goTrans(trans){
+      const service = this.xsd.service.get(trans.item.service)
+      this.$route.router.go(service.router('trans', { id:trans.id }))
+    }
   },
   components: {
     CPane,
