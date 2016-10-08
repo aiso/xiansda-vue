@@ -234,6 +234,7 @@ webpackConfig.callbackLoader = require("vue-icons/icon-loader")([
   'material-textsms',
   'material-backspace',
   'material-shopping_basket',
+  'material-call',
   ])
 
 

@@ -5,7 +5,7 @@
     </div>
     <slot name="thumbnail"></slot>
 	  <div class="item-content">
-	  	<h3 class="title">{{title}}</h3>
+	  	<h4 class="title">{{title}}</h4>
 	  	<p v-if="!!subTitle" class="sub-title">{{subTitle}}</p>
 	  </div>
     <div class="addition">

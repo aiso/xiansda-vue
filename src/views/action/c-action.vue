@@ -1,15 +1,15 @@
 <template>
   <div class="c-action">
     <div class="flex-row">
-      <div class="thumbnail">
+      <div class="thumbnail flag-border flag-left pl10" :class="{ 'flag-orange':action.stat==0 }">
         <c-xsd-avatar :src="action.user.img" size=40></c-xsd-avatar>
       </div>
       <div class="flex-auto pl15">
         <a class="text-ls">{{action.user.name}}</a>
         <h5 class="c-text-light">{{action.ctime|timeago}}</h5>
       </div>
-      <h4 class="text-ls c-text">{{config.name}}</h4>
-      <c-icon :name="config.icon" class="block"></c-icon>
+      <h4 class="text-ls c-text-light">{{config.name}}</h4>
+      <c-icon :name="config.icon" class="block c-text-light"></c-icon>
     </div>
     <component class="c-action-component" :is="'CAction'+this.action.action" :action="action" :user="user" :config="config"></component>
 
@@ -52,7 +52,7 @@ export default {
 <style>
   .c-action{
     border-top: 1px solid var(--border);
-    padding:10px 0 10px 20px;
+    padding:10px 0 10px 0;
     
     &:first-child {
       border-top: none;
@@ -61,7 +61,7 @@ export default {
   }
 
   .c-action-component{
-    padding:0 15px 0 55px;
+    padding:0 15px 0 70px;
   }
 
 </style>

@@ -43,4 +43,8 @@
 	& .arrow-right{
 		color:var(--grayLight)
 	}
+
+  &:active {
+    background-color: color(var(--secondary) alpha(10%))
+  }
 }

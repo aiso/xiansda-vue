@@ -1,23 +1,22 @@
 <template>
   <div>
     <div class="flex-row action" v-if="statement=='client-pay'">
-      <h4 class="pr10 flex-auto">金额：<c-price :amount="action.content" class="c-red ib"></c-price></h4>
+      <h4 class="pr10 flex-auto"><span class="c-text-light">金额：</span><c-price :amount="action.content" class="c-red-dark ib"></c-price></h4>
       <a v-link="{ name:'client/payment' }">点击付款</a>
       <c-icon name="material-chevron_right" class="c-text-light"></c-icon>
     </div>
     <div class="flex-row action" v-if="statement=='client-payed'">
-      <h4 class="pr10 flex-auto">金额：<c-price :amount="action.content" class="c-red ib"></c-price></h4>
+      <h4 class="pr10 flex-auto"><span class="c-text-light">金额：</span><c-price :amount="action.content" class="c-red-dark ib"></c-price></h4>
       <a>已付款</a>
       <c-icon name="material-done" class="c-text-light"></c-icon>
     </div>
     <div class="flex-row action" v-if="statement=='unpay'">
-      <h4 class="pr10 flex-auto">金额：<c-price :amount="action.content" class="c-red ib"></c-price></h4>
-      <h4 class="c-red">未付款</h4>
+      <h4 class="pr10 flex-auto"><span class="c-text-light">金额：</span><c-price :amount="action.content" class="c-red-dark ib"></c-price></h4>
+      <h4 class="text-ls c-text">等待付款...</h4>
     </div>
     <div class="flex-row action" v-if="statement=='payed'">
-      <h4 class="pr10 flex-auto">金额：<c-price :amount="action.content" class="c-red ib"></c-price></h4>
-      <h4 class="c-text-light">已付款</h4>
-      <c-icon name="material-done" class="c-text-light"></c-icon>
+      <h4 class="pr10 flex-auto"><span class="c-text-light">金额：</span><c-price :amount="action.content" class="c-red-dark ib"></c-price></h4>
+      <h4 class="text-ls c-text">已付款</h4>
     </div>
   </div>
 </template>

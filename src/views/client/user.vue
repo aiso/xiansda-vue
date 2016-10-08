@@ -1,7 +1,7 @@
 <template>
   <div class='page-wrapper bg-gray-light'>
 
-	<div class="table-row p20">
+	<div class="table-row p20 ">
 		<c-xsd-avatar :src="profile.img"></c-xsd-avatar>	
 		<div class="extend pl20">
 			<h2>{{profile.name}}</h2>
@@ -9,14 +9,9 @@
 		</div>
 	</div>
 
-	<a class="list-item bg-white" v-link="'/client/station'" v-if="!!station">
+	<a class="ib bg-white" v-link="'/client/station'" v-if="!!station">
 		<c-list-item :title="station.name" icon="material-store_mall_directory">
 			<h4 slot="addition" class="plr20 c-text-light">点击查看</h4>
-		</c-list-item>
-	</a>
-	<a class="list-item bg-white" v-link="'/client/station'" v-if="!station">
-		<c-list-item title="我的供应站" icon="material-store_mall_directory">
-			<h4 slot="addition" class="plr20 c-text-light">点击设置</h4>
 		</c-list-item>
 	</a>
 

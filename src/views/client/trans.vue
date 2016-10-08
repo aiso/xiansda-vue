@@ -4,7 +4,7 @@
     <c-cell v-for='trans in transes'>
       <c-xsd-item :item='trans.item' @click="goTrans(trans)">
   		  <h5 slot="subTitle">{{trans.ctime|timeago}}</h5>
-        <div slot="right" class="pl10">
+        <div slot="right" class="pl10 valign-top">
         	<c-action-status :action="trans.curract"></c-action-status>
         </div>
       </c-xsd-item>

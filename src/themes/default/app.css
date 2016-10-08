@@ -565,3 +565,19 @@ div.divider{
     color:var(--textLight);
   }
 }
+
+.flag-border{
+
+  &.flag-left{
+      border-left: 4px solid transparent;
+  }
+  &.flag-right{
+      border-right: 4px solid transparent;
+  }
+
+  &.flag-orange{
+    border-color: var(--orange);
+  }
+
+}
+

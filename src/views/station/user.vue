@@ -10,7 +10,7 @@
 	</div>
 
 
-	<a class="list-item bg-white" >
+	<a class="btn bg-white ib" >
 		<c-list-item title="供应站点" icon="material-store_mall_directory">
 			<h3 slot="addition" class="plr20" v-if="profile.stations.length>0">{{profile.stations.length}}</h3>
 			<h4 slot="addition" class="plr20 c-text-light" v-if="profile.stations.length==0">点击设置</h4>
