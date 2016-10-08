@@ -6,7 +6,7 @@
       </div>
       <div class="flex-auto pl15">
         <a class="text-ls">{{action.user.name}}</a>
-        <h5 class="c-text-light">{{action.utime|timeago}}</h5>
+        <h5 class="c-text-light">{{action.ctime|timeago}}</h5>
       </div>
       <h4 class="text-ls c-text">{{config.name}}</h4>
       <c-icon :name="config.icon" class="block"></c-icon>

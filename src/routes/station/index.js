@@ -18,17 +18,17 @@ export default {
     	component: resolve => require(['views/station/agents'], resolve)
     }),
 
-  '/station/packages': Object.assign({ }, defaultConfig, {
-      title: 'station.routes.packages',
-      name: 'station/packages',
-      component: resolve => require(['views/station/packages'], resolve)
-    }),
-
   '/station/user': Object.assign({ }, defaultConfig, {
       title: 'station.routes.user',
       name: 'station/user',
       component: resolve => require(['views/station/user'], resolve)
     }),
 
-  
+  '/station/action/10020': Object.assign({ }, defaultConfig, {
+      title: 'station.routes.action.10020',
+      name: 'station/action/10020',
+      component: resolve => require(['views/station/action-10020'], resolve)
+    }),
+
+
 }

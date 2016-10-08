@@ -97,7 +97,7 @@ export default {
     },
     postMessage(){
       this.$text.open({
-        title: '提点要求什么的',
+        title: '说点什么',
         callback: message=>{
           this.xsd.api.post('trans/'+this.trans.id+'/message', { message }).then(data=>{
             this.trans.actions.push(data.action)
