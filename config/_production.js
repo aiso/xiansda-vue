@@ -10,4 +10,5 @@ export default () => ({
     colors : true
   },
   compiler_public_path: '/wx/'
+  //compiler_public_path: '/'
 })
