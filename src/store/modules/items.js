@@ -1,17 +1,26 @@
-import { SET_ITEMS, ADD_ITEM, UPDATE_ITEM, REMOVE_ITEM, PROMISE_SUCCESS } from '../constants'
+import { 
+  SET_ITEMS, 
+  ADD_ITEM, 
+  UPDATE_ITEM, 
+  REMOVE_ITEM, 
+  PROMISE_SUCCESS,
+  SET_ACTIVITY_ITEM,
+  } from '../constants'
 
 /**
  * vuex的state
  */
 const state = {
-  items: []
+  items: [],
+  activityItem: null
 }
 
 /**
  * vuex的getters
  */
 const getters = {
-  items: state => state.items
+  items: state => state.items,
+  activityItem: state => state.activityItem
 }
 
 /**
@@ -29,7 +38,10 @@ const actions = {
   },
   removeItem ({ commit }, payload) {
     commit(REMOVE_ITEM, payload)
-  }  
+  },
+  setActivityItem ({ commit }, payload) {
+    commit(SET_ACTIVITY_ITEM, payload)
+  },
 }
 
 
@@ -50,7 +62,10 @@ const mutations = {
   [REMOVE_ITEM] (state, payload) {
     const idx = state.items.findIndex( item => item.id == payload )
     state.items.splice(idx, 1)
-  }  
+  },
+  [SET_ACTIVITY_ITEM] (state, payload) {
+    state.activityItem = payload
+  }    
 }
 
 export default {
