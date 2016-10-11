@@ -3,6 +3,7 @@
     <c-icon :name="icon"></c-icon>
     <h2 class="title">{{title}}</h2>
     <p class="description">{{description}}</p>
+    <slot></slot>
   </div>
 </template>
 

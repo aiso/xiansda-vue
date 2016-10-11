@@ -1,9 +1,12 @@
 <template>
-  <component :is="'CItemService'+this.item.service" :item="item" :class="class"></component>
+  <div :class="['c-item-service', class]">
+    <c-price :amount="item.price" class="c-red"></c-price>
+    <span class="i-text small nowrap text-small c-text-light"><c-icon :name="service.icon"></c-icon>{{service.title}}</span>
+  </div>
 </template>
 
 <script>
-import CItemService101 from '../s101/c-item-service'
+import { CIcon, CPrice } from 'components'
 
 export default {
   props: {
@@ -12,12 +15,27 @@ export default {
     },
     class: {
       type: String,
-      default:''
+      default: ''
     },
   },
+  data(){
+    return{
+      service:this.xsd.service.cfg(this.item.service),
+    }
+  },
   components:{
-  	CItemService101,
+    CIcon,
+    CPrice
   }
 }
-
 </script>
+
+<style>
+  .c-item-service{
+    text-align: center;
+  }
+
+  .c-item-service.big .c-price-amount{
+    font-size:24px;
+  }
+</style>

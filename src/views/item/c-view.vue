@@ -6,13 +6,8 @@
       </c-swipe-item>
     </c-swipe>
     <c-pane>
-    <div class="table-row">
-      <div class="extend">
-        <h3>{{item.title}}</h3>  
-      </div>
-      <slot name="title"></slot>
-    </div>
-    <slot name="description"></slot>
+      <h3 class="text-ls mb20">{{item.title}}</h3>  
+      <p class="c-text-light text-ls">{{item.content}}</p>
     </c-pane>
   </div>
 </template>

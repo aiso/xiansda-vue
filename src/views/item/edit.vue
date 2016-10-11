@@ -86,7 +86,9 @@ export default {
     fields () {
       return {
         title: this.item.title,
+        price: this.item.price,
         content: this.item.content,
+        service: this.item.service
       }
     },
     imageMutate() {
@@ -97,6 +99,9 @@ export default {
       return mutate
     },
     cells () {
+      const serviceOptions = this.xsd.service.all().map(s=>{
+        return { label:s.config.title, value:s.config.id }
+      })
       return {
         title: {
           label: '产品名称',
@@ -120,6 +125,35 @@ export default {
             }
           }
         },
+        service: {
+          label: '产品类型',
+          icon: 'check',
+          type: 'CSelect',
+          attrs: {
+            placeholder: '关于产品的描述...'
+          },
+          extra: {
+            options:serviceOptions
+          }
+        },
+        price: {
+          label: '产品价格',
+          icon: 'user',
+          type: 'textfield',
+          attrs: {
+            placeholder: '0.00'
+          },
+          validate: {
+            min: {
+              rule: 0.01,
+              message: '价格错误'
+            },
+            max: {
+              rule: 1000000000,
+              message: '价格错误'
+            }
+          }
+        },
         content: {
           label: '产品描述',
           icon: 'check',
@@ -128,12 +162,6 @@ export default {
           attrs: {
             placeholder: '关于产品的描述...'
           },
-          validate: {
-            required: {
-              rule: true,
-              message: '请输入产品描述'
-            }
-          }
         }
       }
     },
