@@ -211,10 +211,13 @@ export default {
                 this.setActivityItem(item)
               })              
             }
+            this.$emit('mutate', 'editCallback', data.item.id)
           }
-          else
+          else{
             this.addItem(data.item)
-          this.$emit('mutate', 'editCallback', data.item.id)
+            this.$emit('mutate', 'newCallback', data.item.id)
+          }
+
         })
 
       }).catch($validation => {

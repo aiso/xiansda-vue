@@ -5,10 +5,11 @@
     <c-xsd-avatar v-if="!!item.avatar" :src="item.avatar" size=50></c-xsd-avatar>
 	  <div class="xsd-content" @click="_click">
 	  	<h4 v-if="!!item.title" class="title">{{item.title}}</h4>
-      <div class="subTitle">
-        <slot name="subTitle"></slot> 
+      <div class="detail">
+        <slot name="detail"></slot> 
       </div>
 	  </div>
+    <div class="filler"></div>
     <slot name="right"></slot>
   </div>
 </template>

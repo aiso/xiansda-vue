@@ -11,7 +11,7 @@
 	</c-pane>
 	<c-xsd-background v-if="items.length==0" title="还没有产品？">
   		<div class="p20">
-  			<c-button class="primary" v-link="{ name:'item/new' }">添加产品</c-button>	
+  			<c-button class="primary" @click="newItem=1">添加产品</c-button>	
   		</div>
 	</c-xsd-background>
 
@@ -21,6 +21,10 @@
 	<c-frame :toggle.sync="editItem">
 	  <v-item-edit :item-id="editItem" @mutate="mutate"></v-item-edit>
 	</c-frame>
+	<c-frame :toggle.sync="newItem">
+	  <v-item-edit :item-id="0" @mutate="mutate"></v-item-edit>
+	</c-frame>
+
   </div>
 </template>
 
@@ -38,14 +42,15 @@ export default {
 	data () {
 		return { 
 			showItem:0,
-			editItem:0
+			editItem:0,
+			newItem:0
 		}
 	},
 	route: {
 		activate(transition){
       		this.$root.setNavOptions([{
 	    		icon:'material-add',
-	    		click: ()=>{ this.$route.router.go({ name:'item/new' })  }
+	    		click: ()=>{ this.newItem = 1  }
 	    	}])
 
 	    	if(this.items.length == 0){
@@ -83,9 +88,10 @@ export default {
 	      } )
       	}else if(event == 'edit'){
       	  this.editItem = data
-      	  //this.$route.router.go({ name:'item/edit', params: { id: data } })
       	}else if(event == 'editCallback'){
       		this.editItem = 0
+      	}else if(event == 'newCallback'){
+      		this.newItem = 0
       	}
       }
     },

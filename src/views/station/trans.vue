@@ -13,7 +13,7 @@
         <c-xsd-item :item='trans.item' @click="goTrans(trans)">
           <h5 slot="subTitle">{{trans.ctime|timeago}}</h5>
           <div slot="right" class="pl10 valign-top">
-            <c-action-status :action="trans.curract"></c-action-status>
+            <c-action-status :action="trans.current"></c-action-status>
           </div>
         </c-xsd-item>
       </c-cell>

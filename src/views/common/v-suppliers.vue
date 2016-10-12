@@ -1,17 +1,19 @@
 <template>
   <c-frame :toggle.sync="toggle" title="选择供应商">
-
-      <c-cell v-for="item in items" v-link="{ name:'common/supplier/items', params:{ id:item.id } }">
+    <div class="p20">
+      <h3 class="plr10">供应商</h3>
+      <div class="divider"></div>
+      <div v-for="item in items" @click="onSelect(item.id)" class="p10 btn">
         <c-xsd-item :item='item'>
-          <div slot="subTitle">
+          <div slot="detail">
             <h5>{{item.address}}</h5>
           </div>
           <div slot="right">
               <c-icon name="material-chevron_right"></c-icon>
           </div>
         </c-xsd-item>      
-      </c-cell>
-
+      </div>
+    </div> 
   </c-frame>
 </template>
 
@@ -53,6 +55,11 @@ export default {
           this.suppliers = data.suppliers
         })
       }
+    }
+  },
+  methods: {
+    onSelect(id){
+      this.$emit('callback', id)
     }
   },
   components: {

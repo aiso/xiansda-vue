@@ -1,9 +1,9 @@
 .c-xsd-item {
-	@mixin table-row;
+  display: flex;
+  flex-direction: row;
+  justify-content:center;
+  align-items:center;
 
-	& >* {
-		@mixin table-cell;
-	}
 /*
 	& .c-icon.block{
 	    display: block;
@@ -31,23 +31,22 @@
 	}
 
 	& .xsd-content{
-		width:100%;
+		width:60%;
 		padding-left: 10px;
 
 		& .title{
 			color:var(--text);
 			font-weight: normal;
+			text-overflow:ellipsis;white-space:nowrap;overflow:hidden;
 			//line-height: 1.6em
-		}
-
-		& .subTitle{
-			margin-top: 5px;
-			color:var(--textLight)
 		}
 
 		&.active, &:active{
 			opacity: .6
 		}
+	}
+	& .filler{
+		flex: auto;
 	}
 
 	& .c-button{

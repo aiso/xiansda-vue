@@ -169,8 +169,8 @@ h6{
 }
 
 .btn{
-  &:active{
-    opacity: .6
+  &:active {
+    background-color: color(var(--secondary) alpha(10%))
   }
 }
 
@@ -187,6 +187,9 @@ h6{
   }
 }
 
+.single-line{
+  text-overflow:ellipsis;white-space:nowrap;overflow:hidden
+}
 
 .valign-top{
   vertical-align: top !important;

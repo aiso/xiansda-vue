@@ -6,14 +6,18 @@
       </c-swipe-item>
     </c-swipe>
     <c-pane>
-      <h3 class="text-ls mb20">{{item.title}}</h3>  
+      <h3 class="text-ls">{{item.title}}</h3>  
+      <div class="mt10 mb20">
+        <c-xsd-profile :uid="item.user" class="c-orange"></c-xsd-profile>
+      </div>
+      
       <p class="c-text-light text-ls">{{item.content}}</p>
     </c-pane>
   </div>
 </template>
 
 <script>
-import { CPane, CSwipe, CSwipeItem, CXsdImage } from 'components'
+import { CPane, CSwipe, CSwipeItem, CXsdImage, CXsdProfile } from 'components'
 export default {
   data () {
     return { slideWidth: 400 }
@@ -31,7 +35,8 @@ export default {
     CPane,
     CSwipe,
     CSwipeItem,
-    CXsdImage
+    CXsdImage,
+    CXsdProfile
   }
 }
 </script>

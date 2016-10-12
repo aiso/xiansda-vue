@@ -1,5 +1,6 @@
 <template>
   <div :class="['c-price', class]">
+    <slot></slot>
     <span class="c-price-currency">{{pref}}</span><span class="c-price-amount">{{ amount | currency '' }}</span>
   </div>
 </template>
