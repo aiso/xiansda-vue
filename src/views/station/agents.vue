@@ -1,95 +1,75 @@
 <template>
   <div class='page-wrapper'>
+    <div class="p20">
+      <h3 class="p10">供应商</h3>
+      <c-cell v-for="item in items" @click="showAgentSupplier=item.id" class="padding-tb">
+        <c-xsd-item :item='item'>
+          <div slot="detail">
+            <h5 class="c-text-light mt5">{{item.address}}</h5>
+          </div>
+          <div slot="right">
+              <c-icon name="material-chevron_right"></c-icon>
+          </div>
+        </c-xsd-item>      
+      </c-cell>
+    </div>
 
-	<c-cell v-for='agent in agents'>
-	  <c-xsd-item :item='agent.item' @click='showAgent=agent.id'>
-	  	<div slot="detail" class="mt5">
-	  		<c-xsd-profile :uid="agent.item.user"></c-xsd-profile>
-	  	</div>
-		<div slot="right" class="pl10 valign-top text-center">
-			<c-price :amount="agent.fee"></c-price>
-			<h5 class="c-text-light">代理费</h5>
-		</div>
-	  </c-xsd-item>
-	</c-cell>
-
-	<c-xsd-background v-if="agents.length==0" title="还没有代理产品？">
-	  <div class="p20">
-	    <c-button class="primary" @click="showSupplierModal=1">添加代理产品</c-button>	
-	  </div>
-	</c-xsd-background>
-
-	<v-suppliers :toggle.sync="showSupplierModal" @callback="selectSupplier"></v-suppliers>
-	<c-frame :toggle.sync="showAgent">
-		<v-agent :agent="agent" @mutate="mutate"></v-agent>
-	</c-frame>
-  </div>
+    <c-frame :toggle.sync="showAgentSupplier" title="代理产品">
+      <v-agent-supplier :sid="showAgentSupplier" @mutate="mutate"></v-agent-supplier>
+    </c-frame>
+  </div> 
 </template>
 
-
 <script>
-import Promise from 'nd-promise'
-import { CPane, CFrame, CCell, CIcon, CButton, CXsdItem, CXsdImage, CXsdBackground, CPrice, CXsdProfile } from 'components'
-import { mapGetters, mapActions } from 'vuex'
-import CXsdItemService from '../item/c-item-service'
-import VSuppliers from '../common/v-suppliers'
-import VAgent from './v-agent'
-
+import { CFrame, CPane, CCell, CIcon, CXsdItem } from 'components'
+import VAgentSupplier from './v-agent-supplier'
 
 export default {
-	data () {
-		return { 
-			agents:[],
-			showSupplierModal:0,
-			showAgent:0
-		}
-	},
-	route: {
-		activate (transition) {
-			this.xsd.api.getCache('station/agents').then( data => {
-				this.agents = data.agents
-			} )			
+  data(){
+    return {
+      suppliers:null,
+      showAgentSupplier: 0      
+    }
+  },
+  route: {
+    data (transition) {
+      this.xsd.api.getCache('region/1/suppliers').then(data=>{
+        transition.next({
+          suppliers:data.suppliers
+        })
+      })
+    }
+  },
+  computed: {
+    items(){
+      if(!this.suppliers) return []
 
-      		this.$root.setNavOptions([{
-	    		icon:'material-add',
-	    		click: ()=>{ this.showSupplierModal =1  }
-	    	}])
-	    	
-			transition.next()
-		}
-	},
-    computed: {
-    	...mapGetters(['user', 'items']),
-    	agent(){
-    		return (this.showAgent)?this.agents.find(a=>a.id==this.showAgent):null
-    	}
-    },
-    methods: {
-      ...mapActions(['setItems', 'addItem']),
-      mutate(event, data){
-      	if(event == 'deleteAgent'){
-      		this.agents = this.agents.filter(agent=>agent.id!=data)
-      		this.showAgent = 0
-      	}
-      },
-      selectSupplier(id){
-      	this.showSupplierModal = 0
+      return this.suppliers.map(supplier=>{
+        return {
+          id:supplier.id,
+          avatar:supplier.img,
+          title:supplier.name,
+          address:supplier.address
+        }
+      })
+    }
+  },
+  methods: {
+    mutate(event, data){
+      if(event == 'deleteAgent'){
+        this.agents = this.agents.filter(agent=>agent.id!=data)
+        this.showAgent = 0
       }
     },
-	components: {
-		CPane,
-		CFrame,
-		CCell,
-		CIcon,
-		CButton,
-		CXsdItem,
-		CXsdImage,
-		CXsdItemService,
-		VSuppliers,
-		VAgent,
-		CXsdBackground,
-		CPrice,
-		CXsdProfile
-	}
+  },
+  components: {
+    VAgentSupplier,
+    CFrame,
+    CPane,
+    CCell,
+    CIcon,
+    CXsdItem
+  }
 }
 </script>
+

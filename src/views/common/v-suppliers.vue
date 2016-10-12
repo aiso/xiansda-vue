@@ -1,18 +1,17 @@
 <template>
   <c-frame :toggle.sync="toggle" title="选择供应商">
     <div class="p20">
-      <h3 class="plr10">供应商</h3>
-      <div class="divider"></div>
-      <div v-for="item in items" @click="onSelect(item.id)" class="p10 btn">
+      <h3 class="p10">供应商</h3>
+      <c-cell v-for="item in items" @click="onSelect(item.id)" class="padding-tb">
         <c-xsd-item :item='item'>
           <div slot="detail">
-            <h5>{{item.address}}</h5>
+            <h5 class="c-text-light mt5">{{item.address}}</h5>
           </div>
           <div slot="right">
               <c-icon name="material-chevron_right"></c-icon>
           </div>
         </c-xsd-item>      
-      </div>
+      </c-cell>
     </div> 
   </c-frame>
 </template>

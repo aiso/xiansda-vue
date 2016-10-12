@@ -8,7 +8,7 @@
     <c-pane>
       <h3 class="text-ls">{{item.title}}</h3>  
       <div class="mt10 mb20">
-        <c-xsd-profile :uid="item.user" class="c-orange"></c-xsd-profile>
+        <c-xsd-profile :uid="item.user"></c-xsd-profile>
       </div>
       
       <p class="c-text-light text-ls">{{item.content}}</p>

@@ -19,7 +19,7 @@ import { CFrame, CPane, CCell, CIcon, CXsdItem, CXsdAvatar } from 'components'
 export default {
   data(){
     return {
-      suppliers:null,
+      supplier:null,
       items:null,
     }
   },
