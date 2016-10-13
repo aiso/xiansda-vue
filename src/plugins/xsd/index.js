@@ -38,6 +38,7 @@ xsd.install = function (Vue) {
 
   const xsdCache = []
   const _items = []
+  let _requestQue = []
 	Object.defineProperties(Vue.prototype, {
 	  xsd:{
       get() {
@@ -60,13 +61,26 @@ xsd.install = function (Vue) {
             }
 
             return Promise.reject(result)
+          }).finally(result=>{
+            _requestQue = _requestQue.filter(r=>r.url!=options.url)
+
           })
         }
 
 
         const apiGet = url => {
-          if(typeof(url) == 'string')
-            return _request({ url })
+          if(typeof(url) == 'string'){
+            //return _request({ url })
+
+            let req = _requestQue.find(r=>r.url==url)
+            if(!!req){
+              return req.promise
+            }else{
+              req = { url, promise:_request({ url }) }
+              _requestQue.push(req)
+              return req.promise
+            }
+          }
           else if(url instanceof Array){
             return Promise.all(url.map(u=>apiGet(u)))
           }

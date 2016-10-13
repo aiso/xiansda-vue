@@ -1,6 +1,9 @@
 <template>
   <c-modal :show.sync='show' :actions="null">
-    <h3 class="text-left p10 text-ls">代理产品</h3>
+    <div class="flex-row">
+      <h3 class="text-left p10 text-ls flex-auto">代理产品</h3>  
+      <a @click="removeAgent" class="c-red" v-if="!!item.agent"><c-icon name="material-delete_forever" class="block"></c-icon></a>
+    </div>
     <div class="divider"></div>
     <div class="flex-row">
       <c-xsd-image :src="item.img" width=50 height=50></c-xsd-image>
@@ -14,7 +17,7 @@
       
     </div>
     <div class="divider"></div>
-    <div class="flex-row mb10 pl10">
+    <div class="flex-row mb20 pl10">
       <h4 class="c-text-light">代理费用</h4>
       <div class="flex-auto">
         <input class="input-simple text-center font-montserrat full-width" v-model="fee" placeholder="0.00" style="font-size:16px" />
@@ -31,7 +34,7 @@
 
 
 <script>
-import { CModal, CXsdImage, CPrice, CLabel, CSubmit } from 'components'
+import { CModal, CIcon, CXsdImage, CPrice, CLabel, CSubmit } from 'components'
 
 export default {
   props:{
@@ -71,13 +74,20 @@ export default {
     },
     _submit(){
       this.xsd.api.post('station/agent', { item:this.item.id, fee:this.fee }).then(data=>{
-        this.$emit('mutate', data.agent)
+        this.$emit('mutate', 'update', data.agent)
+        this.show = false
+      })
+    },
+    removeAgent(){
+      this.xsd.api.delete('station/agent/'+this.item.agent.id).then(data=>{
+        this.$emit('mutate', 'delete', data.agent)
         this.show = false
       })
     }
   },
   components: {
     CModal,
+    CIcon,
     CXsdImage,
     CPrice,
     CLabel,
