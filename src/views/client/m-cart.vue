@@ -1,17 +1,15 @@
 <template>
   <c-modal :show.sync='show' :callback='modalAction'>
-    <div class="table-row p10">
-      <div class="extend text-left pl20">
-        <h2>购物篮</h2>
-      </div>
+    <div class="flex-row p20 border-bottom">
+      <h2 class="flex-auto pr10 text-left">购物篮</h2>
       <div v-if="inCart">
-        <a @click="removeItem"><c-icon name="material-delete_forever" class="block c-text-light"></c-icon></a>
+        <a @click="removeItem"><c-icon name="material-delete_forever" class="block c-red"></c-icon></a>
       </div>
     </div>
     <div v-if="!!cartItem">
       <div class="table-row p10">
           <div class="span3">
-              <span class="c-gray-light">数量</span>
+              <span class="c-text-light">数量</span>
           </div>
           <div class="span9">
             <button class="float-right" @click="cartItem.quantity=cartItem.quantity+1"><c-icon name="material-add" class="block"></c-icon></button>
@@ -21,10 +19,10 @@
       </div>
       <div class="table-row p10">
           <div class="span3">
-              <span class="c-gray-light">金额</span>
+              <span class="c-text-light">金额</span>
           </div>
           <div class="span9 plr20 text-right">
-            <span>{{cartItem.price | currency ''}}</span> x {{cartItem.quantity}} = <c-price :amount="cartItem.price*cartItem.quantity" style="display: inline-block"></c-price>
+            <span class="font-montserrat">{{item.amount | currency ''}}</span> x {{cartItem.quantity}} = <c-price :amount="item.amount*cartItem.quantity" class="c-red-dark big" style="display: inline-block"></c-price>
           </div>
       </div>
     </div>
@@ -74,7 +72,6 @@ export default {
       if(val === true){
         this.cartItem = Object.assign({
           id:this.item.id,
-          price:this.item.price,
           quantity:1
         }, this.cart.find(i=>i.id == this.item.id))
       }else{

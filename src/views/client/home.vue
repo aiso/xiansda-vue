@@ -12,7 +12,7 @@
         
       </div>
       <div v-if="items">
-        <c-cell class="padding-tb" v-for="item in items" @click="showItem(item.id)">
+        <c-cell class="padding-tb" v-for="item in items" @click="showItem(item.agent)">
           <c-xsd-item :item='item'>
             <div slot="detail" class="mt5">
               <c-xsd-profile :uid="item.user"></c-xsd-profile>
@@ -25,7 +25,7 @@
         </c-cell>
       </div>
     </c-pane>
-    <f-item :toggle.sync="toggleFrameItem" :itemid="showItemId"></f-item>
+    <f-item :toggle.sync="toggleFrameItem" :agent="showItemAgent"></f-item>
   </div>
 </template>
 
@@ -39,7 +39,7 @@ export default {
     return{
       items:[],
       station:null,
-      showItemId:0,
+      showItemAgent:null,
       toggleFrameItem:0
     }
   },
@@ -66,8 +66,8 @@ export default {
       this.items = data.items
       this.station = data.station
     },
-    showItem(id){
-      this.showItemId=id
+    showItem(agent){
+      this.showItemAgent=agent
       this.toggleFrameItem = 1
     }
   },

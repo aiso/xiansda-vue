@@ -6,12 +6,16 @@
       </c-swipe-item>
     </c-swipe>
     <c-pane>
-      <h3 class="text-ls">{{item.title}}</h3>  
-      <div class="mt10 mb20">
+      <div class="flex-row" style="align-items: flex-start">
+        <h3 class="text-ls flex-auto">{{item.title}}</h3>    
+        <slot></slot>
+      </div>
+      <div class="divider"></div>
+      <div class="mt10 mb10">
         <c-xsd-profile :uid="item.user"></c-xsd-profile>
       </div>
       
-      <p class="c-text-light text-ls">{{item.content}}</p>
+      <p class="c-text text-ls">{{item.content}}</p>
     </c-pane>
   </div>
 </template>
