@@ -1,21 +1,8 @@
 <template>
   <div class="page-wrapper bg-gray-light">
-  	<c-layout-center v-if="items.length==0">
-	    <c-icon name="fa-shopping-basket" class="icon"></c-icon>
-	    <h3 class="mb20 c-text-light">饥肠辘辘啊</h3>
-  	</c-layout-center>
-    
-    <div class="table-row" style="padding:10px 0 10px 20px">
-      <div class="extend">
-        <h2>我的购物车</h2>
-      </div>
-      <div class="nowrap">
-        <span class="c-text-light">全选</span>
-      </div>
-      <div>
-        <a @click="allCheck"><c-icon :name="summary.allCheck?'material-check_box':'material-check_box_outline_blank'" class="block c-text-light"></c-icon></a>
-      </div>
-    </div>
+    <c-xsd-background v-if="items.length==0" :statement="loading" title="饥肠辘辘啊" icon="fa-shopping-basket"></c-xsd-background>
+
+    <h2 class="p20 text-ls">购物车</h2>
     <c-xsd-item v-for="item in items" :item="item" class="bg-white list-item border-bottom">
       <div slot="subTitle">
         <span>{{item.quantity}} x {{item.price|currency ''}} = </span><c-price :amount="item.price*item.quantity" class="ib"></c-price>
@@ -24,6 +11,12 @@
         <a @click="item.checked=!item.checked"><c-icon :name="item.checked?'material-check_box':'material-check_box_outline_blank'" class="block c-text-light"></c-icon></a>
       </div>
     </c-xsd-item>
+
+    <div class="flex-row">
+      <div class="flex-auto"></div>
+      <span class="c-text-light">全选</span>
+      <a @click="allCheck"><c-icon :name="summary.allCheck?'material-check_box':'material-check_box_outline_blank'" class="block c-text-light"></c-icon></a>
+    </div>
 
     <c-xsd-nav-button style="width:15rem">
       <div class="p10 float-right">
@@ -37,22 +30,37 @@
       </div>
     </c-xsd-nav-button>
 
-    <m-cart :show.sync="showCart" :item="cartItem"></m-cart>
+
   </div>
 </template>
 
 <script>
-import { CLayoutCenter, CPane, CIcon, CXsdItem, CPrice, CXsdNavButton, CButton } from 'components'
+import { CPane, CIcon, CXsdItem, CPrice, CXsdBackground, CXsdNavButton, CButton } from 'components'
 import { mapActions, mapGetters } from 'vuex'
-import MCart from './m-cart'
+
 
 export default {
   data(){
   	return{
+      loading:{
+        icon:'material-hourglass_empty',
+        title: '努力加载中...'
+      },
   		items:[],
       showCart:false,
       cartItem:null
   	}
+  },
+  attached(){
+    if(this.cart.length == 0){
+      this.loading = null
+    }else{
+      this.xsd.api.post('client/cart', this.cart).then(data=>{
+        this.items = data.items
+        this.loading = null
+      })
+    }
+    
   },
   computed: {
   	...mapGetters(['cart']),
@@ -70,6 +78,7 @@ export default {
       return s
     }
   },
+  /*
   route: {
     data(transition){
       this.xsd.item.get(this.cart.map(item=>item.id)).then(_items=>{
@@ -79,7 +88,7 @@ export default {
         transition.next({ items })
       })
     }
-  },
+  },*/
   methods: {
 	  ...mapActions(['addToast']),
     editItem(item){
@@ -103,12 +112,11 @@ export default {
 
   },
   components: {
-    MCart,
-  	CLayoutCenter,
     CPane,
   	CIcon,
     CXsdItem,
     CPrice,
+    CXsdBackground,
     CXsdNavButton,
     CButton,
   }

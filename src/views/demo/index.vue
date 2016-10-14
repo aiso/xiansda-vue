@@ -12,6 +12,7 @@
         <c-button class='primary fit small' @click='apiCache1' >apiCache1</c-button>
         <c-button class='primary fit small' @click='apiCache2' >apiCache2</c-button>
         <c-button class='primary fit small' @click='apiCache3' >apiCache3</c-button>
+        <c-button class='primary fit small' @click='testAddNotice' >addNotice</c-button>
       </c-cell>
     </c-pane>
 
@@ -72,7 +73,7 @@
       }
     },
     methods: {
-      ...mapActions(['addToast']),
+      ...mapActions(['addToast', 'addNotice']),
       test () {
         this.xsd.api.get('test').then(data=>{this.$modal.alert.open(data)}).catch( data => { this.$modal.alert.open(data)} )
         //this.xsd.nav.home();
@@ -130,6 +131,14 @@
         this.xsd.api.getCache(['services', 'regions']).then(data=>{
           console.log(data)
         })
+      },
+      testAddNotice(){
+        this.addNotice({
+          name:'testnotice',
+          icon:'material-shopping_cart',
+          title:'3'
+        })
+
       }
     },
     components: {

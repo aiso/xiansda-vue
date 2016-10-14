@@ -3,6 +3,7 @@
     <c-progress class="progress" :progress="progress"></c-progress>
     <c-toast class="toast" :toasts="toasts"></c-toast>
     <!--v-header :routes="routes"></v-header-->
+    <c-notices></c-notices>
     <div class="content">
       <router-view class="router-view" transition="slide-up" transition-mode="out-in" keep-alive></router-view>
     </div>
@@ -26,7 +27,18 @@
 </template>
 
 <script>
-import { CProgress, CToast, CQrcode, CAlert, CConfirm, CXsdNavigator, CXsdMenu, CIcon } from 'components'
+import { 
+  CProgress, 
+  CToast, 
+  CQrcode, 
+  CAlert, 
+  CConfirm, 
+  CXsdNavigator, 
+  CXsdMenu, 
+  CIcon,
+  CNotices
+} from 'components'
+
 import MText from 'views/common/m-text'
 import VHeader from 'views/common/v-header'
 import VFooter from 'views/common/v-footer'
@@ -45,7 +57,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['lang', 'i18n', 'progress', 'toasts', 'navMainRoutes', 'navCurrRoute']),
+    ...mapGetters(['lang', 'i18n', 'progress', 'toasts', 'navMainRoutes', 'navCurrRoute', 'cart']),
     routes () {
       return navRoutes.call(this, routes, (key, route) => {
         return key !== '/' && route.auth !== !this.auth
@@ -54,7 +66,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['setEnv']),
+    ...mapActions(['setEnv', 'addNotice']),
     setNavOptions(options){
       setTimeout(()=>{
           this.navigator.navOptions = options
@@ -115,7 +127,8 @@ export default {
     CConfirm,
     CXsdNavigator,
     CXsdMenu,
-    CIcon
+    CIcon,
+    CNotices
   }
 }
 /**

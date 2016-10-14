@@ -1,24 +1,26 @@
 <template>
   <c-frame :toggle.sync="toggle" title="商品">
-    <c-item-view v-if="item" :item='item'>
-      <div class="text-center">
-        <c-price :amount="item.amount" class="big c-red-dark"></c-price>
-        <c-xsd-service :sid="item.service"></c-xsd-service>
-      </div>
-    </c-item-view>
+    <div v-if="item">
+      <c-item-view :item='item'>
+        <div class="text-center">
+          <c-item-agent :item="item" :agent="agent"></c-item-agent>
+        </div>
+      </c-item-view>
 
-    <m-cart :show.sync="showCart" :item="item"></m-cart>
+      <c-xsd-nav-button>
+        <a @click="showModal=true"><c-icon name="material-shopping_cart" class="block"></c-icon></a>
+      </c-xsd-nav-button>
 
-    <c-xsd-nav-button>
-      <a class="icon" @click="showCart=true"><c-icon name="material-shopping_cart" class="block"></c-icon></a> 
-    </c-xsd-nav-button>
+      <m-order :show.sync="showModal" :item="item" :agent="agent"></m-order>
+    </div>
   </c-frame>
 </template>
 
 <script>
-import { CFrame, CIcon, CPrice, CXsdNavButton, CXsdService } from 'components'
+import { CFrame, CIcon, CXsdNavButton, CXsdService } from 'components'
 import CItemView from '../item/c-view'
-import MCart from './m-cart'
+import CItemAgent from './c-item-agent'
+import MOrder from './m-order'
 
 export default {
   props : {
@@ -33,7 +35,7 @@ export default {
   data () {
     return { 
       item:null,
-      showCart:false,
+      showModal:false,
     }
   },
   watch: {
@@ -41,7 +43,6 @@ export default {
       if(v > 0){
         if(!this.item || this.item.id != this.agent.item){
           this.xsd.item.get(this.agent.item).then(item=>{
-            item.amount=parseFloat(item.price)+parseFloat(this.agent.fee)
             this.item = item
           })
         }
@@ -54,11 +55,11 @@ export default {
   components: {
     CFrame,
     CIcon,
-    CPrice,
     CXsdNavButton,
     CXsdService,
     CItemView,
-    MCart
+    MOrder,
+    CItemAgent
   }  
 
 }

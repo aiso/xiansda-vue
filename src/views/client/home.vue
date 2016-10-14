@@ -18,20 +18,21 @@
               <c-xsd-profile :uid="item.user"></c-xsd-profile>
             </div>
             <div slot="right" class="text-center">
-              <c-price :amount="item.amount" class="c-red"></c-price>
-              <c-xsd-service :sid="item.service"></c-xsd-service>
+              <c-item-agent :item="item" :agent="item.agent"></c-item-agent>
             </div>
           </c-xsd-item> 
         </c-cell>
       </div>
+
     </c-pane>
     <f-item :toggle.sync="toggleFrameItem" :agent="showItemAgent"></f-item>
   </div>
 </template>
 
 <script>
-import { CPane, CCell, CPrice, CXsdItem, CXsdProfile, CXsdAvatar, CXsdService } from 'components'
+import { CPane, CCell, CPrice, CXsdItem, CXsdProfile, CXsdAvatar } from 'components'
 import FItem from './f-item'
+import CItemAgent from './c-item-agent'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -60,9 +61,6 @@ export default {
   },
   methods: {
     initData(data){
-      data.items.forEach(item=>{
-        item.amount = parseFloat(item.price)+parseFloat(item.agent.fee)
-      })
       this.items = data.items
       this.station = data.station
     },
@@ -78,8 +76,8 @@ export default {
     CXsdItem,
     CXsdProfile,
     CXsdAvatar,
-    CXsdService,
-    FItem
+    FItem,
+    CItemAgent
   }   
 }
 </script>

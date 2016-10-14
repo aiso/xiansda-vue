@@ -4,7 +4,7 @@ const defaultConfig = {
 }
 
 export default {
-	
+
   '/client/trans': Object.assign({ }, defaultConfig, {
 		title: 'client.routes.trans',
 	  	name: 'client/trans',
@@ -15,6 +15,12 @@ export default {
 		title: 'client.routes.home',
 		name: 'client/home',
 		component: resolve => require(['views/client/home'], resolve)
+	}),
+
+  '/client/cart': Object.assign({ }, defaultConfig, {
+		title: 'client.routes.cart',
+		name: 'client/cart',
+		component: resolve => require(['views/client/cart'], resolve)
 	}),
 
   '/client/payment': Object.assign({ }, defaultConfig, {

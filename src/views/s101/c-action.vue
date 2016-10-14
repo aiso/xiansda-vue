@@ -17,7 +17,7 @@
     </div>
 
     <m-agent v-if="agentModal" :show.sync="agentModal" :item="item" :agent="agent" @mutate='onUpdateAgent'></m-agent>
-    <m-order v-if="orderModal" :show.sync="orderModal" :item="item" :agent="agent"></m-order>
+    <m-order v-if="orderModal" :show.sync="orderModal" :item="item"></m-order>
   </div>
 </template>
 

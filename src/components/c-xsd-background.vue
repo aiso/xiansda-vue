@@ -1,7 +1,7 @@
 <template>
   <div :class="['c-xsd-background', class]">
-    <c-icon :name="icon"></c-icon>
-    <h2 class="title">{{title}}</h2>
+    <c-icon :name="_icon"></c-icon>
+    <h2 class="title">{{_title}}</h2>
     <p class="description">{{description}}</p>
     <slot></slot>
   </div>
@@ -28,7 +28,20 @@ export default {
     description: {
       type: String,
       default: ''
+    },
+    statement: {
+      type: Object,
+      default:null
     }
+  },
+  computed: {
+    _icon(){
+      console.log(this.statement)
+      return !!this.statement?this.statement.icon:this.icon
+    },
+    _title(){
+      return !!this.statement?this.statement.title:this.title
+    }    
   },
   components: {
     CIcon
