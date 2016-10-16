@@ -8,10 +8,10 @@
       </c-item-view>
 
       <c-xsd-nav-button>
-        <a @click="showModal=true"><c-icon name="material-shopping_cart" class="block"></c-icon></a>
+        <a @click="orderItem=item"><c-icon name="material-shopping_cart" class="block"></c-icon></a>
       </c-xsd-nav-button>
 
-      <m-order :show.sync="showModal" :item="item" :agent="agent"></m-order>
+      <m-order :item.sync="orderItem"></m-order>
     </div>
   </c-frame>
 </template>
@@ -35,7 +35,7 @@ export default {
   data () {
     return { 
       item:null,
-      showModal:false,
+      orderItem:null,
     }
   },
   watch: {
@@ -43,6 +43,7 @@ export default {
       if(v > 0){
         if(!this.item || this.item.id != this.agent.item){
           this.xsd.item.get(this.agent.item).then(item=>{
+            item.agent = this.agent
             this.item = item
           })
         }

@@ -36,7 +36,6 @@ export default {
   },
   computed: {
     _icon(){
-      console.log(this.statement)
       return !!this.statement?this.statement.icon:this.icon
     },
     _title(){

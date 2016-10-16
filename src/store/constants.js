@@ -38,6 +38,8 @@ const ADD_NOTICE = 'ADD_NOTICE'
 const REMOVE_NOTICE = 'REMOVE_NOTICE'
 const UPDATE_NOTICE = 'UPDATE_NOTICE'
 
+const SET_WORKS = 'SET_WORKS'
+
 export default { 
     PROMISE_PENDING, 
     PROMISE_SUCCESS, 
@@ -73,7 +75,9 @@ export default {
     SET_NOTICES,
     ADD_NOTICE,
     REMOVE_NOTICE,
-    UPDATE_NOTICE
+    UPDATE_NOTICE,
+
+    SET_WORKS
 
 }
 

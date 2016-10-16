@@ -1,6 +1,7 @@
 <template>
-  <div class="text-center nowrap">
-    <c-icon :name="cfg.icon" class="c-gray-light"></c-icon>
+  <div class="text-center nowrap"  :class="stat">
+    <c-icon :name="cfg.icon"></c-icon>
+    <h5>{{cfg.name}}</h5>
   </div>
 </template>
 
@@ -16,7 +17,7 @@ export default {
   data(){
     return{
       cfg:this.xsd.action.get(this.action.action),
-      //stat:this.action.stat?'c-blue':'c-text'
+      stat:this.action.stat?'c-green':'c-orange'
     }
   },
   components:{

@@ -5,7 +5,7 @@
     <!--v-header :routes="routes"></v-header-->
     <c-notices></c-notices>
     <div class="content">
-      <router-view class="router-view" transition="slide-up" transition-mode="out-in" keep-alive></router-view>
+      <router-view class="router-view" transition="slide-up" transition-mode="out-in" keep-alive-stop></router-view>
     </div>
     <m-text v-ref:modal-text></m-text>
     <c-alert v-ref:modal-alert></c-alert>

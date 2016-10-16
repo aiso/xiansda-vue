@@ -222,6 +222,7 @@ webpackConfig.callbackLoader = require("vue-icons/icon-loader")([
   'material-notifications',
   'material-delete_forever',
   'material-shopping_cart',
+  'material-remove_shopping_cart',
   'material-favorite',
   'material-favorite_border',
   'material-check_box',

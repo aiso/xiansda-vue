@@ -11,12 +11,22 @@ const getters = {
 
 const actions = {
   setCartItem ({ commit }, cartItem) {
-    const cart = state.cart.filter(i=>i.id!=cartItem.id)
-    cart.push(cartItem)
+    const idx = state.cart.findIndex(i=>i.id==cartItem.id)
+    const cart = state.cart.concat();
+    if(idx >= 0)
+      cart[idx] = cartItem
+    else
+      cart.push(cartItem)
+
+    //const cart = state.cart.filter(i=>i.id!=cartItem.id)
+    //cart.push(cartItem)
     commit(SET_CART, cart)
   },
   removeCartItem ({ commit }, cartItem) {
     const cart = state.cart.filter(i=>i.id!=cartItem.id)
+    commit(SET_CART, cart)
+  },
+  setCart ({ commit }, cart) {
     commit(SET_CART, cart)
   },
 }

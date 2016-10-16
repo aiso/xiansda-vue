@@ -1,7 +1,7 @@
 <template>
   <c-modal :show.sync='show' :callback='modalAction'>
-    <div class="flex-row p20 border-bottom">
-      <h2 class="flex-auto pr10 text-left">下单</h2>
+    <div class="flex-row p10 border-bottom">
+      <h2 class="flex-auto plr10 text-left">下单</h2>
       <div v-if="inCart">
         <a @click="removeItem"><c-icon name="material-delete_forever" class="block c-red"></c-icon></a>
       </div>
@@ -30,19 +30,22 @@
 </template>
 
 <script>
-import PropsItemAgent from 'mixins/props-item-agent'
 import { CModal, CPrice, CIcon, CXsdImage } from 'components'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
-  mixins: [PropsItemAgent],
   props: {
     show: {
       twoWay: true,
       type: Boolean,
       default: false
+    },
+    item: {
+      type: Object,
+      default:null
     }
   },
+
   data(){
     return{
       cartItem:null,
@@ -66,7 +69,7 @@ export default {
       return !!this.cart.find(i=>i.id == this.item.id)
     },
     cost(){
-      return parseFloat(this.item.price)+parseFloat(this.agent.fee)
+      return parseFloat(this.item.price)+parseFloat(this.item.agent.fee)
     }
   },
   methods: {

@@ -9,7 +9,6 @@
           <h3 class="text-ls">{{station.name}}</h3>
           <h5 class="c-text-light">服务站</h5>
         </div>
-        
       </div>
       <div v-if="items">
         <c-cell class="padding-tb" v-for="item in items" @click="showItem(item.agent)">

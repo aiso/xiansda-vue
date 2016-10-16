@@ -107,7 +107,7 @@ export default {
 
   // methods
   methods: {
-    ...mapActions(['setAuth', 'addToast', 'setMainRoutes']),
+    ...mapActions(['setAuth', 'addToast', 'setMainRoutes', 'setWorks']),
     mutate ($payload) {
       this.payload = $payload
     },
@@ -118,6 +118,9 @@ export default {
       // validate then submit
       this.$validate().then(() => {
         this.xsd.user.login({ uid:this.payload.username, pwd:this.payload.password }).then(()=>{
+          return this.xsd.api.get('user/works')
+        }).then(data=>{
+          this.setWorks(data.works)
           this.$route.router.go(this.navMainRoutes.home)
         })
       }).catch($validation => {

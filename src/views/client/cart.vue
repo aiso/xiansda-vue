@@ -1,43 +1,48 @@
 <template>
   <div class="page-wrapper bg-gray-light">
     <c-xsd-background v-if="items.length==0" :statement="loading" title="饥肠辘辘啊" icon="fa-shopping-basket"></c-xsd-background>
-
-    <h2 class="p20 text-ls">购物车</h2>
-    <c-xsd-item v-for="item in items" :item="item" class="bg-white list-item border-bottom">
-      <div slot="subTitle">
-        <span>{{item.quantity}} x {{item.price|currency ''}} = </span><c-price :amount="item.price*item.quantity" class="ib"></c-price>
+    <div v-if="items.length">
+      <div class="flex-row" style="padding:20px 20px 0">
+        <h2 class="text-ls">购物篮</h2>  
+        <a class="c-red btn" @click="removeCart"><c-icon name="material-remove_shopping_cart" class="block"></c-icon></a>
+        <div class="flex-auto"></div>
       </div>
-      <div slot="right">
-        <a @click="item.checked=!item.checked"><c-icon :name="item.checked?'material-check_box':'material-check_box_outline_blank'" class="block c-text-light"></c-icon></a>
-      </div>
-    </c-xsd-item>
+      <c-xsd-item v-for="item in items" :item="item" class="bg-white list-item border-bottom" @xsd-item-click="editItem">
+        <div slot="detail">
+          <span class="font-montserrat">{{item.quantity}} x {{item.amount|currency ''}} = </span><c-price :amount="item.amount*item.quantity" class="ib c-red"></c-price>
+        </div>
+        <div slot="right">
+          <a @click="item.checked=!item.checked"><c-icon :name="item.checked?'material-check_box':'material-check_box_outline_blank'" class="block c-text-light"></c-icon></a>
+        </div>
+      </c-xsd-item>
 
-    <div class="flex-row">
-      <div class="flex-auto"></div>
-      <span class="c-text-light">全选</span>
-      <a @click="allCheck"><c-icon :name="summary.allCheck?'material-check_box':'material-check_box_outline_blank'" class="block c-text-light"></c-icon></a>
+      <div class="flex-row pl20">
+        <div class="flex-auto"></div>
+        <span class="c-text-light">全选</span>
+        <a @click="allCheck"><c-icon :name="summary.allCheck?'material-check_box':'material-check_box_outline_blank'" class="block c-text-light"></c-icon></a>
+      </div>
+
+      <c-xsd-nav-button style="width:15rem">
+        <div class="p10 float-right">
+          <c-submit class="primary small" :submit="postCart" :disabled="summary.count==0" label='结算'></c-submit>  
+        </div>
+        <div class="float-right text">
+          <c-price :amount="summary.amount" class="c-red big"></c-price>  
+        </div>
+        <div class="float-right text c-text-light">
+          合计：
+        </div>
+      </c-xsd-nav-button>
+
+      <m-order :item.sync="cartItem"></m-order>
     </div>
-
-    <c-xsd-nav-button style="width:15rem">
-      <div class="p10 float-right">
-        <c-button class="primary small" :disabled="summary.count==0" style="width:auto">结算</c-button>  
-      </div>
-      <div class="float-right text">
-        <c-price :amount="summary.amount"></c-price>  
-      </div>
-      <div class="float-right text c-text-light">
-        合计：
-      </div>
-    </c-xsd-nav-button>
-
-
   </div>
 </template>
 
 <script>
-import { CPane, CIcon, CXsdItem, CPrice, CXsdBackground, CXsdNavButton, CButton } from 'components'
+import { CPane, CIcon, CXsdItem, CPrice, CXsdBackground, CXsdNavButton, CSubmit } from 'components'
 import { mapActions, mapGetters } from 'vuex'
-
+import MOrder from './m-order'
 
 export default {
   data(){
@@ -47,7 +52,7 @@ export default {
         title: '努力加载中...'
       },
   		items:[],
-      showCart:false,
+      showModal:false,
       cartItem:null
   	}
   },
@@ -55,8 +60,17 @@ export default {
     if(this.cart.length == 0){
       this.loading = null
     }else{
-      this.xsd.api.post('client/cart', this.cart).then(data=>{
-        this.items = data.items
+      this.xsd.api.post('client/cart/check', this.cart).then(data=>{
+        this.items = data.items.map(item=>{
+          return Object.assign({ checked:false, amount:parseFloat(item.price)+parseFloat(item.agent.fee) }, item)
+        })
+
+        if(this.cart.length != data.items.length){
+          const cart = data.items.map(item=>{
+            return { id:item.id, quantity:item.quantity }
+          })
+          this.setCart(cart)
+        }
         this.loading = null
       })
     }
@@ -70,7 +84,7 @@ export default {
       this.items.forEach(item=>{
         if(item.checked){
           s.count++
-          s.amount += item.price*item.quantity
+          s.amount += item.amount*item.quantity
         }
         allCheck &= item.checked
       })
@@ -78,35 +92,44 @@ export default {
       return s
     }
   },
-  /*
-  route: {
-    data(transition){
-      this.xsd.item.get(this.cart.map(item=>item.id)).then(_items=>{
-        const items = _items.map(item=>{
-          return Object.assign({ checked:false, click:()=>{ this.editItem(item) } }, this.cart.find(i=>i.id==item.id), item)
-        })
-        transition.next({ items })
-      })
-    }
-  },*/
   methods: {
-	  ...mapActions(['addToast']),
+	  ...mapActions(['addToast', 'setCart']),
     editItem(item){
       this.cartItem=item
-      this.showCart = true
     },
     allCheck(){
       const state = !this.summary.allCheck
       this.items.forEach(item=>{
         item.checked = state
       })
+    },
+    removeCart(){
+      this.$confirm.open('确定要清空购物篮？').then(()=>{
+        this.setCart([])
+      })
+    },
+    postCart(){
+      const postCarts = []
+      this.items.forEach(item=>{
+        if(item.checked === true)
+          postCarts.push({ id:item.id, quantity:item.quantity })
+      })
+      this.xsd.api.post('client/cart/trans', postCarts).then(data=>{
+        let carts = this.cart.concat()
+        data.transes.forEach(trans=>{
+          carts = carts.filter(i=>i.id!=trans.item)
+        })
+        console.log(carts)
+        this.setCart(carts)
+      })
     }
   },
   watch:{
     cart(val){
-      this.items = this.items.map(item=>{
-        item.quantity = val.find(i=>i.id==item.id)['quantity']
-        return item
+      this.items = val.map(item=>{
+        const ni = this.items.find(i=>i.id==item.id)
+        ni.quantity = item.quantity
+        return ni
       })
     }
 
@@ -118,7 +141,8 @@ export default {
     CPrice,
     CXsdBackground,
     CXsdNavButton,
-    CButton,
+    CSubmit,
+    MOrder
   }
 
 }

@@ -1,4 +1,6 @@
 .c-alert-content{
 	margin-top:30px;
+	font-size:16px;
+	letter-spacing: .1em;
 	color:var(--text)
 }

@@ -1,15 +1,20 @@
 <template>
   <div class='page-wrapper'>
     <c-xsd-background v-if="transes.length==0" title="没有进行中的服务单"></c-xsd-background>
-    <c-cell v-for='trans in transes'>
-      <c-xsd-item :item='trans.item' @click="goTrans(trans)">
-  		  <h5 slot="subTitle">{{trans.ctime|timeago}}</h5>
-        <div slot="right" class="pl10 valign-top">
-        	<c-action-status :action="trans.curract"></c-action-status>
-        </div>
-      </c-xsd-item>
-    </c-cell>
-
+    <c-pane v-if="transes.length>0">
+      <div class="flex-row c-text-light">
+        <c-icon name="material-work" class="block"></c-icon>
+        <h4 class="text-ls flex-auto">我的服务单</h4>
+      </div>
+      <c-cell v-for='trans in transes' class="padding-tb">
+        <c-xsd-item :item='trans.item' @click="goTrans(trans)">
+          <h5 slot="detail" class="c-text-light">{{trans.ctime|timeago}}</h5>
+          <div slot="right" class="pl10 valign-top">
+            <c-action-status :action="trans.current"></c-action-status>
+          </div>
+        </c-xsd-item>
+      </c-cell>
+    </c-pane>
   </div>
 </template>
 
