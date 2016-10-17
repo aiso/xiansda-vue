@@ -118,7 +118,7 @@ export default {
       // validate then submit
       this.$validate().then(() => {
         this.xsd.user.login({ uid:this.payload.username, pwd:this.payload.password }).then(()=>{
-          return this.xsd.api.get('user/works')
+          return this.xsd.api.get('user/works/all')
         }).then(data=>{
           this.setWorks(data.works)
           this.$route.router.go(this.navMainRoutes.home)

@@ -13,6 +13,8 @@ Object.assign(routes, require('./supplier'))
 Object.assign(routes, require('./station'))
 Object.assign(routes, require('./client'))
 
+Object.assign(routes, require('./actions'))
+
 Object.assign(routes, require('./s101'))
 
 export default {
