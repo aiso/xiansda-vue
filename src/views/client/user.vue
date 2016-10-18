@@ -1,7 +1,7 @@
 <template>
   <div class='page-wrapper bg-gray-light'>
 
-	<div class="table-row p20 ">
+	<div class="table-row p20 " v-if="!!user">
 		<c-xsd-avatar :src="profile.img"></c-xsd-avatar>	
 		<div class="extend pl20">
 			<h2>{{profile.name}}</h2>
@@ -51,7 +51,10 @@
 	},
     methods: {
       logout() {
-      	this.xsd.user.logout()
+        this.$confirm.open('确实要退出登录？').then(()=>{
+          this.xsd.user.logout()
+          this.$route.router.go('/')
+        })
       }
     },
 	components: {

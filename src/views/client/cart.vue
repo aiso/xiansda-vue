@@ -119,7 +119,6 @@ export default {
         data.transes.forEach(trans=>{
           carts = carts.filter(i=>i.id!=trans.item)
         })
-        console.log(carts)
         this.setCart(carts)
       })
     }

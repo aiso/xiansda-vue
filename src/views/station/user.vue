@@ -40,7 +40,10 @@ import { StringArray } from 'utils/string'
 	},
     methods: {
       logout() {
-      	this.xsd.user.logout()
+        this.$confirm.open('确实要退出登录？').then(()=>{
+          this.xsd.user.logout()
+          this.$route.router.go('/')
+        })
       }
     },
 	components: {
