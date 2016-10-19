@@ -3,8 +3,9 @@ import {
   SET_WORKS,
 } from '../constants'
 
-const localStore = createPersist('XSD_USER_TRANS', { works:[] }, { expires:30*60*1000 })
-const state = localStore.get();
+const state = {
+  works: []
+}
 
 const getters = {
   works: state => state.works,
@@ -19,7 +20,6 @@ const actions = {
 const mutations = {
   [SET_WORKS] (state, payload) {
     state.works = payload
-    localStore.set(state)
   },
 }
 

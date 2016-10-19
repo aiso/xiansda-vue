@@ -117,10 +117,11 @@ export default {
       }
       // validate then submit
       this.$validate().then(() => {
-        this.xsd.user.login({ uid:this.payload.username, pwd:this.payload.password }).then(()=>{
-          return this.xsd.api.get('user/works/all')
-        }).then(data=>{
-          this.setWorks(data.works)
+        this.xsd.user.login({ uid:this.payload.username, pwd:this.payload.password })
+        .then(()=>{
+          return this.xsd.sync.load('works')
+        })
+        .then(()=>{
           this.$route.router.go(this.navMainRoutes.home)
         })
       }).catch($validation => {

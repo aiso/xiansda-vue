@@ -7,12 +7,20 @@
         <c-button class='primary fit small' @click='toastTest' >toast</c-button>
         <c-button class='primary fit small' @click='alertTest' >alert</c-button>
         <c-button class='primary fit small' @click='confirmTest' >confirm</c-button>
+      </c-cell>
+      <c-cell>
         <c-button class='primary fit small' @click='frameTest' >frame</c-button>
         <c-button class='primary fit small' @click='promiseTest' >promise</c-button>
+        <c-button class='primary fit small' @click='testAddNotice' >addNotice</c-button>
+      </c-cell>
+      <c-cell>
         <c-button class='primary fit small' @click='apiCache1' >apiCache1</c-button>
         <c-button class='primary fit small' @click='apiCache2' >apiCache2</c-button>
         <c-button class='primary fit small' @click='apiCache3' >apiCache3</c-button>
-        <c-button class='primary fit small' @click='testAddNotice' >addNotice</c-button>
+      </c-cell>
+      <c-cell>
+        <c-button class='primary fit small' @click='sync' >sync</c-button>
+        <c-button class='primary fit small' @click='syncs' >syncs</c-button>
       </c-cell>
     </c-pane>
 
@@ -139,7 +147,20 @@
           title:'3'
         })
 
-      }
+      },
+      sync(){
+        this.xsd.sync.load('base').then(data=>{
+          console.log('ok')
+          console.log(data)
+        }).catch(err=>console.log(err))
+      },    
+      syncs(){
+        this.xsd.sync.load('base','works').then(data=>{
+          console.log('ok')
+          console.log(data)
+        }).catch(err=>console.log(err))
+
+      }  
     },
     components: {
       CPane,

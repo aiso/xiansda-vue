@@ -9,6 +9,7 @@ import service from './service'
 import action from './action'
 import staticData from './static'
 import api from './api'
+import sync from './sync'
 
 const xsd = {}
 xsd.install = function (Vue) {
@@ -19,6 +20,7 @@ xsd.install = function (Vue) {
       get() {
         return {
           api,
+          sync,
           item:require('./item'),
           user:require('./user'),
           service,
@@ -58,11 +60,7 @@ xsd.install = function (Vue) {
 }
 
 xsd.init = () =>{
-  return api.get('static/default').then(data=>{
-    service.init(data.services)
-    action.init(data.actions)
-    return true
-  })
+  return sync.load('base','works')
 }
 
 if (window.Vue) {
