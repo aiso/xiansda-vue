@@ -1,0 +1,14 @@
+.c-label-text{
+	display: flex;
+
+	& .label{
+		padding:.25rem;
+		color:var(--textLight);
+		width: 30%;
+	}
+
+	& .text{
+		padding:.25rem;
+		flex: auto;
+	}
+}

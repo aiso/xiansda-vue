@@ -3,6 +3,10 @@ import store from 'store'
 import request from 'utils/request'
 import base64 from 'utils/base64'
 
+import { 
+  SET_USER, 
+} from 'store/constants'
+
 const xsdCache = []
 let _requestQue = []
 
@@ -26,6 +30,8 @@ const _request = options => {
     }
     return data;
   }).catch(result=>{
+    //console.log(options)
+    //console.log(result)
     if(result.error.code == 401){
       store.commit(SET_AUTH, null);
       this.$route.router.go({ name:'login' })

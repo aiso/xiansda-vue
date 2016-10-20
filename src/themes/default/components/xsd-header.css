@@ -1,32 +1,24 @@
 .c-xsd-header{
-    position: fixed;
-    z-index: 11;
-    top:0;
-	padding-top: 15px;
-    height: 45px;
+    height: var(--header);
     width:100%;
-    background: white;
-    border-bottom:1px solid var(--border)
-}
+    display: flex;
 
-.c-xsd-header-title{
-	line-height: 45px;
-	padding: 0 45px;
-	text-align: center;
-	text-overflow:ellipsis;white-space:nowrap;overflow:hidden
-}
+    & .i-btn{
+      position: relative;
+      padding-left:22px;
+      font-size:14px;
 
-.c-xsd-header-button{
-	position: absolute;
-	top:15px;
-    text-align: center;
-
-    &.right{
-    	right:0;
+      & .c-icon{
+        position: absolute;
+        line-height: var(--header);
+        left:0;
+        font-size:20px;
+      }
+        
     }
 
-    & .c-button{
-        padding:0 10px;
-
+    & .title{
+        line-height: var(--header);
     }
 }
+

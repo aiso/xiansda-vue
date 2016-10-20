@@ -93,6 +93,8 @@ import xsd from 'plugins/xsd'
 Vue.use(xsd)
 xsd.init().then(()=>{
   router.start(App, 'app')
+}).catch(err=>{
+  console.log(err)
 })
 
 //router.start(App, 'app')

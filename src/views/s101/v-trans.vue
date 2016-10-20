@@ -1,38 +1,31 @@
 <template>
   <div class='page-wrapper bg-gray-light'>
     <div v-if="trans" class="bg-white">
+      <c-xsd-header>
+        <a class="i-btn ml20" :class="button.color" v-for="button in headerButtons" @click="button.click">
+          <c-icon :name="button.icon"></c-icon>
+          <h4 class="title">{{button.label}}</h4>
+        </a>
+      </c-xsd-header>
       <div class="p20">
-        <div class="table-row">
-          <div class="valign-top">
-            <c-xsd-image :src="trans.item.img" width=48 height=48></c-xsd-image>
+        <c-xsd-item :item='trans.item'>
+          <h5 slot="detail" class="c-text-light">{{trans.ctime|timeago}}</h5>
+          <div slot="right" class="pl10">
+            <c-icon name="material-chevron_right"></c-icon>
           </div>
-          <div class="extend pl20">
-            <a>{{trans.item.title}}</a>
-          </div>
-        </div>
+        </c-xsd-item>
         <div class="divider dashed"></div>
-        <div class="table-row">
-          <div class="extend">
-            <h4 class="text-lh2"><span class="c-text-light">服务单号：</span><span class="font-montserrat">{{trans.id}}</span></h4>
-            <h4 class="text-lh2"><span class="c-text-light">下单时间：</span><span class="font-montserrat">{{trans.ctime}}</span></h4>
-            <h4 class="text-lh2">
-              <span class="c-text-light">产品价格：</span>
-              <span class="font-montserrat">{{trans.sadd.price|currency ''}} x {{trans.sadd.quantity}} = {{trans.sadd.cost|currency ''}}</span>
-            </h4>
-            <h4 class="text-lh2">
-              <span class="c-text-light">代理费用：</span>
-              <span class="font-montserrat">{{trans.sadd.agent_fee|currency ''}} </span>
-            </h4>
-            <h4 class="text-lh2">
-              <span class="c-text-light">合计金额：</span>
-              <span class="font-montserrat">{{trans.sadd.amount|currency ''}} </span>
-            </h4>
-          </div>
-          <div class="nowrap valign-top" v-if="user.role==10 && trans.stage==0">
-            <c-btn-circle icon="material-edit" title="修改订单" color="blue" class="mb10" :click="modifyTrans"></c-btn-circle>
-            <c-btn-circle icon="material-delete_forever" title="取消订单" color="red-dark" :click="removeTrans"></c-btn-circle>
-          </div>
-        </div>
+        <c-label-text label="服务单号：">
+          <h4 class="font-montserrat">{{trans.id}}</h4>
+        </c-label-text>
+        <c-label-text label="下单时间：">
+          <h4 class="font-montserrat">{{trans.ctime}}</h4>
+        </c-label-text>
+        <c-label-text label="交易金额：">
+          <h4>
+          <span class="font-montserrat">{{parseFloat(trans.price)+parseFloat(trans.fee)|currency ''}} x {{trans.quantity}} = </span><c-price :amount="trans.cost" class="ib"></c-price>
+          </h4>
+        </c-label-text>
       </div>
       <c-action v-for="action in trans.actions" :action="action"></c-action>
 
@@ -51,7 +44,7 @@
 </template>
 
 <script>
-import { CPane, CBtnCircle, CIcon, CXsdImage, CXsdNavButton } from 'components'
+import { CPane, CLabelText, CPrice, CButton, CBtnCircle, CIcon, CXsdItem, CXsdHeader, CXsdNavButton } from 'components'
 import CAction from '../action/c-action'
 import MOrder from './m-order'
 import { mapGetters } from 'vuex'
@@ -67,7 +60,7 @@ export default {
   },
   route: {
     data(transition){
-      this.xsd.api.getCache(this.service.surl('trans/'+this.$route.params.id)).then(data=>{
+      this.xsd.api.get('trans/'+this.$route.params.id).then(data=>{
         transition.next({
           trans:data.trans
         })
@@ -76,6 +69,14 @@ export default {
   },
   computed:{
     ...mapGetters(['user']),
+    headerButtons(){
+      const buttons = []
+      if(this.user.role==10 && this.trans.stage==0){
+        buttons.push({ label:'修改',icon:'material-edit', color:'c-blue', click:this.modifyTrans })
+        buttons.push({ label:'取消',icon:'material-delete_forever',color:'c-red', click:this.removeTrans })
+      }
+      return buttons
+    },
     transUrl(){
       return this.service.surl('trans/'+this.trans.id)
     }
@@ -116,9 +117,13 @@ export default {
   components: {
     MOrder,
     CPane,
+    CButton,
+    CLabelText,
+    CPrice,
     CBtnCircle,
     CIcon,
-    CXsdImage,
+    CXsdItem,
+    CXsdHeader,
     CXsdNavButton,
     CAction
   }
