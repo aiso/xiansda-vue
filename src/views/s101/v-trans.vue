@@ -2,7 +2,7 @@
   <div class='page-wrapper bg-gray-light'>
     <div v-if="trans" class="bg-white">
       <c-xsd-header>
-        <a class="i-btn ml20" :class="button.color" v-for="button in headerButtons" @click="button.click">
+        <a class="i-btn ml10"  v-for="button in headerButtons" @click="button.click">
           <c-icon :name="button.icon"></c-icon>
           <h4 class="title">{{button.label}}</h4>
         </a>
@@ -27,7 +27,8 @@
           </h4>
         </c-label-text>
       </div>
-      <c-action v-for="action in trans.actions" :action="action"></c-action>
+
+      <c-action v-for="action in trans.works" :action="action"></c-action>
 
       <c-xsd-nav-button>
         <a class="icon" @click="postMessage">
@@ -60,7 +61,7 @@ export default {
   },
   route: {
     data(transition){
-      this.xsd.api.get('trans/'+this.$route.params.id).then(data=>{
+      this.xsd.api.get('trans/'+this.$route.params.id+'?with=works').then(data=>{
         transition.next({
           trans:data.trans
         })
@@ -72,19 +73,16 @@ export default {
     headerButtons(){
       const buttons = []
       if(this.user.role==10 && this.trans.stage==0){
-        buttons.push({ label:'修改',icon:'material-edit', color:'c-blue', click:this.modifyTrans })
-        buttons.push({ label:'取消',icon:'material-delete_forever',color:'c-red', click:this.removeTrans })
+        //buttons.push({ label:'修改订单',icon:'material-edit', color:'c-blue', click:this.modifyTrans })
+        buttons.push({ label:'取消订单',icon:'material-delete_forever',color:'c-red', click:this.removeTrans })
       }
       return buttons
-    },
-    transUrl(){
-      return this.service.surl('trans/'+this.trans.id)
     }
   },
   methods: {
     removeTrans(){
       this.$confirm.open('确定取消订单？').then(()=>{
-        this.xsd.api.delete(this.transUrl).then(()=>{
+        this.xsd.api.delete('trans/'+this.$route.params.id).then(()=>{
           this.xsd.api.dirty('client/trans')
           history.back()
         })
@@ -101,15 +99,14 @@ export default {
         title: '说点什么',
         callback: message=>{
           this.xsd.api.post('trans/'+this.trans.id+'/message', { message }).then(data=>{
-            this.trans.actions.push(data.action)
+            this.trans.works.push(data.action)
             this.$text.close(true)
           })
         }
       });
     },
     reload(){
-      this.xsd.api.dirty(this.transUrl)
-      this.xsd.api.getCache(this.transUrl).then(data=>{
+      this.xsd.api.get('trans/'+this.$route.params.id+'?with=works').then(data=>{
         this.trans = data.trans
       })
     },

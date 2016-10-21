@@ -4,7 +4,10 @@ import request from 'utils/request'
 import base64 from 'utils/base64'
 
 import { 
+  SET_AUTH,
   SET_USER, 
+  ADD_TOAST,
+  DELETE_TOAST
 } from 'store/constants'
 
 const xsdCache = []
@@ -34,7 +37,7 @@ const _request = options => {
     //console.log(result)
     if(result.error.code == 401){
       store.commit(SET_AUTH, null);
-      this.$route.router.go({ name:'login' })
+      router.go({ name:'login' })
     }else{
       const toast = { class:'error', timeout:0, message:result.error.message, remove:()=>{
         store.commit(DELETE_TOAST, toast)

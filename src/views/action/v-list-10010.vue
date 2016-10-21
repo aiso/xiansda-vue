@@ -59,6 +59,7 @@ export default {
       this.xsd.api.get('user/works/'+this.actionId+'?with=trans').then(data=>{
         const items = data.works.map(work=>{
           return {
+            id:work.id,
             trans:work.trans.id,
             title:work.trans.item.title,
             img:work.trans.item.img,
@@ -98,7 +99,7 @@ export default {
     },
     postPayment(){
       const ids = this.items.filter(item=>item.checked===true).map(item=>item.id)
-      this.xsd.api.post('/action/'+this.actionId+'/pay', { works:ids.join(',') }).then(data=>{
+      this.xsd.api.post('action/'+this.actionId+'/pay', { works:ids }).then(data=>{
         this.xsd.nav.payment(data.payment.id)
       })
     }

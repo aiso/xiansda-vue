@@ -1,24 +1,14 @@
 <template>
-  <div>
-    <div class="flex-row action" v-if="statement=='client-pay'">
-      <h4 class="pr10 flex-auto"><span class="c-text-light">金额：</span><c-price :amount="action.content" class="c-red-dark ib"></c-price></h4>
-      <a v-link="{ name:'client/payment' }">点击付款</a>
-      <c-icon name="material-chevron_right" class="c-text-light"></c-icon>
+  <a class="xsd-action flex-row bg-blue-light c-white" @click="statement.click">
+    <div class="pl10">
+      <h4>金额：</h4>
     </div>
-    <div class="flex-row action" v-if="statement=='client-payed'">
-      <h4 class="pr10 flex-auto"><span class="c-text-light">金额：</span><c-price :amount="action.content" class="c-red-dark ib"></c-price></h4>
-      <a>已付款</a>
-      <c-icon name="material-done" class="c-text-light"></c-icon>
+    <div  class="flex-auto">
+      <c-price :amount="action.content" style="font-size:18px"></c-price>
     </div>
-    <div class="flex-row action" v-if="statement=='unpay'">
-      <h4 class="pr10 flex-auto"><span class="c-text-light">金额：</span><c-price :amount="action.content" class="c-red-dark ib"></c-price></h4>
-      <h4 class="text-ls c-text">等待付款...</h4>
-    </div>
-    <div class="flex-row action" v-if="statement=='payed'">
-      <h4 class="pr10 flex-auto"><span class="c-text-light">金额：</span><c-price :amount="action.content" class="c-red-dark ib"></c-price></h4>
-      <h4 class="text-ls c-text">已付款</h4>
-    </div>
-  </div>
+    <h5>{{statement.label}}</h5>
+    <c-icon :name="statement.icon" class="action-icon"></c-icon>  
+  </a>
 </template>
 
 <script>
@@ -31,16 +21,23 @@ export default {
   computed: {
     statement(){
       if(this.user.role == this.xsd.static.role.client){
-        return (this.action.stat == 0)?'client-pay':'client-payed'
+        return (this.action.stat == 0)?{
+          label:'点击付款', icon:'material-chevron_right',click:this.goAction
+        }:{
+          label:'已付款', icon:'material-done'
+        }
       }else if(this.user.role == this.xsd.static.role.station){
-        return (this.action.stat == 0)?'unpay':'payed'
+        return (this.action.stat == 0)?{
+          label:'等待付款...', icon:'material-chevron_right'
+        }:{
+          label:'已付款', icon:'material-done'
+        }
       }
     }
   },
   methods: {
-    onAction(){
-      if(this.action.stat == 0 && this.user.role == this.xsd.static.role.client)
-        this.$route.router.go({ name:'client/payment' })
+    goAction(){
+      this.$route.router.go({ name:'actions/10010' })
     }
   },
   components:{

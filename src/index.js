@@ -75,6 +75,8 @@ router.afterEach(transition => {
   }
 })
 
+window.router = router
+
 
 import VueAutosize from 'vue-autosize'
 Vue.use(VueAutosize)
