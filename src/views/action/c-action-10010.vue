@@ -16,6 +16,7 @@ import actionMixin from './action-mixin'
 import { CIcon, CPrice, CButton } from 'components'
 import { mapGetters } from 'vuex'
 
+
 export default {
   mixins: [actionMixin],
   computed: {
@@ -28,7 +29,7 @@ export default {
         }
       }else if(this.user.role == this.xsd.static.role.station){
         return (this.action.stat == 0)?{
-          label:'等待付款...', icon:'material-chevron_right'
+          label:'等待付款...', icon:'material-hourglass_empty'
         }:{
           label:'已付款', icon:'material-done'
         }

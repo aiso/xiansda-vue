@@ -119,7 +119,7 @@ export default {
       this.$validate().then(() => {
         this.xsd.user.login({ uid:this.payload.username, pwd:this.payload.password })
         .then(()=>{
-          return this.xsd.sync.load('works')
+          return this.xsd.sync.load('transes')
         })
         .then(()=>{
           this.$route.router.go(this.navMainRoutes.home)

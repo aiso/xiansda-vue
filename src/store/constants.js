@@ -38,6 +38,7 @@ const ADD_NOTICE = 'ADD_NOTICE'
 const REMOVE_NOTICE = 'REMOVE_NOTICE'
 const UPDATE_NOTICE = 'UPDATE_NOTICE'
 
+const SET_TRANSES = 'SET_TRANSES'
 const SET_WORKS = 'SET_WORKS'
 
 export default { 
@@ -77,7 +78,8 @@ export default {
     REMOVE_NOTICE,
     UPDATE_NOTICE,
 
-    SET_WORKS
+    SET_TRANSES,
+    SET_WORKS,
 
 }
 

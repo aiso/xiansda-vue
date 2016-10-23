@@ -60,7 +60,7 @@ xsd.install = function (Vue) {
 }
 
 xsd.init = () =>{
-  return sync.load('base','works')
+  return sync.load('base','transes')
 }
 
 if (window.Vue) {

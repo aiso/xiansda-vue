@@ -42,6 +42,7 @@
 
   export default {
     data () {
+      this.xsd.static.roleName(1)
       return { frame:false }
     },
     computed: {

@@ -1,25 +1,25 @@
 import createPersist from 'utils/store'
 import {
-  SET_WORKS,
+  SET_TRANSES,
 } from '../constants'
 
 const state = {
-  works: []
+  transes: [],
 }
 
 const getters = {
-  works: state => state.works,
+  transes: state => state.transes,
 }
 
 const actions = {
-  setWorks ({ commit }, works) {
-    commit(SET_WORKS, works)
+  setTranses ({ commit }, transes) {
+    commit(SET_TRANSES, transes)
   },
 }
 
 const mutations = {
-  [SET_WORKS] (state, payload) {
-    state.works = payload
+  [SET_TRANSES] (state, payload) {
+    state.transes = payload
   },
 }
 

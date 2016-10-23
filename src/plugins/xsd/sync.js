@@ -1,10 +1,12 @@
 import Promise from 'nd-promise'
 import store from 'store'
 import api from './api'
+import sd from './static'
 import service from './service'
 import action from './action'
 
 import { 
+  SET_TRANSES,
   SET_WORKS, 
 } from 'store/constants'
 
@@ -16,6 +18,17 @@ const entities = {
 			return data
         })
 	},
+	transes : () =>{
+		const user = store.getters.user
+		if(!!user){
+			return api.get(sd.roleName(user.role)+'/transes').then(data=>{
+				store.commit(SET_TRANSES, data.transes)
+				return data
+	        })
+		}else
+			Promise.resolve()
+	},
+	/*
 	works : () => {
 		if(!!store.getters.user){
 			return api.get('user/works/all').then(data=>{
@@ -24,7 +37,7 @@ const entities = {
 	        })
 		}else
 			Promise.resolve()
-	}
+	}*/
 }
 
 const loadEntity = (...names) => {

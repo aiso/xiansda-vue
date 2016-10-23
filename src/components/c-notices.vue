@@ -17,7 +17,11 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['cart', 'user', 'works']),
+    ...mapGetters(['cart', 'user', 'transes']),
+    works(){
+      if(!this.user) return []
+      return this.transes.filter(trans=>(trans.current.stat==0&&trans.current.user==this.user.id)).map(trans=>trans.current)
+    },
     notices(){
       const notices = []
       if(!this.user) return notices

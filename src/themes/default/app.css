@@ -563,6 +563,18 @@ div.divider{
   background: var(--red-dark);
 }
 
+.xsd-item-content{
+  width:65%;
+  padding-left: 10px;
+
+  & .title{
+    color:var(--text);
+    font-weight: normal;
+    text-overflow:ellipsis;white-space:nowrap;overflow:hidden;
+    //line-height: 1.6em
+  }
+}
+
 
 .flag-border{
 

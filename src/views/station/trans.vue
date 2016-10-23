@@ -1,57 +1,51 @@
 <template>
-  <div class='page-wrapper bg-gray-light'>
+  <div class='page-wrapper'>
     <c-xsd-background v-if="transes.length==0" title="没有进行中的服务单"></c-xsd-background>
-    <div v-for='client in clients'>
-      <div class="flex-row p10" >
-        <c-xsd-avatar :src="client.img" size="40" class="pl10"></c-xsd-avatar>
-        <div class="plr20 flex-auto">
-        <h4>{{client.name}}</h4>
-        </div>
-        <c-icon name="material-chevron_right"></c-icon>
+    <c-pane v-if="transes.length>0">
+      <div class="flex-row c-text-light">
+        <c-icon name="material-work" class="block"></c-icon>
+        <h4 class="text-ls flex-auto">我的服务单</h4>
       </div>
-      <c-cell v-for='trans in client.transes' class="bg-white">
+      <c-cell v-for='item in items' >
+        <c-client-trans :uid="item.uid">
+          <h2 class="font-montserrat">{{item.transes.length}}</h2>
+        </c-client-trans>
+      </c-cell>
+      <c-cell v-for='trans in transes' class="padding-tb">
         <c-xsd-item :item='trans.item' @click="goTrans(trans)">
-          <h5 slot="subTitle">{{trans.ctime|timeago}}</h5>
+          <h5 slot="detail" class="c-text-light">{{trans.ctime|timeago}}</h5>
           <div slot="right" class="pl10 valign-top">
             <c-action-status :action="trans.current"></c-action-status>
           </div>
         </c-xsd-item>
       </c-cell>
-    </div>
+    </c-pane>
+
   </div>
 </template>
 
 <script>
-import { CPane, CIcon, CCell, CXsdItem, CListItem, CXsdBackground, CXsdAvatar } from 'components'
-import { mapActions } from 'vuex'
+import { CPane, CIcon, CCell, CXsdItem, CListItem, CXsdBackground } from 'components'
+import { mapActions, mapGetters } from 'vuex'
+import CClientTrans from './c-client-trans'
 import CActionStatus from '../action/c-status'
 
 export default {
-  data(){
-    return{
-      clients:[],
-      transes:[]
-    }
-  },
-  route: {
-    data(transition){
-      this.xsd.api.getCache('station/trans').then(data=>{
-        this.initTrans(data)
-        transition.next({
-          transes:data.transes,
-          clients:this.initTrans(data)
-        })
+  computed: {
+    ...mapGetters(['transes']),
+    clients(){
+      const clients = this.transes.map(trans=>trans.client)
+      return Array.from(new Set(clients))
+    },
+    items(){
+      return this.clients.map(client=>{
+        const item = { uid:client }
+        item.transes = this.transes.filter(trans=>trans.client==client)
+        return item
       })
     }
   },
   methods:{
-    initTrans(data){
-      const clients = data.clients
-      clients.forEach(client=>{
-        client.transes = data.transes.filter(trans=>trans.client==client.id)
-      })
-      return clients
-    },
     goTrans(trans){
       const service = this.xsd.service.get(trans.item.service)
       this.$route.router.go(service.router('trans', { id:trans.id }))
@@ -65,7 +59,7 @@ export default {
     CListItem,
     CActionStatus,
     CXsdBackground,
-    CXsdAvatar
+    CClientTrans,
   } 
 }
 </script>
