@@ -6,10 +6,15 @@ const defaultConfig = {
 
 export default {
 
-  '/station/trans': Object.assign({ }, defaultConfig, {
+  '/station/transes': Object.assign({ }, defaultConfig, {
       title: 'station.routes.trans',
-    	name: 'station/trans',
-    	component: resolve => require(['views/station/trans'], resolve)
+    	name: 'station/transes',
+    	component: resolve => require(['views/station/transes'], resolve)
+    }),
+  '/station/transes/client/:id': Object.assign({ }, defaultConfig, {
+      title: 'station.routes.trans',
+      name: 'station/transes/client',
+      component: resolve => require(['views/station/transes-client'], resolve)
     }),
 
   '/station/agents': Object.assign({ }, defaultConfig, {

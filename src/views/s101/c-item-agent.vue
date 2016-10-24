@@ -13,7 +13,7 @@ export default {
   mixins: [PropsItemAgent],
   data(){
   	return{
-  		service:this.xsd.service.cfg(this.item.service),
+  		service:this.xsd.service.config(this.item.service),
   	}
   },
   computed: {

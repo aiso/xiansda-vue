@@ -92,8 +92,11 @@ export default {
     xsdItemClick(item){
       const bill = this.bills.find(b=>b.trans.id == item.bid)
       if(!!bill){
+        this.xsd.service.get(bill.trans.item.service).route('trans' , { id:bill.trans.id })
+        /*
         const service = this.xsd.service.get(bill.trans.item.service)
         this.$route.router.go(service.router('trans' , { id:bill.trans.id }))
+        */
       }
     },
     submit(){

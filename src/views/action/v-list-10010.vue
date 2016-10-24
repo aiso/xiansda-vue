@@ -51,7 +51,7 @@ export default {
   data(){
     return{
       items:[],
-      action:this.xsd.action.get(this.actionId),
+      action:this.xsd.static.action(this.actionId),
     }
   },
   route: {

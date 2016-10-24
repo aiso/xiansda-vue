@@ -6,6 +6,11 @@ function XsdService(config){
 XsdService.prototype.surl = function(url){
 	return 's'+ this.config.id +'/' + url
 }
+XsdService.prototype.route = function(url, params){
+	router.go({ name:this.surl(url), params })
+}
+
+/*
 XsdService.prototype.router = function(url, params){
 	return { name:this.surl(url), params }
 }
@@ -16,6 +21,7 @@ XsdService.prototype.routeItemService = function(id){
 XsdService.prototype.routeItem = function(id){
 	return { name:this.surl('item'), params:{ id } }
 }
+*/
 
 let services = []
 
@@ -25,11 +31,11 @@ const init = configs => {
 
 const all = () => services
 const get = sid => services.find(s=>s.config.id==sid)
-const cfg = sid => get(sid).config
+const config = sid => get(sid).config
 
 export default {
 	init,
+	all,
 	get,
-	cfg,
-	all
+	config
 }

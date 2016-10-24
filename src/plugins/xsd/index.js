@@ -6,7 +6,6 @@ import {
 } from 'store/constants'
 
 import service from './service'
-import action from './action'
 import staticData from './static'
 import api from './api'
 import sync from './sync'
@@ -24,7 +23,6 @@ xsd.install = function (Vue) {
           item:require('./item'),
           user:require('./user'),
           service,
-          action,
           static:staticData,
           nav:require('./nav'),
           trans:require('./trans'),

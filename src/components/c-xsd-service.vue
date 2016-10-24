@@ -19,7 +19,7 @@ export default {
   },
   data(){
     return{
-      service:this.xsd.service.cfg(this.sid),
+      service:this.xsd.service.config(this.sid),
     }
   },
   components:{

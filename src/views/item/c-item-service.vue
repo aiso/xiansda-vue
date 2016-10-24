@@ -20,7 +20,7 @@ export default {
   },
   data(){
     return{
-      service:this.xsd.service.cfg(this.item.service),
+      service:this.xsd.service.config(this.item.service),
     }
   },
   components:{

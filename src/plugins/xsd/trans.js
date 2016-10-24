@@ -25,5 +25,5 @@ const agentAmount = (price, quantity, agent) => {
 } 
 
 export default {
-	agentAmount
+	agentAmount,
 }
