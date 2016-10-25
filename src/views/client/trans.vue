@@ -29,7 +29,7 @@ export default {
   },
   methods:{
   	goTrans(trans){
-      this.xsd.trans.route(trans)
+      //this.xsd.trans.route(trans)
       this.xsd.service.get(trans.item.service).route('trans' , { id:trans.id })
   		//const service = this.xsd.service.get(trans.item.service)
   		//this.$route.router.go(service.router('trans', { id:trans.id }))

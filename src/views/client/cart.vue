@@ -12,14 +12,14 @@
           <span class="font-montserrat">{{item.quantity}} x {{item.amount|currency ''}} = </span><c-price :amount="item.amount*item.quantity" class="ib c-red"></c-price>
         </div>
         <div slot="right">
-          <a @click="item.checked=!item.checked"><c-icon :name="item.checked?'material-check_box':'material-check_box_outline_blank'" class="block c-text-light"></c-icon></a>
+          <c-checker :checked.sync="item.checked"></c-checker>
         </div>
       </c-xsd-item>
 
       <div class="flex-row pl20">
         <div class="flex-auto"></div>
         <span class="c-text-light">全选</span>
-        <a @click="allCheck"><c-icon :name="summary.allCheck?'material-check_box':'material-check_box_outline_blank'" class="block c-text-light"></c-icon></a>
+        <c-checker :checked.sync="itemAllChecked" :click="allCheck"></c-checker>
       </div>
 
       <c-xsd-nav-button style="width:15rem">
@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import { CPane, CIcon, CXsdItem, CPrice, CXsdBackground, CXsdNavButton, CSubmit } from 'components'
+import { CPane, CIcon, CXsdItem, CPrice, CChecker, CXsdBackground, CXsdNavButton, CSubmit } from 'components'
 import { mapActions, mapGetters } from 'vuex'
 import MOrder from './m-order'
 
@@ -53,7 +53,8 @@ export default {
       },
   		items:[],
       showModal:false,
-      cartItem:null
+      cartItem:null,
+      itemAllChecked:false
   	}
   },
   attached(){
@@ -88,7 +89,7 @@ export default {
         }
         allCheck &= item.checked
       })
-      s.allCheck = allCheck
+      this.itemAllChecked = !!allCheck
       return s
     }
   },
@@ -98,7 +99,7 @@ export default {
       this.cartItem=item
     },
     allCheck(){
-      const state = !this.summary.allCheck
+      const state = !this.itemAllChecked
       this.items.forEach(item=>{
         item.checked = state
       })
@@ -138,6 +139,7 @@ export default {
   	CIcon,
     CXsdItem,
     CPrice,
+    CChecker,
     CXsdBackground,
     CXsdNavButton,
     CSubmit,

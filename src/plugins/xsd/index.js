@@ -5,8 +5,6 @@ import {
   SET_AUTH, 
 } from 'store/constants'
 
-import service from './service'
-import staticData from './static'
 import api from './api'
 import sync from './sync'
 
@@ -22,8 +20,9 @@ xsd.install = function (Vue) {
           sync,
           item:require('./item'),
           user:require('./user'),
-          service,
-          static:staticData,
+          service:require('./service'),
+          action:require('./action'),
+          static:require('./static'),
           nav:require('./nav'),
           trans:require('./trans'),
           regex:require('./regex'),

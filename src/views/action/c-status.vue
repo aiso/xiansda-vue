@@ -16,7 +16,7 @@ export default {
   },
   data(){
     return{
-      cfg:this.xsd.static.action(this.action.action),
+      cfg:this.xsd.action.config(this.action.action),
       stat:this.action.stat?'c-green':'c-orange'
     }
   },

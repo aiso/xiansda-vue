@@ -40,7 +40,7 @@ export default {
       }
 
       if(this.works.length > 0){
-        this.xsd.static.actions().forEach(a=>{
+        this.xsd.action.configs().forEach(a=>{
           const ws = this.works.filter(work=>work.action==a.id)
           if(ws.length > 0 && this.$route.name != a.route)
             notices.push({

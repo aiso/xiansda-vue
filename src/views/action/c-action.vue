@@ -32,7 +32,7 @@ export default {
   },
   data(){
     return{
-      config:this.xsd.static.action(this.action.action),
+      config:this.xsd.action.config(this.action.action),
     }
   },
   computed: {

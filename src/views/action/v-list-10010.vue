@@ -12,13 +12,13 @@
           <c-price :amount="item.amount" class="ib c-red"></c-price>
         </div>
         <div slot="right">
-          <a @click="item.checked=!item.checked"><c-icon :name="item.checked?'material-check_box':'material-check_box_outline_blank'" class="block c-text-light"></c-icon></a>
+          <c-checker :checked.sync="item.checked"></c-checker>
         </div>
       </c-xsd-item>
       <div class="flex-row pl20">
         <div class="flex-auto"></div>
         <span class="c-text-light">全选</span>
-        <a @click="allCheck"><c-icon :name="summary.allCheck?'material-check_box':'material-check_box_outline_blank'" class="block c-text-light"></c-icon></a>
+        <c-checker :checked.sync="itemAllChecked" :click="allCheck"></c-checker>
       </div>
 
       <c-xsd-nav-button style="width:15rem">
@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { CPane, CCell, CIcon, CPrice, CSubmit, CXsdItem, CXsdBackground, CXsdNavButton } from 'components'
+import { CPane, CCell, CIcon, CPrice, CSubmit, CXsdItem, CChecker, CXsdBackground, CXsdNavButton } from 'components'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -51,7 +51,8 @@ export default {
   data(){
     return{
       items:[],
-      action:this.xsd.static.action(this.actionId),
+      action:this.xsd.action.config(this.actionId),
+      itemAllChecked:false
     }
   },
   route: {
@@ -83,13 +84,14 @@ export default {
         }
         allCheck &= item.checked
       })
-      s.allCheck = allCheck
+      //s.allCheck = allCheck
+      this.itemAllChecked = !!allCheck
       return s
     }
   },
   methods: {
     allCheck(){
-      const state = !this.summary.allCheck
+      const state = !this.itemAllChecked
       this.items.forEach(item=>{
         item.checked = state
       })
@@ -111,6 +113,7 @@ export default {
     CPrice,
     CSubmit,
     CXsdItem,
+    CChecker,
     CXsdBackground,
     CXsdNavButton
   }

@@ -3,6 +3,7 @@ import store from 'store'
 import api from './api'
 import sd from './static'
 import service from './service'
+import action from './action'
 
 import { 
   SET_TRANSES,
@@ -12,9 +13,8 @@ import {
 const entities = {
 	base : () => {
 		return api.get('static/default').then(data=>{
-		    //service.init(data.services)
-		    //action.init(data.actions)
-		    sd.initActions(data.actions)
+		    //sd.initActions(data.actions)
+		    action.init(data.actions)
 		    service.init(data.services)
 			return data
         })
