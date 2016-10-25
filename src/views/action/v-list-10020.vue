@@ -107,11 +107,10 @@ export default {
       })
     },
     postWorks(){
-      const works = []
+      let works = []
       this.items.forEach(item=>{
         if(item.checked === true){
-          console.log(item.works)
-          works.concat(...item.works)
+          works = works.concat(item.works)
         }
       })
       console.log(works)
