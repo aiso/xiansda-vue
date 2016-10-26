@@ -18,4 +18,11 @@ export default {
 	component: resolve => require(['views/action/v-list-10020'], resolve)
   }),
 
+  '/actions/10030':  Object.assign({ }, defaultConfig, {
+  	auth: 30,
+	title: '打包商品',
+	name: 'actions/10030',
+	component: resolve => require(['views/action/v-list-10030'], resolve)
+  }),
+
 }

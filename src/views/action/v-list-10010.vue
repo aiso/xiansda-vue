@@ -1,13 +1,9 @@
 <template>
   <div class='page-wrapper'>
     <c-xsd-background v-if="items.length==0" title="没有待处理事务"></c-xsd-background>
-    <c-pane v-if="items.length>0">
-      <div class="flex-row c-text-light border-bottom">
-        <c-icon :name="action.icon" class="block"></c-icon>
-        <h4 class="text-ls flex-auto">待付账单</h4>
-      </div>
-
-      <c-xsd-item v-for='item in items' :item="item" class="bg-white list-item border-bottom" @xsd-item-click="showTrans">
+    <div v-if="items.length>0">
+      <c-list-header :action-id="actionId"></c-list-header>
+      <c-xsd-item v-for='item in items' :item="item" class="bg-white list-item border-top" @xsd-item-click="showTrans">
         <div slot="detail">
           <c-price :amount="item.amount" class="ib c-red"></c-price>
         </div>
@@ -15,7 +11,7 @@
           <c-checker :checked.sync="item.checked"></c-checker>
         </div>
       </c-xsd-item>
-      <div class="flex-row pl20">
+      <div class="flex-row pl20 border-top">
         <div class="flex-auto"></div>
         <span class="c-text-light">全选</span>
         <c-checker :checked.sync="itemAllChecked" :click="allCheck"></c-checker>
@@ -32,7 +28,7 @@
           合计：
         </div>
       </c-xsd-nav-button>
-    </c-pane>
+    </div>
 
   </div>
 </template>
@@ -40,18 +36,13 @@
 <script>
 import { CPane, CCell, CIcon, CPrice, CSubmit, CXsdItem, CChecker, CXsdBackground, CXsdNavButton } from 'components'
 import { mapGetters } from 'vuex'
+import CListHeader from './c-list-header'
 
 export default {
-  props: {
-    actionId:{
-      type: Number,
-      default: 10010
-    }
-  },
   data(){
     return{
+      actionId:10010,
       items:[],
-      action:this.xsd.action.config(this.actionId),
       itemAllChecked:false
     }
   },
@@ -115,7 +106,8 @@ export default {
     CXsdItem,
     CChecker,
     CXsdBackground,
-    CXsdNavButton
+    CXsdNavButton,
+    CListHeader
   }
 }
 

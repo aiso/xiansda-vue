@@ -218,6 +218,7 @@ webpackConfig.callbackLoader = require("vue-icons/icon-loader")([
   'material-person',
   'material-local_offer',
   'material-build',
+  'material-store',
   'material-store_mall_directory',
   'material-notifications',
   'material-delete_forever',
@@ -236,7 +237,9 @@ webpackConfig.callbackLoader = require("vue-icons/icon-loader")([
   'material-backspace',
   'material-shopping_basket',
   'material-call',
+  'material-local_mall',
   'material-hourglass_empty',
+  'material-subscriptions',
   ])
 
 

@@ -16,10 +16,12 @@ export default {
     }).then(user=>{
       if(user.role == staticData.role.client){
         store.commit(SET_NAV_MAIN_ROUTES, require('routes/client/navigator'))
+        return true
+        /*
         return api.get('client/props').then(data=>{
           store.commit(SET_FAVORITES, data.favorites)
           return true
-        })
+        })*/
       }
       else if(user.role == staticData.role.supplier){
         store.commit(SET_NAV_MAIN_ROUTES, require('routes/supplier/navigator'))
