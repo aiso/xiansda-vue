@@ -3,6 +3,7 @@
     <c-progress class="progress" :progress="progress"></c-progress>
     <c-toast class="toast" :toasts="toasts"></c-toast>
     <!--v-header :routes="routes"></v-header-->
+    <c-header></c-header>
     <c-notices></c-notices>
     <div class="content">
       <router-view class="router-view" transition="slide-up" transition-mode="out-in" keep-alive-stop></router-view>
@@ -40,7 +41,7 @@ import {
 } from 'components'
 
 import MText from 'views/common/m-text'
-import VHeader from 'views/common/v-header'
+import CHeader from 'views/common/c-header'
 import VFooter from 'views/common/v-footer'
 import store from 'store'
 import { mapGetters, mapActions } from 'vuex'
@@ -120,7 +121,6 @@ export default {
     CProgress,
     CToast,
     MText,
-    VHeader,
     VFooter,
     CQrcode,
     CAlert,
@@ -128,6 +128,7 @@ export default {
     CXsdNavigator,
     CXsdMenu,
     CIcon,
+    CHeader,
     CNotices
   }
 }

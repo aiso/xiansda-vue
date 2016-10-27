@@ -2,6 +2,8 @@
     height: var(--header);
     width:100%;
     display: flex;
+    z-index: 11;
+    
 
     & .i-btn{
       position: relative;

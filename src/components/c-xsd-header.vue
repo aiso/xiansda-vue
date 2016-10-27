@@ -4,8 +4,8 @@
     </div>
 </template>
 
-
 <script>
+
 export default {
   props: {
     class: {
@@ -13,6 +13,7 @@ export default {
       default: ''
     },
   },
+
 }
 </script>
 

@@ -605,6 +605,39 @@ div.divider{
   background: var(--red-dark);
 }
 
+.xsd-header{
+  height: var(--header);
+  width:100%;
+  display: flex;
+  z-index: 11;
+  padding:0 1rem;
+
+  & .nav{
+    & .c-icon{
+      color:#444;
+      display: block;
+      width: 46px;
+      height: var(--header);
+      line-height: 48px;
+      font-size:24px;
+      text-align: center;
+    }
+
+    &:active{
+      & .c-icon{
+        background: #ebebeb;
+        color:var(--primary);
+      }
+    }
+
+    &.active{
+      & .c-icon{
+        color:var(--primary);
+      }
+    }
+  }
+}
+
 .xsd-item-content{
   width:65%;
   padding-left: 10px;
